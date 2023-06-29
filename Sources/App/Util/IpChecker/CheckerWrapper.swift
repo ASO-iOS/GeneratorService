@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 func getIfConfigOutput() -> [String:String] {
  let cmd = "for i in $(ifconfig -lu); do if ifconfig $i | grep -q \"status: active\" ; then echo $i; fi; done"
  let interfaceString = shell(cmd)
