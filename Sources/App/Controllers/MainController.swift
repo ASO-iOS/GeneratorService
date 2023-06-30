@@ -16,15 +16,15 @@ class MainController {
     
     func createOuterFiles(path: String, appName: String) {
         fileHandler.writeFile(filePath: path, contentText: GradleSettings.gradleSettings(appName: appName), fileName: "settings.gradle")
-        fileHandler.writeFile(filePath: path, contentText: LocalProperties.fileText(homeDir: LocalConst.homeDir), fileName: "local.properties")
-        fileHandler.writeFile(filePath: path, contentText: GradlewBat.fileText(), fileName: "gradlew.bat")
-        fileHandler.writeFile(filePath: path, contentText: GradleProperties.fileText(), fileName: "gradle.properties")
-        fileHandler.writeFile(filePath: path, contentText: BuildGradleProject.fileText(), fileName: "build.gradle")
+        fileHandler.writeFile(filePath: path, contentText: LocalProperties.fileContent(homeDir: LocalConst.homeDir), fileName: "local.properties")
+        fileHandler.writeFile(filePath: path, contentText: GradlewBat.fileContent(), fileName: "gradlew.bat")
+        fileHandler.writeFile(filePath: path, contentText: GradleProperties.fileContent(), fileName: "gradle.properties")
+        fileHandler.writeFile(filePath: path, contentText: BuildGradleProject.fileContent(), fileName: "build.gradle")
         fileHandler.copyPaste(from: LocalConst.gradlewDir, to: path + "gradlew")
     }
     
     func createGradle(path: String, gradleWrapper: String) {
-            fileHandler.writeFile(filePath: path, contentText: GradleWrapperProperties.fileText(gradleWrapper: gradleWrapper), fileName: "gradle-wrapper.properties")
+            fileHandler.writeFile(filePath: path, contentText: GradleWrapperProperties.fileContent(gradleWrapper: gradleWrapper), fileName: "gradle-wrapper.properties")
             fileHandler.copyPaste(from: LocalConst.gradleWrapper, to: path + "gradle-wrapper.jar")
     }
     
@@ -124,28 +124,28 @@ class MainController {
         screenOrientation: ScreenOrientationEnum,
         appId: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: Manifest.fileText(appId: appId, applicationName: applicationName, name: name, screenOrientation: screenOrientation), fileName: Manifest.fileName)
+        fileHandler.writeFile(filePath: path, contentText: Manifest.fileContent(appId: appId, applicationName: applicationName, name: name, screenOrientation: screenOrientation), fileName: Manifest.fileName)
     }
     
     func createAppGradle(
         path: String,
         appId: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: BuildGradleApp.fileText(appId: appId), fileName: "build.gradle")
-        fileHandler.writeFile(filePath: path, contentText: ProguardRules.fileText(), fileName: "proguard-rules.pro")
+        fileHandler.writeFile(filePath: path, contentText: BuildGradleApp.fileContent(appId: appId), fileName: "build.gradle")
+        fileHandler.writeFile(filePath: path, contentText: ProguardRules.fileContent(), fileName: "proguard-rules.pro")
     }
     
     
     
     func createApp(path: String, packageName: String, applicationName: String, appId: String, commonPresentation: Bool = true) {
         let mainPath = path + "java/\(packageName.replacing(".", with: "/"))/"
-        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileText(packageName: packageName, applicationName: applicationName), fileName: applicationName + ".kt")
+        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName), fileName: applicationName + ".kt")
 
         if commonPresentation {
-            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileText(packageName: packageName, appId: appId), fileName: "MainActivity.kt")
-            fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileText(packageName: packageName, appId: appId), fileName: "MainFragment.kt")
-            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileText(packageName: packageName), fileName: "FragmentState.kt")
-            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileText(packageName: packageName), fileName: "StateViewModel.kt")
+            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId), fileName: "MainActivity.kt")
+            fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId), fileName: "MainFragment.kt")
+            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
+            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
 //            fileHandler.writeFile(filePath: mainPath + "constant/", contentText: AndroidAppConstant.whiteAsoConstant(packageName: packageName), fileName: "Constant.kt")
         }
     }

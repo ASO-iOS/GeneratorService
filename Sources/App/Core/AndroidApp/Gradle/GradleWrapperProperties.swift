@@ -9,7 +9,7 @@ import Foundation
 
 class GradleWrapperProperties {
     static let fileName = "gradle-wrapper.properties"
-    static func fileText(gradleWrapper: String) -> String {
+    static func fileContent(gradleWrapper: String) -> String {
         return """
 distributionBase=GRADLE_USER_HOME
 distributionUrl=https\\://services.gradle.org/distributions/gradle-\(gradleWrapper)-bin.zip

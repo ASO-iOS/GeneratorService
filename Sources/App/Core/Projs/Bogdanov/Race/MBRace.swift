@@ -10,7 +10,7 @@ import Foundation
 struct MBRace {
     static let fileName = "MBRace.kt"
     
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         backColorSecondary: String,

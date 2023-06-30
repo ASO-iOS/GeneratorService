@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppApplication {
-    static func fileText(packageName: String, applicationName: String) -> String {
+    static func fileContent(packageName: String, applicationName: String) -> String {
         return """
 package \(packageName).application
 

@@ -85,7 +85,7 @@ struct VSController {
         buttonTextColor: String,
         mainTextColor: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: VSStopwatch.fileText(
+        fileHandler.writeFile(filePath: path, contentText: VSStopwatch.fileContent(
             packageName: packageName,
             backColor: backColor,
             buttonColor: buttonColor,
@@ -103,7 +103,7 @@ struct VSController {
         buttonTextColor: String,
         outlineButtonColor: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: VSTorch.fileText(
+        fileHandler.writeFile(filePath: path, contentText: VSTorch.fileContent(
             packageName: packageName,
             backColor: backColor,
             buttonColor: buttonColor,
@@ -134,7 +134,7 @@ struct VSController {
         buttonTextColorPrimaty : String,
         buttonTextColorSecondary : String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: VSPhoneInfo.fileText(
+        fileHandler.writeFile(filePath: path, contentText: VSPhoneInfo.fileContent(
             packageName: packageName,
             backColorLight: backColorPrimary,
             primaryColorLight: primaryColor,

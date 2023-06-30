@@ -9,7 +9,7 @@ import Foundation
 
 struct MBPingTest {
     static let fileName = "MBPingTest.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         mainTextColor: String,

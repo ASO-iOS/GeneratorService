@@ -9,7 +9,7 @@ import Foundation
 
 struct VSStopwatch {
     static let fileName = "VSStopwatch.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         buttonColor: String,

@@ -9,7 +9,7 @@ import Foundation
 
 struct BuildGradleApp {
     static let fileName = "build.gradle"
-    static func fileText(
+    static func fileContent(
         appId: String
     ) -> String {
         return """

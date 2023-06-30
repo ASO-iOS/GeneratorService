@@ -10,7 +10,7 @@ import Foundation
 struct MBLuckyNumber {
     static let fileName = "MBLuckyNumber.kt"
     
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         backColorSecondary: String,

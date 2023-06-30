@@ -9,7 +9,7 @@ import Foundation
 
 struct VSPhoneInfo {
     static let fileName = "VSPhoneInfo.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorLight: String,
         primaryColorLight: String,

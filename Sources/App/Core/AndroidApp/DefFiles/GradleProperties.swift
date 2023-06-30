@@ -9,7 +9,7 @@ import Foundation
 
 struct GradleProperties {
     
-    static func fileText() -> String {
+    static func fileContent() -> String {
         return """
 # Project-wide Gradle settings.
 # IDE (e.g. Android Studio) users:

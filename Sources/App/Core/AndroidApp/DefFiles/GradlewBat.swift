@@ -8,7 +8,7 @@
 import Foundation
 
 struct GradlewBat {
-    static func fileText() -> String {
+    static func fileContent() -> String {
         return """
 @rem
 @rem Copyright 2015 the original author or authors.

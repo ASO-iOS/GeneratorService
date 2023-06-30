@@ -19,5 +19,5 @@ final class AppDBItem: Model, Content {
     var fileName: String
     
     @Field(key: "file_text")
-    var fileText: String
+    var fileContent: String
 }

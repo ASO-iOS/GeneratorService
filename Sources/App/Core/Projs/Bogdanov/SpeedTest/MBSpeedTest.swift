@@ -9,7 +9,7 @@ import Foundation
 
 struct MBSpeedTest {
     static let fileName = "MBSpeedTest.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         mainTextColor: String,

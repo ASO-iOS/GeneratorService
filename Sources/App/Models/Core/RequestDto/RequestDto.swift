@@ -10,8 +10,8 @@ import Foundation
 struct RequestDto: Codable {
 
     let mainData: RequestDtoMainData
-    let versions: RequestDtoVersions
-    let ui: RequestDtoUI
+    let versions: RequestDtoVersions?
+    let ui: RequestDtoUI?
     
     enum CodingKeys: String, CodingKey {
         case mainData = "main_data"

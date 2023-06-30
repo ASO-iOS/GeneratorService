@@ -36,7 +36,7 @@ struct CoreController: RouteCollection {
         
         if UserToken.checkToken(token) {
                 create(token: token ?? "error", body: body, stamp: timeStamp, completion: {
-                    fileLoc = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/temp/\(timeStamp)/\(body.appName).zip"
+                    fileLoc = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/temp/\(timeStamp)/\(body.mainData.appName).zip"
                 })
             return request.fileio.streamFile(at: fileLoc)
         } else {
@@ -55,107 +55,107 @@ extension CoreController {
         completion: @escaping () -> Void
     ) {
         DispatchQueue.global(qos: .default).sync {
-            let tempLoc = LocalConst.tempDir + stamp + "/" + body.appName + "/"
+            let tempLoc = LocalConst.tempDir + stamp + "/" + body.mainData.appName + "/"
             
-            mainController.createOuterFiles(path: tempLoc, appName: body.appName)
-                mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: body.gradleWrapper ?? LibVersions.gradleWrapperVersion)
+            mainController.createOuterFiles(path: tempLoc, appName: body.mainData.appName)
+            mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: body.versions?.gradleWrapper ?? LibVersions.gradleWrapperVersion)
             mainController.createBuildSrc(
                 path: tempLoc + "buildSrc/",
-                packageName: body.packageName,
-                gradleVersion: body.gradleVersion ?? LibVersions.gradleVersion,
-                compileSdk: body.compileSdk ?? LibVersions.compileSdk,
-                minsdk: body.minSdk ?? LibVersions.minsdk,
-                targetsdk: body.targetSdk ?? LibVersions.targetsdk,
-                kotlin: body.kotlin ?? LibVersions.kotlin,
-                kotlin_coroutines: body.kotlinCoroutines ?? LibVersions.kotlin_coroutines,
-                hilt: body.hilt ?? LibVersions.hilt,
-                hilt_viewmodel_compiler: body.hiltViewmodelCompiler ?? LibVersions.hilt_viewmodel_compiler,
-                ktx: body.ktx ?? LibVersions.ktx,
-                lifecycle: body.lifecycle ?? LibVersions.lifecycle,
-                fragment_ktx: body.fragmentKtx ?? LibVersions.fragment_ktx,
-                appcompat: body.appcompat ?? LibVersions.appcompat,
-                material: body.material ?? LibVersions.material,
-                compose: body.compose ?? LibVersions.compose,
-                compose_navigation: body.composeNavigation ?? LibVersions.compose_navigation,
-                activity_compose: body.activityCompose ?? LibVersions.activity_compose,
-                compose_hilt_nav: body.composeHiltNav ?? LibVersions.compose_hilt_nav,
-                oneSignal: body.oneSignal ?? LibVersions.oneSignal,
-                glide: body.glide ?? LibVersions.glide,
-                swipe: body.swipe ?? LibVersions.swipe,
-                glide_skydoves: body.glideSkydoves ?? LibVersions.glide_skydoves,
-                retrofit: body.retrofit ?? LibVersions.retrofit,
-                okhttp: body.okhttp ?? LibVersions.okhttp,
-                room: body.room ?? LibVersions.room,
-                coil: body.coil ?? LibVersions.coil,
-                exp: body.exp ?? LibVersions.exp,
-                calend: body.calend ?? LibVersions.calend,
-                paging: body.paging ?? LibVersions.paging,
-                accompanist: body.accompanist ?? LibVersions.accompanist
+                packageName: body.mainData.packageName,
+                gradleVersion: body.versions?.gradleVersion ?? LibVersions.gradleVersion,
+                compileSdk: body.versions?.compileSdk ?? LibVersions.compileSdk,
+                minsdk: body.versions?.minSdk ?? LibVersions.minsdk,
+                targetsdk: body.versions?.targetSdk ?? LibVersions.targetsdk,
+                kotlin: body.versions?.kotlin ?? LibVersions.kotlin,
+                kotlin_coroutines: body.versions?.kotlinCoroutines ?? LibVersions.kotlin_coroutines,
+                hilt: body.versions?.hilt ?? LibVersions.hilt,
+                hilt_viewmodel_compiler: body.versions?.hiltViewmodelCompiler ?? LibVersions.hilt_viewmodel_compiler,
+                ktx: body.versions?.ktx ?? LibVersions.ktx,
+                lifecycle: body.versions?.lifecycle ?? LibVersions.lifecycle,
+                fragment_ktx: body.versions?.fragmentKtx ?? LibVersions.fragment_ktx,
+                appcompat: body.versions?.appcompat ?? LibVersions.appcompat,
+                material: body.versions?.material ?? LibVersions.material,
+                compose: body.versions?.compose ?? LibVersions.compose,
+                compose_navigation: body.versions?.composeNavigation ?? LibVersions.compose_navigation,
+                activity_compose: body.versions?.activityCompose ?? LibVersions.activity_compose,
+                compose_hilt_nav: body.versions?.composeHiltNav ?? LibVersions.compose_hilt_nav,
+                oneSignal: body.versions?.oneSignal ?? LibVersions.oneSignal,
+                glide: body.versions?.glide ?? LibVersions.glide,
+                swipe: body.versions?.swipe ?? LibVersions.swipe,
+                glide_skydoves: body.versions?.glideSkydoves ?? LibVersions.glide_skydoves,
+                retrofit: body.versions?.retrofit ?? LibVersions.retrofit,
+                okhttp: body.versions?.okhttp ?? LibVersions.okhttp,
+                room: body.versions?.room ?? LibVersions.room,
+                coil: body.versions?.coil ?? LibVersions.coil,
+                exp: body.versions?.exp ?? LibVersions.exp,
+                calend: body.versions?.calend ?? LibVersions.calend,
+                paging: body.versions?.paging ?? LibVersions.paging,
+                accompanist: body.versions?.accompanist ?? LibVersions.accompanist
             )
             mainController.createRes(
                 path: tempLoc + "app/src/main/",
-                appName: body.appName,
-                color: body.appBarColor ?? "ffffff",
-                appId: body.appId ?? ""
+                appName: body.mainData.appName,
+                color: body.ui?.appBarColor ?? "ffffff",
+                appId: body.mainData.appId ?? ""
             )
             mainController.createManifest(
                 path: tempLoc + "app/src/main/",
-                packageName: body.packageName,
-                applicationName: body.applicationName,
-                name: body.appName,
-                screenOrientation: ScreenOrientationEnum.getOrientationFromString(body.screenOrientation ?? ScreenOrientationEnum.portrait.name),
-                appId: body.appId ?? ""
+                packageName: body.mainData.packageName,
+                applicationName: body.mainData.applicationName,
+                name: body.mainData.appName,
+                screenOrientation: ScreenOrientationEnum.getOrientationFromString(body.ui?.screenOrientation ?? ScreenOrientationEnum.portrait.name),
+                appId: body.mainData.appId ?? ""
             )
             mainController.createAppGradle(
                 path: tempLoc + "app/",
-                appId: body.appId ?? ""
+                appId: body.mainData.appId ?? ""
             )
-            if AppIDs.checkSupportedProject(body.appId ?? "") {
+            if AppIDs.checkSupportedProject(body.mainData.appId ?? "") {
                 mainController.createApp(
                     path: tempLoc + "app/src/main/",
-                    packageName: body.packageName,
-                    applicationName: body.applicationName,
-                    appId: body.appId ?? ""
+                    packageName: body.mainData.packageName,
+                    applicationName: body.mainData.applicationName,
+                    appId: body.mainData.appId ?? ""
                 )
             } else {
                 mainController.createApp(
                     path: tempLoc + "app/src/main/",
-                    packageName: body.packageName,
-                    applicationName: body.applicationName,
-                    appId: body.appId ?? "",
+                    packageName: body.mainData.packageName,
+                    applicationName: body.mainData.applicationName,
+                    appId: body.mainData.appId ?? "",
                     commonPresentation: false
                 )
             }
             
-            let appPath = tempLoc + "app/src/main/java/\(body.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
+            let appPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
             let resPath = tempLoc + "app/src/main/res/drawable/"
-            switch body.prefix {
+            switch body.mainData.prefix {
             case AppIDs.ALPHA_PREFIX:
                 _ = (() -> Void).self
             case AppIDs.VS_PREFIX:
                 let vsController = VSController(fileHandler: fileHandler)
                 vsController.boot(
-                    id: body.appId ?? "error",
+                    id: body.mainData.appId ?? "error",
                     path: appPath,
                     pathRes: resPath,
-                    packageName: body.packageName,
-                    backColorPrimary: body.backColorPrimary ?? getColor(),
-                    backColorSecondary: body.backColorSecondary ?? getColor(),
-                    surfaceColor: body.surfaceColor ?? getColor(),
-                    onSurfaceColor: body.onSurfaceColor ?? getColor(),
-                    primaryColor: body.primaryColor ?? getColor(),
-                    onPrimaryColor: body.onPrimaryColor ?? getColor(),
-                    errorColor: body.errorColor ?? getColor(),
-                    textColorPrimary: body.textColorPrimary ?? getColor(),
-                    textColorSecondary: body.textColorSecondary ?? getColor(),
-                    buttonColorPrimary: body.buttonColorPrimary ?? getColor(),
-                    buttonColorSecondary: body.buttonColorSecondary ?? getColor(),
-                    buttonTextColorPrimaty: body.buttonTextColorPrimaty ?? getColor(),
-                    buttonTextColorSecondary: body.buttonTextColorSecondary ?? getColor(),
-                    paddingPrimary: body.paddingPrimary ?? 16,
-                    paddingSecondary: body.paddingSecondary ?? 16,
-                    textSizePrimary: body.textSizePrimary ?? 22,
-                    textSizeSecondary: body.textSizeSecondary ?? 22
+                    packageName: body.mainData.packageName,
+                    backColorPrimary: body.ui?.backColorPrimary ?? getColor(),
+                    backColorSecondary: body.ui?.backColorSecondary ?? getColor(),
+                    surfaceColor: body.ui?.surfaceColor ?? getColor(),
+                    onSurfaceColor: body.ui?.onSurfaceColor ?? getColor(),
+                    primaryColor: body.ui?.primaryColor ?? getColor(),
+                    onPrimaryColor: body.ui?.onPrimaryColor ?? getColor(),
+                    errorColor: body.ui?.errorColor ?? getColor(),
+                    textColorPrimary: body.ui?.textColorPrimary ?? getColor(),
+                    textColorSecondary: body.ui?.textColorSecondary ?? getColor(),
+                    buttonColorPrimary: body.ui?.buttonColorPrimary ?? getColor(),
+                    buttonColorSecondary: body.ui?.buttonColorSecondary ?? getColor(),
+                    buttonTextColorPrimaty: body.ui?.buttonTextColorPrimaty ?? getColor(),
+                    buttonTextColorSecondary: body.ui?.buttonTextColorSecondary ?? getColor(),
+                    paddingPrimary: body.ui?.paddingPrimary ?? 16,
+                    paddingSecondary: body.ui?.paddingSecondary ?? 16,
+                    textSizePrimary: body.ui?.textSizePrimary ?? 22,
+                    textSizeSecondary: body.ui?.textSizeSecondary ?? 22
                 )
             case AppIDs.JK_PREFIX:
                 _ = (() -> Void).self
@@ -164,34 +164,34 @@ extension CoreController {
             case AppIDs.MB_PREFIX:
                 let mbController = MBController(fileHandler: fileHandler)
                 mbController.boot(
-                    id: body.appId ?? "error",
+                    id: body.mainData.appId ?? "error",
                     path: appPath,
                     pathRes: resPath,
-                    packageName: body.packageName,
-                    backColorPrimary: body.backColorPrimary ?? getColor(),
-                    backColorSecondary: body.backColorSecondary ?? getColor(),
-                    surfaceColor: body.surfaceColor ?? getColor(),
-                    onSurfaceColor: body.onSurfaceColor ?? getColor(),
-                    primaryColor: body.primaryColor ?? getColor(),
-                    onPrimaryColor: body.onPrimaryColor ?? getColor(),
-                    errorColor: body.errorColor ?? getColor(),
-                    textColorPrimary: body.textColorPrimary ?? getColor(),
-                    textColorSecondary: body.textColorSecondary ?? getColor(),
-                    buttonColorPrimary: body.buttonColorPrimary ?? getColor(),
-                    buttonColorSecondary: body.buttonColorSecondary ?? getColor(),
-                    buttonTextColorPrimary: body.buttonTextColorPrimaty ?? getColor(),
-                    buttonTextColorSecondary: body.buttonTextColorSecondary ?? getColor(),
-                    paddingPrimary: body.paddingPrimary ?? 12,
-                    paddingSecondary: body.paddingSecondary ?? 8,
-                    textSizePrimary: body.textSizePrimary ?? 24,
-                    textSizeSecondary: body.textSizeSecondary ?? 20
+                    packageName: body.mainData.packageName,
+                    backColorPrimary: body.ui?.backColorPrimary ?? getColor(),
+                    backColorSecondary: body.ui?.backColorSecondary ?? getColor(),
+                    surfaceColor: body.ui?.surfaceColor ?? getColor(),
+                    onSurfaceColor: body.ui?.onSurfaceColor ?? getColor(),
+                    primaryColor: body.ui?.primaryColor ?? getColor(),
+                    onPrimaryColor: body.ui?.onPrimaryColor ?? getColor(),
+                    errorColor: body.ui?.errorColor ?? getColor(),
+                    textColorPrimary: body.ui?.textColorPrimary ?? getColor(),
+                    textColorSecondary: body.ui?.textColorSecondary ?? getColor(),
+                    buttonColorPrimary: body.ui?.buttonColorPrimary ?? getColor(),
+                    buttonColorSecondary: body.ui?.buttonColorSecondary ?? getColor(),
+                    buttonTextColorPrimary: body.ui?.buttonTextColorPrimaty ?? getColor(),
+                    buttonTextColorSecondary: body.ui?.buttonTextColorSecondary ?? getColor(),
+                    paddingPrimary: body.ui?.paddingPrimary ?? 12,
+                    paddingSecondary: body.ui?.paddingSecondary ?? 8,
+                    textSizePrimary: body.ui?.textSizePrimary ?? 24,
+                    textSizeSecondary: body.ui?.textSizeSecondary ?? 20
                 )
             default:
                 _ = (() -> Void).self
             }
             mainController.createLogFile(path: LocalConst.tempDir + stamp + "/", token: token)
             if FileManager.default.fileExists(atPath: tempLoc) {
-                UnzipHandler.zip(filePath: URL.init(filePath: LocalConst.tempDir + stamp + "/" + body.appName), destinationPath: URL.init(filePath: LocalConst.tempDir + stamp + "/" + body.appName + ".zip"), completion: { state, error in
+                UnzipHandler.zip(filePath: URL.init(filePath: LocalConst.tempDir + stamp + "/" + body.mainData.appName), destinationPath: URL.init(filePath: LocalConst.tempDir + stamp + "/" + body.mainData.appName + ".zip"), completion: { state, error in
                     completion()
                 })
             } else {
@@ -204,27 +204,15 @@ extension CoreController {
     
     private func getColor() -> String {
         let backColors = [
-            "FF6666",
-            "D1AB74",
-            "E7EB76",
-            "9CDA46",
-            "1A9E15",
-            "5980E4",
-            "D6161A",
-            "FF7666",
-            "D1AA74",
-            "E8EB76",
-            "9C1A46",
-            "1A9E85",
-            "5180E4",
-            "D61B1A",
-            "FF1666",
-            "D4AB74",
-            "E44B76",
-            "9CCA46",
-            "1A1E15",
-            "5970E4",
-            "D6145A"
+            "FF0000",
+            "FF5722",
+            "FFEB3B",
+            "8BC34A",
+            "00BCD4",
+            "3F51B5",
+            "9C27B0",
+            "000000",
+            "FFFFFF"
         ]
         return backColors.randomElement() ?? "FF6666"
     }

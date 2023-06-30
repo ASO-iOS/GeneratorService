@@ -9,7 +9,7 @@ import Foundation
 
 class Manifest {
     static let fileName = "AndroidManifest.xml"
-    static func fileText(
+    static func fileContent(
         appId: String,
         applicationName: String,
         name: String,

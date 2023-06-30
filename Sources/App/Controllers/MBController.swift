@@ -147,6 +147,15 @@ struct MBController {
                 buttonColorPrimary: buttonColorPrimary,
                 buttonTextColorPrimary: buttonTextColorPrimary
             )
+        case AppIDs.MB_SPACE_FIGHTER:
+            createSpaceFighter(
+                path: path,
+                packageName: packageName,
+                resPath: pathRes,
+                textColorPrimary: textColorPrimary,
+                buttonTextColorPrimary: buttonTextColorPrimary,
+                buttonColorPrimary: buttonColorPrimary
+            )
         default:
             return
         }
@@ -163,7 +172,7 @@ struct MBController {
         secondaryPadding: Int,
         tertiaryPadding: Int
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBStopwatch.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBStopwatch.fileContent(
             packageName: packageName,
             backColor: backColor,
             mainTextColor: mainTextColor,
@@ -185,7 +194,7 @@ struct MBController {
         mainTextSize: Int,
         buttonsBottomPadding: Int
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBSpeedTest.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBSpeedTest.fileContent(
             packageName: packageName,
             backColor: backColor,
             mainTextColor: mainTextColor,
@@ -205,7 +214,7 @@ struct MBController {
         mainTextSize: Int,
         buttonsBottomPadding: Int
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBPingTest.fileText(packageName: packageName, backColor: backColor, mainTextColor: mainTextColor, mainButtonColor: mainButtonColor, mainTextSize: mainTextSize, buttonsBottomPadding: buttonsBottomPadding), fileName: MBPingTest.fileName)
+        fileHandler.writeFile(filePath: path, contentText: MBPingTest.fileContent(packageName: packageName, backColor: backColor, mainTextColor: mainTextColor, mainButtonColor: mainButtonColor, mainTextSize: mainTextSize, buttonsBottomPadding: buttonsBottomPadding), fileName: MBPingTest.fileName)
     }
     
     func createAlarm(
@@ -218,7 +227,7 @@ struct MBController {
         mainTextSize: Int,
         buttonsBottomPadding: Int
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBAlarm.fileText(packageName: packageName, backColor: backColor, mainTextColor: mainTextColor, mainButtonColor: mainButtonColor, mainTextSize: mainTextSize, buttonsBottomPadding: buttonsBottomPadding), fileName: MBAlarm.fileName)
+        fileHandler.writeFile(filePath: path, contentText: MBAlarm.fileContent(packageName: packageName, backColor: backColor, mainTextColor: mainTextColor, mainButtonColor: mainButtonColor, mainTextSize: mainTextSize, buttonsBottomPadding: buttonsBottomPadding), fileName: MBAlarm.fileName)
         fileHandler.writeFile(filePath: resPath, contentText: MBAlarmRes.alarmText(), fileName: MBAlarmRes.alarmName)
     }
     
@@ -233,7 +242,7 @@ struct MBController {
         backColorSecondary: String,
         textColor: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBFacts.fileText(packageName: packageName, backColorPrimary: backColorPrimary, backColorSecondary: backColorSecondary, textColor: textColor), fileName: MBFacts.fileName)
+        fileHandler.writeFile(filePath: path, contentText: MBFacts.fileContent(packageName: packageName, backColorPrimary: backColorPrimary, backColorSecondary: backColorSecondary, textColor: textColor), fileName: MBFacts.fileName)
     }
     
     func createTorch(
@@ -249,7 +258,7 @@ struct MBController {
         textColorPrimary: String,
         textColorSecondary: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBTorch.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBTorch.fileContent(
             packageName: packageName,
             backColorPrimary: backColorPrimary,
             backColorSecondary: backColorSecondary,
@@ -276,7 +285,7 @@ struct MBController {
         textColorPrimary: String,
         textColorSecondary: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBLuckyNumber.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBLuckyNumber.fileContent(
             packageName: packageName,
             backColorPrimary: backColorPrimary,
             backColorSecondary: backColorSecondary,
@@ -299,7 +308,7 @@ struct MBController {
         buttonColor: String,
         buttonTextColor: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBRace.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBRace.fileContent(
             packageName: packageName,
             backColorPrimary: backColorPrimary,
             backColorSecondary: backColorSecondary,
@@ -325,7 +334,7 @@ struct MBController {
         buttonColorSecondary: String,
         buttonTextColorPrimary: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBCatcher.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBCatcher.fileContent(
             packageName: packageName,
             backColorPrimary: backColorPrimary,
             textColorPrimary: textColorPrimary,
@@ -333,12 +342,12 @@ struct MBController {
             buttonColorSecondary: buttonColorSecondary,
             buttonTextColorPrimary: buttonTextColorPrimary
         ), fileName: MBCatcher.fileName)
-//        let playerImage = Int.random(in: 1...7)
-//        let enemyImage = Int.random(in: 1...7)
-//        let backgroundImage = Int.random(in: 1...7)
-//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(playerImage)/" + "object.png" , to: resPath + "object.png")
-//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(enemyImage)/" + "cart.png" , to: resPath + "cart.png")
-//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
+        let objectImage = Int.random(in: 1...4)
+        let cartImage = Int.random(in: 1...4)
+        let backgroundImage = Int.random(in: 1...4)
+        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(objectImage)/" + "object.png" , to: resPath + "object.png")
+        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(cartImage)/" + "cart.png" , to: resPath + "cart.png")
+        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
     }
     
     func createBmi(
@@ -351,7 +360,7 @@ struct MBController {
         buttonColorPrimary: String,
         buttonTextColorPrimary: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: MBBmi.fileText(
+        fileHandler.writeFile(filePath: path, contentText: MBBmi.fileContent(
             packageName: packageName,
             backColorPrimary: backColorPrimary,
             backColorSecondary: backColorSecondary,
@@ -360,5 +369,27 @@ struct MBController {
             buttonColorPrimary: buttonColorPrimary,
             buttonTextColorPrimary: buttonTextColorPrimary
         ), fileName: MBBmi.fileName)
+    }
+    
+    func createSpaceFighter(
+        path: String,
+        packageName: String,
+        resPath: String,
+        textColorPrimary: String,
+        buttonTextColorPrimary: String,
+        buttonColorPrimary: String
+    ) {
+        fileHandler.writeFile(filePath: path, contentText: MBSpaceFighter.fileContent(
+            packageNamw: packageName,
+            textColorPrimary: textColorPrimary,
+            buttonTextColorPrimary: buttonColorPrimary,
+            buttonColorPrimary: buttonColorPrimary
+        ), fileName: MBSpaceFighter.fileName)
+        let backgroundImage = Int.random(in: 1...20)
+        let playerImage = Int.random(in: 1...33)
+        let enemyImage = Int.random(in: 1...36)
+        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/\(playerImage)/player.png", to: resPath + "player.png")
+        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/\(enemyImage)/enemy.png", to: resPath + "enemy.png")
+        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/\(backgroundImage)/background.png", to: resPath + "background.png")
     }
 }

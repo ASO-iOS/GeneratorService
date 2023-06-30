@@ -9,7 +9,7 @@ import Foundation
 
 struct ProguardRules {
     static let fileName = "proguard-rules.pro"
-    static func fileText(useNetwork: Bool = true) -> String {
+    static func fileContent(useNetwork: Bool = true) -> String {
         return """
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the

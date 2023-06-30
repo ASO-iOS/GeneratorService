@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppMainFragment {
-    static func fileText(packageName: String, appId: String) -> String {
+    static func fileContent(packageName: String, appId: String) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
@@ -141,6 +141,10 @@ class MainFragment : Fragment() {
         case AppIDs.MB_BMI_CALC_ID:
             return """
                 MBBmi()
+            """
+        case AppIDs.MB_SPACE_FIGHTER:
+            return """
+                MBSpaseFighter()
             """
             // MARK: - new cases
         default:

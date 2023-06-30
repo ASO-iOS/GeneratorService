@@ -9,7 +9,7 @@ import Foundation
 
 struct MBBmi {
     static let fileName = "MBBmi.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         backColorSecondary: String,

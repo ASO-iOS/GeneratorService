@@ -9,7 +9,7 @@ import Foundation
 
 struct MBAlarm {
     static let fileName = "MBAlarm.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         mainTextColor: String,

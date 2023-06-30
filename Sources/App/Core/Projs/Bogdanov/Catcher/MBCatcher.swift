@@ -10,7 +10,7 @@ import Foundation
 struct MBCatcher {
     static let fileName = "MBCatcher.kt"
     
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         textColorPrimary: String,

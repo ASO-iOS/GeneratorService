@@ -9,7 +9,7 @@ import Foundation
 
 struct VSTorch {
     static let fileName = "VSTorch.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         buttonColor: String,

@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppMainActivity {
-    static func fileText(packageName: String, appId: String) -> String {
+    static func fileContent(packageName: String, appId: String) -> String {
         return """
 package \(packageName).presentation.main_activity
 
@@ -86,7 +86,7 @@ class MainActivityScreen @Inject constructor(private val context: Context) {
     
     static func addById(_ id: String) -> String {
         switch id {
-        case AppIDs.MB_RACE, AppIDs.MB_CATCHER:
+        case AppIDs.MB_RACE, AppIDs.MB_CATCHER, AppIDs.MB_SPACE_FIGHTER:
             return """
     private fun initInset() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -134,7 +134,7 @@ import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Co
     
     static func extraFunc(_ id: String) -> String {
         switch id {
-        case AppIDs.MB_RACE, AppIDs.MB_CATCHER:
+        case AppIDs.MB_RACE, AppIDs.MB_CATCHER, AppIDs.MB_SPACE_FIGHTER:
             return """
         initInset()
 """

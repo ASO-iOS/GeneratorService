@@ -10,7 +10,7 @@ import Foundation
 struct MBFacts {
     static let fileName = "MBFacts.kt"
     
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         backColorSecondary: String,

@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppStateViewModel {
-    static func fileText(packageName: String) -> String {
+    static func fileContent(packageName: String) -> String {
         return """
 package \(packageName).repository.state
 

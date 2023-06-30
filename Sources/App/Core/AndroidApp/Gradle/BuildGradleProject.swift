@@ -9,7 +9,7 @@ import Foundation
 
 struct BuildGradleProject {
     static let fileName = "build.gradle"
-    static func fileText() -> String {
+    static func fileContent() -> String {
         return """
 import dependencies.Versions
 import dependencies.Build

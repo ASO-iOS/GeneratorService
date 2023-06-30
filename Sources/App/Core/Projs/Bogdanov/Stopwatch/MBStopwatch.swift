@@ -9,7 +9,7 @@ import Foundation
 
 struct MBStopwatch {
     static let fileName = "MBStopwatch.kt"
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColor: String,
         mainTextColor: String,

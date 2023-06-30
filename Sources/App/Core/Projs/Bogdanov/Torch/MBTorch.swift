@@ -10,7 +10,7 @@ import Foundation
 struct MBTorch {
     static let fileName = "MBTorch.kt"
     
-    static func fileText(
+    static func fileContent(
         packageName: String,
         backColorPrimary: String,
         backColorSecondary: String,
