@@ -7,17 +7,15 @@
 
 import Foundation
 
-struct MBSpaceFighter {
-    static let fileName = "MBSpaceFighter.kt"
+struct MBSpaceFighter: FileProviderProtocol {
+    static var fileName = "MBSpaceFighter.kt"
     
     static func fileContent(
-        packageNamw: String,
-        textColorPrimary: String,
-        buttonTextColorPrimary: String,
-        buttonColorPrimary: String
+        packageName: String,
+        uiSettings: UISettings
     ) -> String {
         return """
-package \(packageNamw).presentation.fragments.main_fragment
+package \(packageName).presentation.fragments.main_fragment
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -70,10 +68,10 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import \(packageNamw).R
-import \(packageNamw).presentation.fragments.main_fragment.BitmapsHandler.Companion.insetScreenHeight
-import \(packageNamw).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenHeight
-import \(packageNamw).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenWidth
+import \(packageName).R
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenHeight
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenWidth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -86,9 +84,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
-val textColorPrimary = Color(0xFF\(textColorPrimary))
-val buttonTextColorPrimary = Color(0xFF\(buttonTextColorPrimary))
-val buttonColorPrimary = Color(0xFF\(buttonColorPrimary))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 
 
 fun Rect.intersects(rect: Rect): Boolean {
@@ -387,7 +385,7 @@ fun LoseScreen(appViewModel: AppViewModel = viewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Game Over\n\nScore: ${gameState.value.score / 10}",
+            text = "Game Over\\n\\nScore: ${gameState.value.score / 10}",
             color = textColorPrimary,
             fontSize = 50.sp,
             textAlign = TextAlign.Center

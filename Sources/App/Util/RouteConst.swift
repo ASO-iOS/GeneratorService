@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RouteConst {
+struct RouteConst {
     static let TEST = "test"
     
     // MARK: - core preject destinations

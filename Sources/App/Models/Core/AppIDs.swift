@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AppIDs {
+struct AppIDs {
     
     static let ALPHA_PREFIX =       "alpha"
     
@@ -38,11 +38,10 @@ class AppIDs {
     static let MB_SPEED_TEST =       "mb-0002"
     static let MB_PING_TEST =        "mb-0003"
     static let MB_ALARM =            "mb-0004"
-    static let MB_CHECK_IP =         "0000-0000-0000-0021"
+    static let MB_CHECK_IP =         "mb-0012"
     static let MB_LUCKY_NUMBER =     "mb-0005"
     static let MB_SPACE_FIGHTER =    "mb-0010"
-    static let MB_FLASHLIGHT =       "0000-0000-0000-0024"
-    static let MB_RICK_AND_MORTY =   "0000-0000-0000-0025"
+    static let MB_RICK_AND_MORTY =   "mb-0013"
     static let MB_NOTES =            "0000-0000-0000-0026"
     static let MB_RECORDER =         "0000-0000-0000-0027"
     static let MB_CATS_GALLERY =     "0000-0000-0000-0028"
@@ -58,6 +57,9 @@ class AppIDs {
     static let MB_FACTS =            "mb-0007"
     static let MB_RACE =             "mb-0008"
     static let MB_TORCH =            "mb-0009"
+    static let MB_PASS_GEN =         "mb-0014"
+    static let MB_DEVICE_INFO =      "mb-0015"
+    static let MB_HASH_GEN =         "mb-0016"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

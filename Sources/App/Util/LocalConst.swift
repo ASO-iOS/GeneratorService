@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LocalConst {
+struct LocalConst {
     static let homeDir = FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: "")
     
     static let gradlewDir = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/resources/gradlew"

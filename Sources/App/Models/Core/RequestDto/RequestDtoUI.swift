@@ -22,7 +22,7 @@ struct RequestDtoUI: Codable {
     let textColorSecondary: String?
     let buttonColorPrimary: String?
     let buttonColorSecondary: String?
-    let buttonTextColorPrimaty: String?
+    let buttonTextColorPrimary: String?
     let buttonTextColorSecondary: String?
     let paddingPrimary: Int?
     let paddingSecondary: Int?
@@ -38,7 +38,7 @@ struct RequestDtoUI: Codable {
         case textColorSecondary = "text_color_secondary"
         case buttonColorPrimary = "button_color_primary"
         case buttonColorSecondary = "button_color_secondary"
-        case buttonTextColorPrimaty = "button_text_color_primaty"
+        case buttonTextColorPrimary = "button_text_color_primary"
         case buttonTextColorSecondary = "button_text_color_secondary"
         case paddingPrimary = "padding_primary"
         case paddingSecondary = "padding_secondary"

@@ -7,16 +7,11 @@
 
 import Foundation
 
-struct MBSpeedTest {
-    static let fileName = "MBSpeedTest.kt"
+struct MBSpeedTest: FileProviderProtocol {
+    static var fileName = "MBSpeedTest.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        mainTextColor: String,
-        mainButtonColor: String,
-        lapTextColor: String,
-        mainTextSize: Int,
-        buttonsBottomPadding: Int
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -58,12 +53,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val backColor = Color(0xFF\(backColor))
-val mainTextColor = Color(0xFF\(mainTextColor))
-val mainButtonColor = Color(0xFF\(mainButtonColor))
-val lapTextColor = Color(0xFF\(lapTextColor))
-val mainTextSize = \(mainTextSize)
-val mainPadding = \(buttonsBottomPadding)
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val lapTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val mainTextSize = \(uiSettings.textSizePrimary ?? 24)
+val mainPadding = \(uiSettings.paddingPrimary ?? 12)
 
 val Typography = Typography(
     bodyLarge = TextStyle(

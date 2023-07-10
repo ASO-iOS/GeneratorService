@@ -7,15 +7,11 @@
 
 import Foundation
 
-struct MBAlarm {
-    static let fileName = "MBAlarm.kt"
+struct MBAlarm: FileProviderProtocol {
+    static var fileName = "MBAlarm.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        mainTextColor: String,
-        mainButtonColor: String,
-        mainTextSize: Int,
-        buttonsBottomPadding: Int
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -112,11 +108,11 @@ import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-val backColor = Color(0xFF\(backColor))
-val mainTextColor = Color(0xFF\(mainTextColor))
-val mainButtonColor = Color(0xFF\(mainButtonColor))
-val mainTextSize = \(mainTextSize)
-val mainPadding = \(buttonsBottomPadding)
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val mainTextSize = \(uiSettings.textSizePrimary ?? 18)
+val mainPadding = \(uiSettings.paddingPrimary ?? 12)
 
 val Typography = Typography(
     bodyLarge = TextStyle(

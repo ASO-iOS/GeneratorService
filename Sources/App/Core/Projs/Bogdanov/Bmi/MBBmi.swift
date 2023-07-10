@@ -7,16 +7,11 @@
 
 import Foundation
 
-struct MBBmi {
+struct MBBmi: FileProviderProtocol {
     static let fileName = "MBBmi.kt"
     static func fileContent(
         packageName: String,
-        backColorPrimary: String,
-        backColorSecondary: String,
-        textColorPrimary: String,
-        textColorSecondary: String,
-        buttonColorPrimary: String,
-        buttonTextColorPrimary: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -54,12 +49,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
 
-val backColorPrimary = Color(0xFF\(backColorPrimary))
-val backColorSecondary = Color(0xFF\(backColorSecondary))
-val textColorPrimary = Color(0xFF\(textColorPrimary))
-val textColorSecondary = Color(0xFF\(textColorSecondary))
-val buttonColorPrimary = Color(0xFF\(buttonColorPrimary))
-val buttonTextColorPrimary = Color(0xFF\(buttonTextColorPrimary))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun MBBmi() {
@@ -87,6 +82,14 @@ fun MBBmi() {
             textAlign = TextAlign.Center,
             fontSize = 42.sp,
             fontStyle = FontStyle.Italic,
+            color = textColorPrimary
+        )
+        Text(
+            if (output.isEmpty()) "Enter weight and height" else "",
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            fontSize = 30.sp,
             color = textColorPrimary
         )
         Column(

@@ -31,7 +31,8 @@ class Manifest {
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:largeHeap="true"
-        android:theme="@style/Theme.\(name.replace(" ", with: ""))">
+        android:theme="@style/Theme.\(name.replace(" ", with: ""))"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.main_activity.MainActivity"
             android:exported="true"

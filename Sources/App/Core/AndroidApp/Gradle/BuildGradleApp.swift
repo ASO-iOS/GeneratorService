@@ -105,32 +105,49 @@ dependencies {
         switch id {
         case AppIDs.VS_STOPWATCH_ID:
             return ""
-        case AppIDs.VS_TORCH_ID, AppIDs.VS_PHONE_INFO_ID:
+        case AppIDs.VS_TORCH_ID:
             return """
-    implementation 'io.github.g00fy2.quickie:quickie-bundled:1.6.0'
-    implementation 'androidx.datastore:datastore-preferences:1.0.0'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
-"""
+                implementation 'io.github.g00fy2.quickie:quickie-bundled:1.6.0'
+                implementation 'androidx.datastore:datastore-preferences:1.0.0'
+                coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+            """
         case AppIDs.MB_ALARM:
             return """
-    implementation Dependencies.room_runtime
-    kapt Dependencies.room_compiler
-    implementation Dependencies.room_ktx
-"""
-        case AppIDs.MB_FACTS:
-            return """
-    implementation Dependencies.okhttp
-    implementation Dependencies.okhttp_login_interceptor
-    implementation Dependencies.retrofit
-    implementation Dependencies.converter_gson
-"""
+                implementation Dependencies.room_runtime
+                kapt Dependencies.room_compiler
+                implementation Dependencies.room_ktx
+            """
         case AppIDs.VS_PHONE_INFO_ID:
             return """
-    implementation Dependencies.okhttp
-    implementation Dependencies.okhttp_login_interceptor
-    implementation Dependencies.retrofit
-    implementation Dependencies.converter_gson
-"""
+                implementation 'io.github.g00fy2.quickie:quickie-bundled:1.6.0'
+                implementation 'androidx.datastore:datastore-preferences:1.0.0'
+                coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+                implementation Dependencies.okhttp
+                implementation Dependencies.okhttp_login_interceptor
+                implementation Dependencies.retrofit
+                implementation Dependencies.converter_gson
+            """
+        case AppIDs.MB_FACTS, AppIDs.MB_CHECK_IP:
+            return """
+                implementation Dependencies.okhttp
+                implementation Dependencies.okhttp_login_interceptor
+                implementation Dependencies.retrofit
+                implementation Dependencies.converter_gson
+            """
+        case AppIDs.MB_RICK_AND_MORTY:
+            return """
+                implementation Dependencies.okhttp
+                implementation Dependencies.okhttp_login_interceptor
+                implementation Dependencies.retrofit
+                implementation Dependencies.converter_gson
+                implementation Dependencies.paging
+                implementation Dependencies.pagingCommon
+            """
+        case AppIDs.MB_LUCKY_NUMBER:
+            return """
+                implementation "com.touchlane:gridpad:1.1.0"
+                implementation "androidx.compose.animation:animation:1.5.0-beta01"
+            """
         default:
             return ""
         }
@@ -138,7 +155,7 @@ dependencies {
     
     static func useObfuscation(_ id: String) -> String {
         switch id {
-        case AppIDs.MB_FACTS:
+        case AppIDs.MB_FACTS, AppIDs.VS_PHONE_INFO_ID, AppIDs.MB_CHECK_IP, AppIDs.MB_RICK_AND_MORTY, AppIDs.VS_STOPWATCH_ID:
             return ""
         default:
             return """
@@ -148,37 +165,3 @@ dependencies {
         }
     }
 }
-
-
-//\(useRetrofit ? "implementation Dependencies.retrofit" : "")
-//\(useRetrofit ? "implementation Dependencies.converter_gson" : "")
-//\(useRetrofit ? "implementation Dependencies.okhttp" : "")
-//\(useRetrofit ? "implementation Dependencies.okhttp_login_interceptor" : "")
-//\(useRoom ? "implementation Dependencies.room_runtime" : "")
-//\(useRoom ? "kapt Dependencies.room_compiler" : "")
-//\(useRoom ? "implementation Dependencies.room_ktx" : "")
-//\(useRoom ? "implementation Dependencies.roomPaging" : "")
-//\(useOneSignal ? "implementation Dependencies.onesignal" : "")
-//\(useGlide ? "implementation Dependencies.glide" : "")
-//\(useGlide ? "implementation Dependencies.glide_compiler" : "")
-//\(useGlide ? "implementation Dependencies.glide_skydoves" : "")
-//\(useSwipeToRefresh ? "implementation Dependencies.swipe_to_refresh" : "")
-//\(useCoil ? "implementation Dependencies.coil_compose" : "")
-//\(useCoil ? "implementation Dependencies.coil_svg" : "")
-//\(useExpression ? "implementation Dependencies.expression" : "")
-//\(useCalendar ? "implementation Dependencies.calendar" : "")
-//\(useCalendar ? "implementation Dependencies.calendar_date" : "")
-//\(useReferrer ? "implementation(\"com.android.installreferrer:installreferrer:2.2\")" : "")
-//\(useAppsflyer ? "implementation 'com.appsflyer:af-android-sdk:6.9.0'" : "")
-//\(useRemoteConfig ? "implementation platform('com.google.firebase:firebase-bom:31.2.0')" : "")
-//\(useRemoteConfig ? "implementation 'com.google.firebase:firebase-config-ktx'" : "")
-//\(useRemoteConfig ? "implementation 'com.google.firebase:firebase-analytics-ktx'" : "")
-//\(usePaging ? """
-//implementation Dependencies.paging
-//implementation Dependencies.pagingCommon
-//implementation Dependencies.pagingCompose
-//""" : "")
-//\(useQr ? """
-//implementation 'io.github.g00fy2.quickie:quickie-bundled:1.6.0'
-//coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
-//""" : "")

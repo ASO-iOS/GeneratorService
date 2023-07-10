@@ -7,15 +7,11 @@
 
 import Foundation
 
-struct MBPingTest {
-    static let fileName = "MBPingTest.kt"
+struct MBPingTest: FileProviderProtocol {
+    static var fileName = "MBPingTest.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        mainTextColor: String,
-        mainButtonColor: String,
-        mainTextSize: Int,
-        buttonsBottomPadding: Int
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -64,11 +60,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.InetAddress
 
-val backColor = Color(0xFF\(backColor))
-val mainTextColor = Color(0xFF\(mainTextColor))
-val mainButtonColor = Color(0xFF\(mainButtonColor))
-val mainTextSize = \(mainTextSize)
-val mainPadding = \(buttonsBottomPadding)
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val mainTextSize = \(uiSettings.textSizePrimary ?? 22)
+val mainPadding = \(uiSettings.paddingPrimary ?? 12)
 
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -118,12 +114,12 @@ fun MBPing(viewModel: MainViewModel = viewModel()) {
                 .heightIn(max = 200.dp)
                 .verticalScroll(rememberScrollState()).padding(vertical = 3.dp),
             text = when (val state = viewModel.outputResult) {
-                is RequestState.Error -> "There is some error\n${state.message}"
+                is RequestState.Error -> "There is some error\\n${state.message}"
 
                 RequestState.Loading -> "Enter the website address"
 
-                is RequestState.Success -> "Host address\n${state.hostAddress}\n\n" +
-                        "Host name\n${state.hostName}\n\nPing\n${state.ping}"
+                is RequestState.Success -> "Host address\\n${state.hostAddress}\\n\\n" +
+                        "Host name\\n${state.hostName}\\n\\nPing\\n${state.ping}"
             },
             style = MaterialTheme.typography.displayLarge
         )

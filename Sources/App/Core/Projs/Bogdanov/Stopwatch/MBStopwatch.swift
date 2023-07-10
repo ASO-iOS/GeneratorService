@@ -7,17 +7,11 @@
 
 import Foundation
 
-struct MBStopwatch {
-    static let fileName = "MBStopwatch.kt"
+struct MBStopwatch: FileProviderProtocol {
+    static var fileName = "MBStopwatch.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        mainTextColor: String,
-        mainTextSize: Int,
-        secondaryTextSize: Int,
-        mainPadding: Int,
-        secondaryPadding: Int,
-        tertiaryPadding: Int
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -74,15 +68,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-val backColor = Color(0xFF\(backColor))
-val mainTextColor = Color(0xFF\(mainTextColor))
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 
-val mainTextSize = \(mainTextSize)
-val secondaryTextSize = \(secondaryTextSize)
+val mainTextSize = \(uiSettings.textSizePrimary ?? 22)
+val secondaryTextSize = \(uiSettings.textSizeSecondary ?? 16)
 
-val mainPadding = \(mainPadding)
-val secondaryPadding = \(secondaryPadding)
-val tertiaryPadding = \(tertiaryPadding)
+val mainPadding = \(uiSettings.paddingPrimary ?? 12)
+val secondaryPadding = \(uiSettings.paddingSecondary ?? 8)
+val tertiaryPadding = \(uiSettings.paddingSecondary ?? 8)
 
 @Composable
 fun MBStopwatch(viewModel: MainViewModel = viewModel()) {

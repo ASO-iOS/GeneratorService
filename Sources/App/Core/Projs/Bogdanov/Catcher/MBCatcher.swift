@@ -7,16 +7,12 @@
 
 import Foundation
 
-struct MBCatcher {
-    static let fileName = "MBCatcher.kt"
+struct MBCatcher: FileProviderProtocol {
+    static var fileName = "MBCatcher.kt"
     
     static func fileContent(
         packageName: String,
-        backColorPrimary: String,
-        textColorPrimary: String,
-        buttonColorPrimary: String,
-        buttonColorSecondary: String,
-        buttonTextColorPrimary: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -76,12 +72,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+import \(packageName).R
 
-val backColorPrimary = Color(0xFF\(backColorPrimary))
-val textColorPrimary = Color(0xFF\(textColorPrimary))
-val buttonColorPrimary = Color(0xFF\(buttonColorPrimary))
-val buttonColorSecondary = Color(0xFF\(buttonColorSecondary))
-val buttonTextColorPrimary = Color(0xFF\(buttonTextColorPrimary))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun LoadingScreen() {
@@ -272,7 +269,7 @@ object Bitmaps {
             backgroundHeight,
         )
         cart = initBitmap(R.drawable.cart, cartWidth, cartHeight)
-        apple = initBitmap(R.drawable.apple, appleWidth, appleHeight)
+        apple = initBitmap(R.drawable.object, appleWidth, appleHeight)
 
     }
 

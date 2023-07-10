@@ -39,7 +39,7 @@ struct ResDefault {
             <string name="history">History</string>
         """
         case AppIDs.VS_PHONE_INFO_ID:
-            return """
+            advanced = """
             <string name="cancel">Cancel</string>
 
             <string name="theme_dialog_title">Theme</string>
@@ -55,7 +55,7 @@ struct ResDefault {
             <string name="phone_info_country">Country</string>
             <string name="phone_info_region">Region</string>
             <string name="phone_info_timezone">Time zones</string>
-            <string name="phone_info_topbar_title">Phone Checker</string>
+            <string name="phone_info_topbar_title">\(name)</string>
 
             <string name="topbar_back">Back</string>
             <string name="topbar_settings">Settings</string>
@@ -63,7 +63,7 @@ struct ResDefault {
             <string name="settings_dark_mode">Dark Mode</string>
         """
         case AppIDs.MB_CATCHER:
-            return """
+            advanced = """
             <string name="score_counter">Score: %s</string>
             <string name="you_lost">Game Over</string>
             <string name="restart">Restart</string>
@@ -82,6 +82,8 @@ struct ResDefault {
 </resources>
 """
     }
+    
+//    static func advancedString
     
     static func themesText(name: String, color: String) -> String {
         return """

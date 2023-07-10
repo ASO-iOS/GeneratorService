@@ -7,30 +7,11 @@
 
 import Foundation
 
-struct VSPhoneInfo {
-    static let fileName = "VSPhoneInfo.kt"
+struct VSPhoneInfo: FileProviderProtocol {
+    static var fileName = "VSPhoneInfo.kt"
     static func fileContent(
         packageName: String,
-        backColorLight: String,
-        primaryColorLight: String,
-        onPrimaryColorLight: String,
-        secondaryColorLight: String,
-        onSecondaryColorLight: String,
-        tertiaryColorLight: String,
-        onTertiaryColorLight: String,
-        surfaceColorLight: String,
-        onSurfaceColorLight: String,
-        onBackgroundColorLight: String,
-        backColorDark: String,
-        primaryColorDark: String,
-        onPrimaryColorDark: String,
-        secondaryColorDark: String,
-        onSecondaryColorDark: String,
-        tertiaryColorDark: String,
-        onTertiaryColorDark: String,
-        surfaceColorDark: String,
-        onSurfaceColorDark: String,
-        onBackgroundColorDark: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -86,6 +67,7 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
@@ -151,31 +133,12 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val backColorLight = Color(0xFF\(backColorLight))
-val primaryColorLight = Color(0xFF\(primaryColorLight))
-val onPrimaryColorLight = Color(0xFF\(onPrimaryColorLight))
-val secondaryColorLight = Color(0xFF\(secondaryColorLight))
-val onSecondaryColorLight = Color(0xFF\(onSecondaryColorLight))
-val tertiaryColorLight = Color(0xFF\(tertiaryColorLight))
-val onTertiaryColorLight = Color(0xFF\(onTertiaryColorLight))
-val surfaceColorLight = Color(0xFF\(surfaceColorLight))
-val onSurfaceColorLight = Color(0xFF\(onSurfaceColorLight))
-val onBackgroundColorLight = Color(0xFF\(onBackgroundColorLight))
-
-val backColorDark = Color(0xFF\(backColorDark))
-val primaryColorDark = Color(0xFF\(primaryColorDark))
-val onPrimaryColorDark = Color(0xFF\(onPrimaryColorDark))
-val secondaryColorDark = Color(0xFF\(secondaryColorDark))
-val onSecondaryColorDark = Color(0xFF\(onSecondaryColorDark))
-val tertiaryColorDark = Color(0xFF\(tertiaryColorDark))
-val onTertiaryColorDark = Color(0xFF\(onTertiaryColorDark))
-val surfaceColorDark = Color(0xFF\(surfaceColorDark))
-val onSurfaceColorDark = Color(0xFF\(onSurfaceColorDark))
-val onBackgroundColorDark = Color(0xFF\(onBackgroundColorDark))
-
-fun NavController.navigate(screens: Screens) {
-    navigate(screens.route)
-}
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "3F51B5"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "3F51B5"))
+val surfaceColorPrimary = Color(0xFF\(uiSettings.surfaceColor ?? "071950"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "348810"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun PhoneInfoNavHost() {
@@ -185,9 +148,6 @@ fun PhoneInfoNavHost() {
         composable(Screens.MAIN_SCREEN) {
             PhoneFinderMainScreen(navController)
         }
-        composable(Screens.SETTINGS) {
-            SettingsScreen(navController = navController)
-        }
     }
 }
 
@@ -195,11 +155,9 @@ sealed class Screens(val route: String) {
 
     companion object {
         const val MAIN_SCREEN = "main"
-        const val SETTINGS = "settings"
     }
 
     object MainScreen : Screens(route = MAIN_SCREEN)
-    object Settings : Screens(route = SETTINGS)
 }
 
 @Composable
@@ -235,9 +193,9 @@ fun ColumnScope.Filler(text: String, @DrawableRes image: Int) {
             painter = painterResource(image),
             contentDescription = null,
             contentScale = ContentScale.Fit,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+            colorFilter = ColorFilter.tint(textColorPrimary)
         )
-        Text(modifier = Modifier.padding(top = 24.dp), text = text)
+        Text(modifier = Modifier.padding(top = 24.dp), text = text, color = textColorPrimary)
         Spacer(modifier = Modifier.weight(0.6f))
     }
 }
@@ -278,7 +236,7 @@ fun MainTopBar(viewModel: PhoneFinderViewModel, state: PhoneFinderUiState, navCo
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = stringResource(R.string.topbar_back),
-                        tint = colorScheme.onSurface
+                        tint = textColorPrimary
                     )
                 }
             }
@@ -292,7 +250,7 @@ fun MainTopBar(viewModel: PhoneFinderViewModel, state: PhoneFinderUiState, navCo
                 }
             ) { targetState ->
                 when (targetState) {
-                    is PhoneFinderUiState.FinderState.Init -> Text(stringResource(R.string.phone_info_topbar_title))
+                    is PhoneFinderUiState.FinderState.Init -> Text(stringResource(R.string.phone_info_topbar_title), color = textColorPrimary)
                     else -> NumberTextField(
                         value = state.number,
                         onValue = viewModel::changeNumber,
@@ -301,15 +259,8 @@ fun MainTopBar(viewModel: PhoneFinderViewModel, state: PhoneFinderUiState, navCo
                 }
             }
         },
-        actions = {
-            IconButton(onClick = { navController.navigate(Screens.Settings) }) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(R.string.topbar_settings),
-                    tint = colorScheme.onSurface
-                )
-            }
-        }
+        actions = { }
+    , colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = backColorPrimary)
     )
 }
 
@@ -317,7 +268,7 @@ fun MainTopBar(viewModel: PhoneFinderViewModel, state: PhoneFinderUiState, navCo
 fun NumberTextField(value: String, onValue: (String) -> Unit, onAction: () -> Unit) {
     Box(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.surface)
+            .background(backColorSecondary)
             .fillMaxWidth()
             .padding(horizontal = 32.dp)
     ) {
@@ -326,7 +277,7 @@ fun NumberTextField(value: String, onValue: (String) -> Unit, onAction: () -> Un
             value = value,
             onValueChange = onValue,
             textStyle = TextStyle(
-                color = MaterialTheme.colorScheme.onTertiary,
+                color = textColorPrimary,
                 fontSize = 14.sp
             ),
             singleLine = true,
@@ -340,7 +291,7 @@ fun NumberTextField(value: String, onValue: (String) -> Unit, onAction: () -> Un
                     .fillMaxWidth()
                     .padding(vertical = 24.dp)
                     .clip(MaterialTheme.shapes.medium)
-                    .background(MaterialTheme.colorScheme.tertiary)
+                    .background(surfaceColorPrimary)
                     .padding(16.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
@@ -363,6 +314,7 @@ fun PhoneFinderMainScreen(navController: NavController, viewModel: PhoneFinderVi
     ) { paddingValues ->
         Column(
             modifier = Modifier
+                .background(backColorPrimary)
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -381,7 +333,8 @@ fun PhoneFinderMainScreen(navController: NavController, viewModel: PhoneFinderVi
                 modifier = Modifier.fillMaxWidth(0.8f),
                 shape = MaterialTheme.shapes.medium,
                 onClick = viewModel::getInfo,
-                enabled = !state.isLoading
+                enabled = !state.isLoading,
+                colors = ButtonDefaults.buttonColors(containerColor = buttonColorPrimary, contentColor = buttonTextColorPrimary)
             ) {
                 Text(text = stringResource(R.string.phone_picker_search))
             }
@@ -451,172 +404,6 @@ fun SettingsRadioButtonWithLabel(text: String, selected: Boolean, onClick: () ->
             )
         )
         Text(modifier = Modifier.padding(start = 16.dp), text = text)
-    }
-}
-
-@Composable
-fun SettingsThemeDialog(
-    settings: Settings,
-    viewModel: SettingsViewModel,
-    shouldOpenDialog: MutableState<Boolean>
-) {
-
-    if (!shouldOpenDialog.value) return
-
-    AlertDialog(
-        onDismissRequest = { shouldOpenDialog.value = false },
-        title = { Text(text = stringResource(R.string.theme_dialog_title)) },
-        text = {
-            Column() {
-                SettingsRadioButtonWithLabel(
-                    text = stringResource(R.string.theme_dialog_light),
-                    selected = settings.darkMode == Settings.DarkMode.Light,
-                    onClick = {
-                        viewModel.updateSettings(settings.copy(darkMode = Settings.DarkMode.Light))
-                        shouldOpenDialog.value = false
-                    }
-                )
-
-                SettingsRadioButtonWithLabel(
-                    text = stringResource(R.string.theme_dialog_dark),
-                    selected = settings.darkMode == Settings.DarkMode.Dark,
-                    onClick = {
-                        viewModel.updateSettings(settings.copy(darkMode = Settings.DarkMode.Dark))
-                        shouldOpenDialog.value = false
-                    }
-                )
-
-                SettingsRadioButtonWithLabel(
-                    text = stringResource(R.string.theme_dialog_default),
-                    selected = settings.darkMode == Settings.DarkMode.System,
-                    onClick = {
-                        viewModel.updateSettings(settings.copy(darkMode = Settings.DarkMode.System))
-                        shouldOpenDialog.value = false
-                    }
-                )
-            }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = { shouldOpenDialog.value = false },
-                colors = ButtonDefaults.textButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurface
-                )
-            ) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
-        iconContentColor = MaterialTheme.colorScheme.onSurface,
-        textContentColor = MaterialTheme.colorScheme.onSurface,
-    )
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SettingsTopBar(navController: NavController) {
-    CenterAlignedTopAppBar(
-        navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = stringResource(id = R.string.topbar_back)
-                )
-            }
-        },
-        title = { Text(text = stringResource(id = R.string.topbar_settings)) }
-    )
-}
-
-@Composable
-fun SettingsMenuLink(
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    icon: Painter? = null,
-    title: String,
-    action: (@Composable () -> Unit)? = null,
-    onClick: () -> Unit = {},
-) {
-    ListItem(
-        modifier = modifier.clickable(enabled = enabled, onClick = onClick),
-        headlineContent = { Text(text = title) },
-        leadingContent = {
-            icon?.let { Icon(painter = icon, contentDescription = title) }
-        },
-        trailingContent = { action?.invoke() }
-    )
-}
-
-@Composable
-fun SettingsMenuLink(
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    icon: ImageVector? = null,
-    title: String,
-    action: (@Composable () -> Unit)? = null,
-    onClick: () -> Unit = {},
-) {
-    ListItem(
-        modifier = modifier.clickable(enabled = enabled, onClick = onClick),
-        headlineContent = { Text(text = title) },
-        leadingContent = {
-            icon?.let { Icon(imageVector = icon, contentDescription = title) }
-        },
-        trailingContent = { action?.invoke() },
-        colors = ListItemDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.background,
-            headlineColor = MaterialTheme.colorScheme.onBackground,
-            trailingIconColor = MaterialTheme.colorScheme.onBackground,
-            leadingIconColor = MaterialTheme.colorScheme.onBackground,
-            overlineColor = MaterialTheme.colorScheme.onBackground,
-        )
-    )
-}
-
-@Composable
-fun SettingsScreen(navController: NavController, viewModel: SettingsViewModel = hiltViewModel()) {
-
-    val settings = viewModel.settings.collectAsState(initial = Settings()).value
-    val shouldOpenThemeDialog = remember { mutableStateOf(false) }
-
-    SettingsThemeDialog(
-        settings = settings,
-        viewModel = viewModel,
-        shouldOpenDialog = shouldOpenThemeDialog
-    )
-
-    Scaffold(
-        topBar = {
-            SettingsTopBar(navController)
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-                .verticalScroll(rememberScrollState()),
-        ) {
-
-            SettingsMenuLink(
-                icon = Icons.Default.DarkMode,
-                title = stringResource(R.string.settings_dark_mode),
-                action = { Text(text = settings.darkMode.name, style = MaterialTheme.typography.bodyLarge) }
-            ) { shouldOpenThemeDialog.value = true }
-        }
-    }
-}
-
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
-) : ViewModel() {
-
-    val settings = settingsRepository.getSettings()
-
-    fun updateSettings(settings: Settings) {
-        viewModelScope.launch {
-            settingsRepository.updateSettings(settings)
-        }
     }
 }
 
@@ -736,12 +523,7 @@ data class PhoneInfo(
     @SerializedName("is_valid") val isValid: Boolean,
     val country: String,
     val location: String,
-    val timezones: List<String>,
-//    "is_formatted_properly": true,
-//    "format_national": "(206) 555-0100",
-//    "format_international": "+1 206-555-0100",
-//    "format_e164": "+12065550100",
-//    "country_code
+    val timezones: List<String>
 )
 
 suspend fun <T> safeApiCall(
@@ -795,53 +577,6 @@ class MainScreenViewModel @Inject constructor(
     }
 }
 
-
-
-
-private val LightNewColors = lightColorScheme(
-    background = backColorLight,
-    onBackground = onBackgroundColorLight,
-    primary = primaryColorLight,
-    onPrimary = onPrimaryColorLight,
-    secondary = secondaryColorLight,
-    onSecondary = onSecondaryColorLight,
-    tertiary = tertiaryColorLight,
-    onTertiary = onTertiaryColorLight,
-    surface = surfaceColorLight,
-    onSurface = onSurfaceColorLight
-)
-
-private val DarkNewColors = lightColorScheme(
-    background = backColorDark,
-    onBackground = onBackgroundColorDark,
-    primary = primaryColorDark,
-    onPrimary = onPrimaryColorDark,
-    secondary = secondaryColorDark,
-    onSecondary = onSecondaryColorDark,
-    tertiary = tertiaryColorDark,
-    onTertiary = onTertiaryColorDark,
-    surface = surfaceColorDark,
-    onSurface = onSurfaceColorDark
-)
-
-@Composable
-fun AppTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
-) {
-    val colors = if (!useDarkTheme) LightNewColors else DarkNewColors
-
-    val systemUiController = rememberSystemUiController()
-    SideEffect {
-        systemUiController.setStatusBarColor(colors.surfaceColorAtElevation(0.dp), false)
-        systemUiController.setNavigationBarColor(colors.background, useDarkTheme)
-    }
-
-    MaterialTheme(
-        colorScheme = colors,
-        content = content
-    )
-}
 """
     }
 }

@@ -7,20 +7,12 @@
 
 import Foundation
 
-struct MBTorch {
-    static let fileName = "MBTorch.kt"
+struct MBTorch: FileProviderProtocol {
+    static var fileName = "MBTorch.kt"
     
     static func fileContent(
         packageName: String,
-        backColorPrimary: String,
-        backColorSecondary: String,
-        surfaceColor: String,
-        onSurfaceColor: String,
-        primaryColor: String,
-        onPrimaryColor: String,
-        errorColor: String,
-        textColorPrimary: String,
-        textColorSecondary: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -65,15 +57,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val backColorPrimary = Color(0xFF\(backColorPrimary))
-val backColorSecondary = Color(0xFF\(backColorSecondary))
-val surfaceColor = Color(0xFF\(surfaceColor))
-val onSurfaceColor = Color(0xFF\(onSurfaceColor))
-val primaryColor = Color(0xFF\(primaryColor))
-val onPrimaryColor = Color(0xFF\(onPrimaryColor))
-val errorColor = Color(0xFF\(errorColor))
-val textColorPrimary = Color(0xFF\(textColorPrimary))
-val textColorSecondary = Color(0xFF\(textColorSecondary))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
+val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
+val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
+val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
+val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
+val errorColor = Color(0xFF\(uiSettings.errorColor ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 
 private val LightColorScheme = lightColorScheme(
     onSurface = onSurfaceColor,

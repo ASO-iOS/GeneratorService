@@ -117,7 +117,7 @@ class MainActivityScreen @Inject constructor(private val context: Context) {
     
     static func importById(_ id: String, _ packageName: String) -> String {
         switch id {
-        case AppIDs.MB_RACE, AppIDs.MB_CATCHER:
+        case AppIDs.MB_RACE:
             return """
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -126,7 +126,24 @@ import android.os.Build
 import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.insetScreenHeight
 import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.screenHeight
 """
-
+        case AppIDs.MB_CATCHER:
+            return """
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import android.graphics.Rect
+import android.os.Build
+import \(packageName).presentation.fragments.main_fragment.Bitmaps.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.Bitmaps.screenHeight
+"""
+        case AppIDs.MB_SPACE_FIGHTER:
+            return """
+import android.graphics.Rect
+import android.os.Build
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenHeight
+"""
         default:
             return ""
         }

@@ -63,16 +63,12 @@ class MainFragment : Fragment() {
             """
         case AppIDs.VS_PHONE_INFO_ID:
             return """
-                val mainScreenViewModel: MainScreenViewModel = hiltViewModel()
-                val state = mainScreenViewModel.settings.collectAsState().value
-                AppTheme(useDarkTheme = if (state.darkMode == Settings.DarkMode.System) isSystemInDarkTheme() else state.darkMode == Settings.DarkMode.Dark) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.background)
-                    ) {
-                        PhoneInfoNavHost()
-                    }
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(backColorLight)
+                ) {
+                    PhoneInfoNavHost()
                 }
             """
         case AppIDs.MB_STOPWATCH:
@@ -125,9 +121,11 @@ class MainFragment : Fragment() {
             """
         case AppIDs.MB_CATCHER:
             return """
-                val viewModel: MainViewModel by viewModels()
+                val viewModel: MainViewModel = hiltViewModel()
+                val res = LocalContext.current.resources
                 LaunchedEffect(key1 = Unit) {
-                    viewModel.initialize(applicationContext.resources)
+
+                    viewModel.initialize(res)
                 }
 
                 val state = viewModel.state.collectAsState()
@@ -145,6 +143,28 @@ class MainFragment : Fragment() {
         case AppIDs.MB_SPACE_FIGHTER:
             return """
                 MBSpaseFighter()
+            """
+        case AppIDs.MB_CHECK_IP:
+            return """
+                MBCheckIp()
+            """
+        case AppIDs.MB_RICK_AND_MORTY:
+            return """
+                PagingAppComposeTheme {
+                    MBRickNMorty()
+                }
+            """
+        case AppIDs.MB_PASS_GEN:
+            return """
+                MBPassGenTheme {
+                    MainScreen()
+                }
+            """
+        case AppIDs.MB_DEVICE_INFO:
+            return """
+                MyappTheme {
+                    MBDeviceInfo()
+                }
             """
             // MARK: - new cases
         default:
@@ -172,6 +192,13 @@ import androidx.compose.material3.MaterialTheme
         case AppIDs.MB_SPEED_TEST:
             return """
 import androidx.compose.ui.platform.LocalContext
+"""
+        case AppIDs.MB_CATCHER:
+            return """
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 """
             // MARK: - new cases
         default:

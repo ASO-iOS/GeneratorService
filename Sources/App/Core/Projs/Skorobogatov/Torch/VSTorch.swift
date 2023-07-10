@@ -7,13 +7,11 @@
 
 import Foundation
 
-struct VSTorch {
+struct VSTorch: FileProviderProtocol {
     static let fileName = "VSTorch.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        buttonColor: String,
-        outlineButtonBorderColor: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -81,9 +79,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.roundToInt
 
-val backColor = Color(0xFF\(backColor))
-val buttonColor = Color(0xFF\(buttonColor))
-val outlineButtonBorderColor = Color(0xFF\(outlineButtonBorderColor))
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val buttonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val outlineButtonBorderColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun TorchScreen(viewModel: TorchViewModel) {

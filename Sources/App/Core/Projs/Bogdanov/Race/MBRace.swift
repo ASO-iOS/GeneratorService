@@ -7,16 +7,12 @@
 
 import Foundation
 
-struct MBRace {
-    static let fileName = "MBRace.kt"
+struct MBRace: FileProviderProtocol {
+    static var fileName = "MBRace.kt"
     
     static func fileContent(
         packageName: String,
-        backColorPrimary: String,
-        backColorSecondary: String,
-        textColorPrimary: String,
-        buttonColor: String,
-        buttonTextColor: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -96,11 +92,11 @@ import javax.inject.Singleton
 import kotlin.random.Random
 import \(packageName).R
 
-val backColorPrimary = Color(0xFF\(backColorPrimary))
-val backColorSecondary = Color(0xFF\(backColorSecondary))
-val textColorPrimary = Color(0xFF\(textColorPrimary))
-val buttonColor = Color(0xFF\(buttonColor))
-val buttonTextColor = Color(0xFF\(buttonTextColor))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColor = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 val enterText = "\(enterText())"
 

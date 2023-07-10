@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - main data routes
-class EndRoutes {
+struct EndRoutes {
     
     static let END_TOKEN = "token"
     static let END_APPLICATION_NAME = "application_name"

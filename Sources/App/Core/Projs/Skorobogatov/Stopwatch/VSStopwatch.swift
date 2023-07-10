@@ -7,14 +7,11 @@
 
 import Foundation
 
-struct VSStopwatch {
-    static let fileName = "VSStopwatch.kt"
+struct VSStopwatch: FileProviderProtocol {
+    static var fileName = "VSStopwatch.kt"
     static func fileContent(
         packageName: String,
-        backColor: String,
-        buttonColor: String,
-        buttonTextColor: String,
-        mainTextColor: String
+        uiSettings: UISettings
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -58,13 +55,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-val backColor = Color(0xFF\(backColor))
-val buttonColor = Color(0xFF\(buttonColor))
-val buttonTextColor = Color(0xFF\(buttonTextColor))
-val outlineButtonColor = Color(0xFF\(buttonColor))
-val outlineButtonBorderColor = Color(0xFF\(buttonColor))
-val mainTextColor = Color(0xFF\(mainTextColor))
-val lapTextColor = Color(0xFF\(mainTextColor))
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val buttonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColor = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val outlineButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val outlineButtonBorderColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val lapTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 val buttonRadius = 24.dp
 val buttonsBottomPadding = 18.dp
 

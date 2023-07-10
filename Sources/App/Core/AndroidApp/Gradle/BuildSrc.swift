@@ -90,7 +90,6 @@ object Dependencies {
     const val calendar_date = "io.github.boguszpawlowski.composecalendar:kotlinx-datetime:${Versions.calend}"
     const val paging = "androidx.paging:paging-runtime:${Versions.paging_version}"
     const val pagingCommon = "androidx.paging:paging-common:${Versions.paging_version}"
-    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha18"
 }
 """
     }

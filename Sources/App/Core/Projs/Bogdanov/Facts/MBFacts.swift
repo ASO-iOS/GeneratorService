@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct MBFacts {
-    static let fileName = "MBFacts.kt"
+struct MBFacts: FileProviderProtocol {
+    static var fileName = "MBFacts.kt"
     
     static func fileContent(
         packageName: String,
-        backColorPrimary: String,
-        backColorSecondary: String,
-        textColor: String
+        uiSettings: UISettings
+//        backColorPrimary: String,
+//        backColorSecondary: String,
+//        textColor: String
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -69,9 +70,9 @@ import retrofit2.http.GET
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val backColorPrimary = Color(0xFF\(backColorPrimary))
-val backColorSecondary = Color(0xFF\(backColorSecondary)(
-val textColor = Color(0xFF\(textColor))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
+val textColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun PageScreen(page: Int, state: FactState.Success) {
