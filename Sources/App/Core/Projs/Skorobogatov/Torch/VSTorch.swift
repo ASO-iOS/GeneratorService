@@ -22,22 +22,18 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -49,15 +45,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import \(packageName).R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,10 +71,11 @@ import javax.annotation.Nullable
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.roundToInt
+import \(packageName).R
+
 
 val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val buttonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
-val outlineButtonBorderColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+
 
 @Composable
 fun TorchScreen(viewModel: TorchViewModel) {
@@ -93,7 +87,7 @@ fun TorchScreen(viewModel: TorchViewModel) {
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxSize()
-                    .background(color = backColor)
+            .background(color = backColor)
     ) {
         Box(modifier = Modifier.weight(0.6f), contentAlignment = Alignment.Center) {
             OnButton(state is TorchState.On) {
@@ -154,22 +148,29 @@ fun TorchButton(
     onClickAction: () -> Unit = {}
 ) {
 //    TorchTheme {
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = buttonColor, contentColor = backColor
-        ),
-        modifier = Modifier.clip(CircleShape),
-        border = BorderStroke(2.dp, outlineButtonBorderColor),
-        contentPadding = PaddingValues(0.dp),
-        onClick = { onClickAction() },
-                shape = CircleShape
-    ) {
+    IconButton(onClick = { onClickAction() }) {
         Image(
             painter = painterResource(id = torchImage.img),
             contentDescription = null,
             modifier = Modifier.size(142.dp)
         )
     }
+//    Button(
+//        colors = ButtonDefaults.buttonColors(
+//            backgroundColor = Color.Transparent
+//        ),
+////        modifier = Modifier.clip(CircleShape),
+////        border = BorderStroke(2.dp, outlineButtonBorderColor),
+//        contentPadding = PaddingValues(0.dp),
+//        onClick = { onClickAction() },
+////                shape = CircleShape
+//    ) {
+//        Image(
+//            painter = painterResource(id = torchImage.img),
+//            contentDescription = null,
+//            modifier = Modifier.size(142.dp)
+//        )
+//    }
 //    }
 }
 
@@ -190,23 +191,31 @@ fun TorchStrengthSlider(steps: Int, onSliderChange: (Float) -> Unit, modifier: M
 
 @Composable
 fun OnButton(isOn: Boolean = false, onClickAction: () -> Unit = {}) {
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = if (isOn) buttonColor else backColor,
-            contentColor = if (isOn) backColor else buttonColor
-        ),
-        modifier = Modifier
-            .size(252.dp),
-
-        border = BorderStroke(2.dp, buttonColor),
-        onClick = { onClickAction() },
-        shape = CircleShape
-    ) {
+    IconButton(onClick = { onClickAction() }) {
         Icon(
             painter = painterResource(id = R.drawable.on_icon),
             contentDescription = null,
+            tint = if (isOn) Color.Red else Color.White,
+            modifier = Modifier.size(180.dp)
         )
     }
+//    Button(
+//        colors = ButtonDefaults.buttonColors(
+//            backgroundColor = Color.Transparent,
+//            contentColor = if (isOn) Color.Red else Color.White
+//        ),
+//        modifier = Modifier
+//            .size(252.dp),
+//
+//        border = BorderStroke(2.dp, if (isOn) Color.Red else Color.White),
+//        onClick = { onClickAction() },
+//        shape = CircleShape
+//    ) {
+//        Icon(
+//            painter = painterResource(id = R.drawable.on_icon),
+//            contentDescription = null,
+//        )
+//    }
 }
 
 

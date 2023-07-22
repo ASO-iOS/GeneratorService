@@ -12,8 +12,10 @@ struct MBPassGen: FileProviderProtocol {
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
-package \(packageName)
+package \(packageName).presentation.fragments.main_fragment
 
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,12 +26,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.Typography
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,12 +39,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
@@ -53,20 +51,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlin.random.Random
 
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
-val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
-val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
-val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
-val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
-val errorColor = Color(0xFF\(uiSettings.errorColor ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 
 @Composable
 fun MBPassGen(appViewModel: AppViewModel = viewModel()) {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(backColorPrimary),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -84,7 +78,7 @@ fun MBPassGen(appViewModel: AppViewModel = viewModel()) {
             modifier = Modifier
                 .border(
                     width = 2.dp,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = buttonColorPrimary,
                     shape = RoundedCornerShape(4.dp)
                 )
                 .clickable {
@@ -93,7 +87,8 @@ fun MBPassGen(appViewModel: AppViewModel = viewModel()) {
                 .padding(4.dp)
                 .defaultMinSize(minWidth = 100.dp),
             text = outputText,
-            style = MaterialTheme.typography.bodyLarge
+            color = textColorPrimary,
+            fontSize = 32.sp
         )
         Column(
             verticalArrangement = Arrangement.Center,
@@ -124,59 +119,18 @@ fun MBPassGen(appViewModel: AppViewModel = viewModel()) {
         OutlinedButton(
             onClick = {
                 appViewModel.confirm()
-            }
+            }, colors = ButtonDefaults.buttonColors(buttonColorPrimary)
         ) {
             Text(
-                text = "Confirm",
-                style = MaterialTheme.typography.displayLarge
+                text = "Generate",
+                color = buttonTextColorPrimary,
+                fontSize = 32.sp
             )
         }
     }
 }
 
 
-private val LightColorScheme = lightColorScheme(
-    onSurface = onSurfaceColor,
-    primary = primaryColor,
-    onPrimary = onPrimaryColor,
-    surface = surfaceColor,
-    error = errorColor,
-    background = backColorPrimary,
-    onBackground = backColorSecondary
-)
-
-@Composable
-fun MBPassGenTheme(
-    content: @Composable () -> Unit
-) {
-    val colorScheme = LightColorScheme
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
-
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp,
-        color = textColorSecondary
-    ),
-    displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 30.sp,
-        lineHeight = 30.sp,
-        letterSpacing = 0.6.sp,
-        textAlign = TextAlign.Center,
-        color = textColorPrimary
-    )
-)
 
 @Composable
 fun IncludeCheckBox(
@@ -198,11 +152,12 @@ fun IncludeCheckBox(
             onCheckedChange = { newState ->
                 checked = newState
                 onClick(newState)
-            }
+            }, colors = CheckboxDefaults.colors(checkedColor = buttonColorPrimary, uncheckedColor = textColorPrimary)
         )
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge
+            color = textColorPrimary,
+            fontSize = 22.sp
         )
     }
 }

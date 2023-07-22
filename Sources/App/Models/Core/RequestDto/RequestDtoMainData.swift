@@ -12,6 +12,7 @@ struct RequestDtoMainData: Codable {
     let appName: String
     let applicationName: String
     let packageName: String
+    let stamp: String
     let manual: Bool
     let uiDesignId: String?
     let prefix: String?
@@ -22,6 +23,7 @@ struct RequestDtoMainData: Codable {
         case appName = "app_name"
         case applicationName = "application_name"
         case packageName = "package_name"
+        case stamp = "stamp"
         case manual = "manual"
         case uiDesignId = "ui_design_id"
         case prefix = "prefix"

@@ -51,8 +51,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
-import \(packageName).presentation.fragments.main_fragment.ErrorResolver.toIOErrorType
 import com.google.gson.annotations.SerializedName
+import \(packageName).presentation.fragments.main_fragment.ErrorResolver.toIOErrorType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

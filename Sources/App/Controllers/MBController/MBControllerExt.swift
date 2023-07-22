@@ -10,23 +10,23 @@ import Foundation
 extension MBController {
     func createStopwatch(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBStopwatch.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBStopwatch.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: <#T##String#>, full: <#T##String#>, category: <#T##String#>), fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: StopwatchMeta.getShortDesc(), full: StopwatchMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createSpeedTest(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBSpeedTest.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBSpeedTest.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: SpeedTestMeta.getShortDesc(), full: SpeedTestMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createPingTest(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBPingTest.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBPingTest.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PingTestMeta.getShortDesc(), full: PingTestMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createAlarm(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBAlarm.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBAlarm.fileName)
         fileHandler.writeFile(filePath: resPath, contentText: MBAlarmRes.alarmText(), fileName: MBAlarmRes.alarmName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: AlarmMeta.getShortDesc(), full: AlarmMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createIpChecker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
@@ -36,7 +36,7 @@ extension MBController {
     
     func createFacts(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBFacts.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBFacts.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: FactsMeta.getShortDesc(), full: FactsMeta.getFullDesc(), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createTorch(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
@@ -46,7 +46,7 @@ extension MBController {
     
     func createLuckyNumber(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBLuckyNumber.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBLuckyNumber.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: LuckyNumberMeta.getShortDesc(), full: LuckyNumberMeta.getFullDesc(), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
     }
     func createRace(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBRace.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBRace.fileName)
@@ -56,7 +56,7 @@ extension MBController {
         fileHandler.copyPaste(from: LocalConst.MBRaceRes + "/\(playerImage)/" + "player.png" , to: resPath + "player.png")
         fileHandler.copyPaste(from: LocalConst.MBRaceRes + "/\(enemyImage)/" + "enemy_car.png" , to: resPath + "enemy_car.png")
         fileHandler.copyPaste(from: LocalConst.MBRaceRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: RaceMeta.getShortDesc(), full: RaceMeta.getFullDesc(), category: AppCategory.game_race.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createCatcher(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
@@ -67,12 +67,12 @@ extension MBController {
         fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(objectImage)/" + "object.png" , to: resPath + "object.png")
         fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(cartImage)/" + "cart.png" , to: resPath + "cart.png")
         fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: CatcherMeta.getShortDesc(), full: CatcherMeta.getFullDesc(), category: AppCategory.game_arcade.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createBmi(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBBmi.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBBmi.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: BmiCalcMeta.getShortDesc(), full: BmiCalcMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createSpaceFighter(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
@@ -98,7 +98,7 @@ extension MBController {
     
     func createDeviceInfo(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBDeviceInfo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBDeviceInfo.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: <#T##String#>, full: <#T##String#>, category: <#T##String#>), fileName: <#T##String#>)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: DeviceInfoMeta.getShortDesc(), full: DeviceInfoMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
 }
 

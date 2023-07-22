@@ -269,7 +269,7 @@ object Bitmaps {
             backgroundHeight,
         )
         cart = initBitmap(R.drawable.cart, cartWidth, cartHeight)
-        apple = initBitmap(R.drawable.object, appleWidth, appleHeight)
+        apple = initBitmap(R.drawable.`object`, appleWidth, appleHeight)
 
     }
 

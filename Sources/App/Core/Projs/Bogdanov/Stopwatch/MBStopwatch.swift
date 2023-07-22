@@ -118,50 +118,50 @@ fun MBStopwatch(viewModel: MainViewModel = viewModel()) {
                 when (stopwatchState) {
                     StopwatchState.Started -> {
                         IconButton(
-                            modifier = Modifier.scale(1.25f),
+                            modifier = Modifier.size(80.dp),
                             onClick = { viewModel.loop() }
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Flag,
                                 contentDescription = "Loop",
-                                modifier = Modifier.size(secondaryTextSize.dp),
-                                tint = mainTextColor
+                                modifier = Modifier.size(80.dp),
+                                tint = Color.White
                             )
                         }
                         IconButton(
-                            modifier = Modifier.scale(1.25f),
+                            modifier = Modifier.size(80.dp),
                             onClick = { viewModel.pauseTimer() }
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Pause,
                                 contentDescription = "Pause timer",
-                                modifier = Modifier.size(secondaryTextSize.dp),
-                                tint = mainTextColor
+                                modifier = Modifier.size(80.dp),
+                                tint = Color.White
                             )
                         }
                     }
 
                     StopwatchState.Paused -> {
                         IconButton(
-                            modifier = Modifier.scale(1.25f),
+                            modifier = Modifier.size(80.dp),
                             onClick = { viewModel.stopTimer() }
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Stop,
                                 contentDescription = "Stop timer",
-                                modifier = Modifier.size(secondaryTextSize.dp),
-                                tint = mainTextColor
+                                modifier = Modifier.size(80.dp),
+                                tint = Color.White
                             )
                         }
                         IconButton(
-                            modifier = Modifier.scale(1.25f),
+                            modifier = Modifier.size(80.dp),
                             onClick = { viewModel.startTimer() }
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.PlayArrow,
                                 contentDescription = "Start timer",
-                                modifier = Modifier.size(secondaryTextSize.dp),
-                                tint = mainTextColor
+                                modifier = Modifier.size(80.dp),
+                                tint = Color.White
                             )
                         }
                     }
@@ -316,7 +316,7 @@ val Typography = Typography(
         color = mainTextColor
     ),
     displayLarge = TextStyle(
-        fontSize = secondaryTextSize.sp,
+        fontSize = 52.sp,
         fontWeight = FontWeight.W300,
         textAlign = TextAlign.Center,
         color = mainTextColor

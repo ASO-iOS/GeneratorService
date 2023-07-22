@@ -56,7 +56,7 @@ import androidx.compose.ui.unit.sp
 val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
-val lapTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val lapTextColor = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
 val mainTextSize = \(uiSettings.textSizePrimary ?? 24)
 val mainPadding = \(uiSettings.paddingPrimary ?? 12)
 

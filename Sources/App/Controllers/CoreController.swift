@@ -19,7 +19,7 @@ struct CoreController: RouteCollection {
     }
     
     func boot(routes: Vapor.RoutesBuilder) throws {
-        routes.on(.GET, PathComponent(stringLiteral: RouteConst.EMPTY_CORE_PROJECT), use: launch)
+        routes.on(.POST, PathComponent(stringLiteral: RouteConst.EMPTY_CORE_PROJECT), use: launch)
     }
     
     /// -  главный метод создания проекта
@@ -28,15 +28,15 @@ struct CoreController: RouteCollection {
         // MARK: - инициализация локации файла, изнвчально пустой проект
         var fileLoc = "\(LocalConst.homeDir)GeneratorProjects/resources/empty.zip"
         
-        let timeStamp = Date().getStamp()
-        let token = try? request.query.get(String.self, at: EndRoutes.END_TOKEN)
+//        let timeStamp = Date().getStamp()
+        let token = try? request.query.get(String.self, at: "token")
         guard let bodyByteBuffer = request.body.data else { throw Abort(.badRequest) }
         let bodyData = Data(buffer: bodyByteBuffer)
         let body = try JSONDecoder().decode(RequestDto.self, from: bodyData)
         
         if UserToken.checkToken(token) {
-            create(token: token ?? "error", body: body, stamp: timeStamp, completion: {
-                fileLoc = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/temp/\(timeStamp).zip"
+            create(token: token ?? "error", body: body, completion: {
+                fileLoc = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/temp/\(body.mainData.stamp).zip"
             })
             return request.fileio.streamFile(at: fileLoc)
         } else {
@@ -51,10 +51,10 @@ extension CoreController {
     func create(
         token: String,
         body: RequestDto,
-        stamp: String,
         completion: @escaping () -> Void
     ) {
         //        DispatchQueue.global(qos: .default).sync {
+        let stamp = body.mainData.stamp
         let tempLoc = LocalConst.tempDir + stamp + "/" + body.mainData.appName + "/"
         let metaLoc = LocalConst.tempDir + stamp + "/"
         let uiSettings: UISettings

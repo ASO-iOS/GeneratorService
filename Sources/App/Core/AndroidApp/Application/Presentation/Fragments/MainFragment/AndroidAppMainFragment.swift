@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backColorLight)
                 ) {
                     PhoneInfoNavHost()
                 }
@@ -156,9 +155,7 @@ class MainFragment : Fragment() {
             """
         case AppIDs.MB_PASS_GEN:
             return """
-                MBPassGenTheme {
-                    MainScreen()
-                }
+                MBPassGen()
             """
         case AppIDs.MB_DEVICE_INFO:
             return """

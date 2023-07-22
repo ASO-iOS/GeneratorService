@@ -17,7 +17,6 @@ struct MBPingTest: FileProviderProtocol {
 package \(packageName).presentation.fragments.main_fragment
 
 import android.accounts.NetworkErrorException
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +27,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -44,8 +43,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -59,10 +56,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.InetAddress
+import \(packageName).R
 
-val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val backColor = Color(0xFF\(uiSettings.backColorPrimary ?? "c1d9ec"))
+val mainTextColor = Color(0xFF\(uiSettings.textColorPrimary ?? "2c0505"))
+val mainButtonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "ff5722"))
+val buttonTextColor = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "ffffff"))
 val mainTextSize = \(uiSettings.textSizePrimary ?? 22)
 val mainPadding = \(uiSettings.paddingPrimary ?? 12)
 
@@ -118,10 +117,11 @@ fun MBPing(viewModel: MainViewModel = viewModel()) {
 
                 RequestState.Loading -> "Enter the website address"
 
-                is RequestState.Success -> "Host address\\n${state.hostAddress}\\n\\n" +
-                        "Host name\\n${state.hostName}\\n\\nPing\\n${state.ping}"
+                is RequestState.Success -> "Host address: ${state.hostAddress}\\n\\n" +
+                        "Host name: ${state.hostName}\\n\\nPing: ${state.ping}"
             },
-            style = MaterialTheme.typography.displayLarge
+            style = MaterialTheme.typography.displayLarge,
+            color = mainTextColor
         )
 
         var inputUrl by remember {
@@ -137,7 +137,7 @@ fun MBPing(viewModel: MainViewModel = viewModel()) {
                 inputUrl = newUrl
                 viewModel.changeInputUrl(newUrl)
             },
-            textStyle = MaterialTheme.typography.displaySmall
+            textStyle = TextStyle(color = mainTextColor, fontSize = 22.sp)
         ) { innerTextField ->
             Box(
                 modifier = Modifier
@@ -148,7 +148,7 @@ fun MBPing(viewModel: MainViewModel = viewModel()) {
                     .border(
                         width = 4.dp,
                         color = colorScheme.onBackground,
-                        shape = CutCornerShape(16.dp)
+                        shape = RoundedCornerShape(16.dp)
                     )
                     .padding(mainPadding.dp),
                 contentAlignment = Alignment.Center
@@ -160,21 +160,14 @@ fun MBPing(viewModel: MainViewModel = viewModel()) {
             modifier = Modifier
                 .fillMaxWidth(0.85f)
                 .padding(end = mainPadding.dp, start = mainPadding.dp, bottom = mainPadding.dp)
-                    .background(color = backColor)
-                .shadow(
-                    elevation = 8.dp,
-                    shape = CutCornerShape(100)
-                ),
+                    .background(color = backColor),
             colors = ButtonDefaults.buttonColors(
                 containerColor = mainButtonColor,
-                contentColor = mainTextColor
+                contentColor = buttonTextColor
             ),
-            shape = CutCornerShape(100),
+            shape = RoundedCornerShape(16.dp),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
-            border = BorderStroke(
-                width = 4.dp,
-                color = colorScheme.onBackground
-            ),
+
             onClick = {
                 viewModel.ping()
             }

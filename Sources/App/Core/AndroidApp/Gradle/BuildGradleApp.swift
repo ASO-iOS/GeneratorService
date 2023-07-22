@@ -142,6 +142,8 @@ dependencies {
                 implementation Dependencies.converter_gson
                 implementation Dependencies.paging
                 implementation Dependencies.pagingCommon
+                implementation 'androidx.paging:paging-compose:3.2.0-rc01'
+                implementation Dependencies.coil_compose
             """
         case AppIDs.MB_LUCKY_NUMBER:
             return """

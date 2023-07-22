@@ -16,7 +16,7 @@ extension VSController {
         metaLoc: String
     ) {
         fileHandler.writeFile(filePath: path, contentText: VSStopwatch.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VSStopwatch.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: StopwatchMeta.getShortDesc(), full: StopwatchMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createTorch(
@@ -29,11 +29,11 @@ extension VSController {
     ) {
         fileHandler.writeFile(filePath: path, contentText: VSTorch.fileContent(
             packageName: packageName, uiSettings: uiSettings), fileName: VSTorch.fileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.onIconFileText(buttonColor: uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: VSTorchXmlRes.onIconFileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.off1FileText(backColor: uiSettings.backColorPrimary ?? "FFFFFF", buttonColor: uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: VSTorchXmlRes.off1FileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.off3FileText(backColor: uiSettings.backColorPrimary ?? "FFFFFF", buttonColor: uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: VSTorchXmlRes.off3FileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on1FileText(backColor: uiSettings.backColorPrimary ?? "FFFFFF", buttonColor: uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: VSTorchXmlRes.on1FileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on3FileText(backColor: uiSettings.backColorPrimary ?? "FFFFFF", buttonColor: uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: VSTorchXmlRes.on3FileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.onIconFileText(), fileName: VSTorchXmlRes.onIconFileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.off1FileText(), fileName: VSTorchXmlRes.off1FileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.off3FileText(), fileName: VSTorchXmlRes.off3FileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on1FileText(), fileName: VSTorchXmlRes.on1FileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on3FileText(), fileName: VSTorchXmlRes.on3FileName)
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: TorchMeta.getShortDesc(), full: TorchMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
@@ -46,8 +46,8 @@ extension VSController {
         metaLoc: String
     ) {
         fileHandler.writeFile(filePath: path, contentText: VSPhoneInfo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VSPhoneInfo.fileName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.nothingFoundText(color: uiSettings.onSurfaceColor ?? "FFFFFF"), fileName: VSPhoneInfoRes.nothingFoundName)
-        fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.imgPhoneText(color: uiSettings.onSurfaceColor ?? "FFFFFF"), fileName: VSPhoneInfoRes.imgPhoneName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: <#T##String#>, fileName: "Meta.txt")
+        fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.nothingFoundText(), fileName: VSPhoneInfoRes.nothingFoundName)
+        fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.imgPhoneText(), fileName: VSPhoneInfoRes.imgPhoneName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(), full: PhoneInfoMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
 }

@@ -12,7 +12,7 @@ struct MBDeviceInfo: FileProviderProtocol {
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
-package \(packageName)
+package \(packageName).presentation.fragments.main_fragment
 
 import android.os.Build
 import androidx.compose.foundation.layout.Arrangement

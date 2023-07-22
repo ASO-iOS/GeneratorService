@@ -260,7 +260,7 @@ fun MainTopBar(viewModel: PhoneFinderViewModel, state: PhoneFinderUiState, navCo
             }
         },
         actions = { }
-    , colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = backColorPrimary)
+    , colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = backColorSecondary)
     )
 }
 

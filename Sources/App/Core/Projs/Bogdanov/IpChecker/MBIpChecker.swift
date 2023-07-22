@@ -314,14 +314,7 @@ fun ResponseField(fieldName: String, fieldValue: String) {
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            modifier = Modifier
-                .padding(end = 4.dp),
-            text = "$fieldName: ",
-            color = textColorPrimary,
-            fontSize = 24.sp
-        )
-        Text(
-            text = fieldValue,
+            text = "$fieldName: $fieldValue",
             color = textColorPrimary,
             fontSize = 32.sp
         )
