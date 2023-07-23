@@ -61,12 +61,12 @@ extension MBController {
     
     func createCatcher(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBCatcher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBCatcher.fileName)
-        let objectImage = Int.random(in: 1...4)
-        let cartImage = Int.random(in: 1...4)
-        let backgroundImage = Int.random(in: 1...4)
-        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(objectImage)/" + "object.png" , to: resPath + "object.png")
-        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(cartImage)/" + "cart.png" , to: resPath + "cart.png")
-        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
+//        let objectImage = Int.random(in: 1...4)
+//        let cartImage = Int.random(in: 1...4)
+//        let backgroundImage = Int.random(in: 1...4)
+//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(objectImage)/" + "object.png" , to: resPath + "object.png")
+//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(cartImage)/" + "cart.png" , to: resPath + "cart.png")
+//        fileHandler.copyPaste(from: LocalConst.MBCatcherRes + "/\(backgroundImage)/" + "background.png" , to: resPath + "background.png")
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: CatcherMeta.getShortDesc(), full: CatcherMeta.getFullDesc(), category: AppCategory.game_arcade.rawValue), fileName: MetaHandler.fileName)
     }
     
@@ -77,12 +77,12 @@ extension MBController {
     
     func createSpaceFighter(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String) {
         fileHandler.writeFile(filePath: path, contentText: MBSpaceFighter.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: MBSpaceFighter.fileName)
-        let backgroundImage = Int.random(in: 1...20)
-        let playerImage = Int.random(in: 1...33)
-        let enemyImage = Int.random(in: 1...36)
-        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/player/\(playerImage)/player.png", to: resPath + "player.png")
-        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/enemy/\(enemyImage)/enemy.png", to: resPath + "enemy.png")
-        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/background/\(backgroundImage)/background.png", to: resPath + "background.png")
+//        let backgroundImage = Int.random(in: 1...20)
+//        let playerImage = Int.random(in: 1...33)
+//        let enemyImage = Int.random(in: 1...36)
+//        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/player/\(playerImage)/player.png", to: resPath + "player.png")
+//        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/enemy/\(enemyImage)/enemy.png", to: resPath + "enemy.png")
+//        fileHandler.copyPaste(from: LocalConst.MBSpaceFighterRes + "/background/\(backgroundImage)/background.png", to: resPath + "background.png")
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: SpaceshipAdventureMeta.getShortDesc(), full: SpaceshipAdventureMeta.getFullDesc(), category: AppCategory.game_arcade.rawValue), fileName: MetaHandler.fileName)
     }
     

@@ -17,6 +17,7 @@ struct MBCatcher: FileProviderProtocol {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
+
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -24,8 +25,7 @@ import android.graphics.Rect
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,24 +39,25 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -64,6 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import \(packageName).R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -72,19 +74,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.random.Random
-import \(packageName).R
 
-val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
-val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
-val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF")
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF")
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF")
 
 @Composable
 fun LoadingScreen() {
+    ComposeBack(image = R.drawable.background)
     Column(modifier = Modifier
         .fillMaxSize()
-        .background(backColorPrimary)
         .padding(4.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -158,13 +157,12 @@ fun GameCanvas(
     }
 }
 
-@OptIn(ExperimentalTextApi::class)
 @Composable
 fun EndGameScreen(viewModel: MainViewModel, state: State<GameState>) {
+    ComposeBack(image = R.drawable.background)
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backColorPrimary)
             .padding(8.dp),
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -195,15 +193,7 @@ fun EndGameScreen(viewModel: MainViewModel, state: State<GameState>) {
         Button(
             modifier = Modifier
                 .scale(1.25f)
-                .shadow(
-                    elevation = 4.dp,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .border(
-                    width = 2.dp,
-                    brush = Brush.verticalGradient(colors = listOf(buttonColorPrimary, buttonColorSecondary)),
-                    shape = RoundedCornerShape(8.dp)
-                ),
+            ,
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = buttonColorPrimary),
             onClick = { viewModel.restart() }
@@ -498,6 +488,22 @@ sealed interface Screen {
     object Running : Screen
     object Loading : Screen
     object Finished : Screen
+}
+
+@Composable
+fun ComposeBack(image: Int) {
+    val res = LocalContext.current.resources
+    val back by remember {
+        mutableStateOf(
+            Bitmap.createScaledBitmap(
+                BitmapFactory.decodeResource(
+                    res,
+                    image
+                ), res.displayMetrics.widthPixels, res.displayMetrics.heightPixels, false
+            ).asImageBitmap()
+        )
+    }
+    Image(bitmap = back, contentDescription = null, contentScale = ContentScale.FillBounds)
 }
 """
     }
