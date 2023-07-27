@@ -30,7 +30,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-\(importById(appId, packageName))
+\(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.imports)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        \(extraFunc(appId))
+        \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.extraFunc)
         setContentView(binding.container)
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.state.collect {
                     when(it) {
                         is FragmentState.MainState -> replace(MainFragment())
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    \(addById(appId))
+    \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.content)
 }
 
 class MainActivityScreen @Inject constructor(private val context: Context) {
@@ -83,81 +83,4 @@ class MainActivityScreen @Inject constructor(private val context: Context) {
 }
 """
     }
-    
-    static func addById(_ id: String) -> String {
-        switch id {
-        case AppIDs.MB_RACE, AppIDs.MB_CATCHER, AppIDs.MB_SPACE_FIGHTER:
-            return """
-    private fun initInset() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        val statusBarHeight: Int
-        val navigationBarHeight: Int
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val insets = windowManager.currentWindowMetrics.windowInsets
-            statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-            navigationBarHeight =
-                insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-        } else {
-            val rect = Rect()
-            window.decorView.getWindowVisibleDisplayFrame(rect)
-
-            statusBarHeight = rect.top
-            navigationBarHeight = screenHeight - rect.top - rect.height()
-        }
-
-        insetScreenHeight = screenHeight + statusBarHeight + navigationBarHeight
-    }
-"""
-        default:
-            return ""
-        }
-    }
-    
-    static func importById(_ id: String, _ packageName: String) -> String {
-        switch id {
-        case AppIDs.MB_RACE:
-            return """
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import android.graphics.Rect
-import android.os.Build
-import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.insetScreenHeight
-import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.screenHeight
-"""
-        case AppIDs.MB_CATCHER:
-            return """
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import android.graphics.Rect
-import android.os.Build
-import \(packageName).presentation.fragments.main_fragment.Bitmaps.insetScreenHeight
-import \(packageName).presentation.fragments.main_fragment.Bitmaps.screenHeight
-"""
-        case AppIDs.MB_SPACE_FIGHTER:
-            return """
-import android.graphics.Rect
-import android.os.Build
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.insetScreenHeight
-import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenHeight
-"""
-        default:
-            return ""
-        }
-    }
-    
-    static func extraFunc(_ id: String) -> String {
-        switch id {
-        case AppIDs.MB_RACE, AppIDs.MB_CATCHER, AppIDs.MB_SPACE_FIGHTER:
-            return """
-        initInset()
-"""
-        default:
-            return ""
-        }
-    }
-    
 }

@@ -8,6 +8,48 @@
 import Foundation
 
 struct VSPhoneInfo: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: """
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+""",
+                content: """
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                PhoneInfoNavHost()
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: false,
+                dependencies: """
+            implementation 'io.github.g00fy2.quickie:quickie-bundled:1.6.0'
+            implementation 'androidx.datastore:datastore-preferences:1.0.0'
+            coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+            implementation Dependencies.okhttp
+            implementation Dependencies.okhttp_login_interceptor
+            implementation Dependencies.retrofit
+            implementation Dependencies.converter_gson
+        """
+            )
+        )
+    }
+    
     static var fileName = "VSPhoneInfo.kt"
     static func fileContent(
         packageName: String,

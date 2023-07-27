@@ -8,14 +8,36 @@
 import Foundation
 
 struct MBFacts: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBFacts()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: false,
+                dependencies: """
+            implementation Dependencies.okhttp
+            implementation Dependencies.okhttp_login_interceptor
+            implementation Dependencies.retrofit
+            implementation Dependencies.converter_gson
+        """
+            )
+        )
+    }
+    
     static var fileName = "MBFacts.kt"
     
     static func fileContent(
         packageName: String,
         uiSettings: UISettings
-//        backColorPrimary: String,
-//        backColorSecondary: String,
-//        textColor: String
     ) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
@@ -24,11 +46,8 @@ package \(packageName).presentation.fragments.main_fragment
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -36,8 +55,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -74,35 +91,20 @@ val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
 val textColor = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 
+
 @Composable
 fun PageScreen(page: Int, state: FactState.Success) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(0.95f)
-            .padding(16.dp)
-            .background(backColorPrimary),
-        contentAlignment = Alignment.Center
-    ) {
-        Card(
+    Column(modifier = Modifier.fillMaxSize().padding(24.dp).padding(vertical = 50.dp).background(backColorSecondary, shape = RoundedCornerShape(16.dp))) {
+        Text(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.7f),
-//                .background(backColorPrimary),
-            shape = RoundedCornerShape(16.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-        ) {
-            Text(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp)
-                    .background(backColorSecondary)
-                    .verticalScroll(rememberScrollState()),
-                text = state.response[page].text,
-                fontSize = 36.sp,
-                color = textColor,
-                textAlign = TextAlign.Center
-            )
-        }
+                .fillMaxSize()
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
+            text = state.response[page].text,
+            fontSize = 36.sp,
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
@@ -130,7 +132,6 @@ fun ErrorScreen(state: FactState.Failure, mainViewModel: MainViewModel = viewMod
     ) {
         Text(
             text = state.message,
-            style = MaterialTheme.typography.displayLarge,
             color = MaterialTheme.colorScheme.error
         )
         Button(
@@ -153,9 +154,11 @@ fun FactsPager(state: FactState.Success, mainViewModel: MainViewModel = viewMode
         modifier = Modifier
             .fillMaxSize()
             .background(backColorPrimary),
-        pageSpacing = 8.dp,
+//        pageSpacing = 8.dp,
         pageCount = state.response.size,
-        state = pagerState
+        state = pagerState,
+        verticalAlignment = Alignment.CenterVertically,
+
     ) { page ->
 
         LaunchedEffect(Unit) {

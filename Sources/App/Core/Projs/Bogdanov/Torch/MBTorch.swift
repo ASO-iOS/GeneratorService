@@ -8,6 +8,26 @@
 import Foundation
 
 struct MBTorch: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBTorch()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBTorch.kt"
     
     static func fileContent(
@@ -28,18 +48,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.Typography
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -58,60 +73,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
-val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
-val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
-val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
-val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
-val errorColor = Color(0xFF\(uiSettings.errorColor ?? "FFFFFF"))
-val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
-
-private val LightColorScheme = lightColorScheme(
-    onSurface = onSurfaceColor,
-    primary = primaryColor,
-    onPrimary = onPrimaryColor,
-    surface = surfaceColor,
-    error = errorColor,
-    background = backColorPrimary,
-    onBackground = backColorSecondary
-)
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 @Composable
-fun MyappTheme(
-    content: @Composable () -> Unit
-) {
-    val colorScheme = LightColorScheme
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
-
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp,
-        color = textColorSecondary
-    ),
-    displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 30.sp,
-        lineHeight = 30.sp,
-        letterSpacing = 0.6.sp,
-        textAlign = TextAlign.Center,
-        color = textColorPrimary
-    )
-)
-
-@Composable
-fun MainScreen(appViewModel: AppViewModel = viewModel()) {
+fun MBTorch(appViewModel: AppViewModel = viewModel()) {
     val appCameraState = appViewModel.appCameraState.collectAsState()
     when (appCameraState.value.torchAvailable) {
         true -> TorchAvailableScreen()
@@ -144,9 +111,7 @@ fun TorchAvailableScreen(appViewModel: AppViewModel = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                MaterialTheme.colorScheme.background
-            ),
+            .background(backColorPrimary),
         contentAlignment = Alignment.Center
     ) {
         TorchButton(torchEnabled = torchEnabled)
@@ -171,12 +136,12 @@ fun TorchButton(torchEnabled: Boolean, appViewModel: AppViewModel = viewModel())
         },
         shape = RoundedCornerShape(100),
         colors = ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colorScheme.onSurface,
-            containerColor = MaterialTheme.colorScheme.surface
+            contentColor = buttonTextColorPrimary,
+            containerColor = buttonColorPrimary
         ),
         border = BorderStroke(
             width = 8.dp,
-            color = MaterialTheme.colorScheme.onBackground
+            color = buttonColorSecondary
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(
             defaultElevation = 8.dp,
@@ -188,7 +153,8 @@ fun TorchButton(torchEnabled: Boolean, appViewModel: AppViewModel = viewModel())
                 "Off"
             else
                 "On",
-            style = MaterialTheme.typography.displayLarge
+            fontSize = 34.sp,
+            fontWeight = FontWeight.Black
         )
     }
 }
@@ -198,12 +164,15 @@ fun TorchNotAvailableScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(backColorPrimary),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            style = MaterialTheme.typography.bodyLarge,
-            text = "Torch not available"
+            text = "Torch is not available on your device",
+            color = buttonTextColorPrimary,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Black,
+            textAlign = TextAlign.Center
         )
     }
 }

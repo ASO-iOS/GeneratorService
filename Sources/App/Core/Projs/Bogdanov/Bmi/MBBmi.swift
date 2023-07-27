@@ -8,6 +8,26 @@
 import Foundation
 
 struct MBBmi: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBBmi()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static let fileName = "MBBmi.kt"
     static func fileContent(
         packageName: String,

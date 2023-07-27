@@ -8,6 +8,35 @@
 import Foundation
 
 struct VSTorch: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: """
+import android.os.Build
+import androidx.hilt.navigation.compose.hiltViewModel
+""",
+                content: """
+            val torchViewModel =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) hiltViewModel<TorchViewModel31>() else hiltViewModel<TorchViewModelImpl>()
+            TorchScreen(viewModel = torchViewModel)
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: """
+            implementation Dependencies.room_runtime
+            kapt Dependencies.room_compiler
+            implementation Dependencies.room_ktx
+        """
+            )
+        )
+    }
+    
     static let fileName = "VSTorch.kt"
     static func fileContent(
         packageName: String,

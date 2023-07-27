@@ -8,6 +8,31 @@
 import Foundation
 
 struct MBIpChecker: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBCheckIp()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: false,
+                dependencies: """
+            implementation Dependencies.okhttp
+            implementation Dependencies.okhttp_login_interceptor
+            implementation Dependencies.retrofit
+            implementation Dependencies.converter_gson
+        """
+            )
+        )
+    }
+    
     static var fileName = "MBIpChecker.kt"
     
     static func fileContent(

@@ -8,6 +8,8 @@
 import Foundation
 
 struct AttackerMeta {
+    static var appName = ""
+    
     static let fullDesc1 = "It’s an arcade shooter where the player has to control a spaceship and defend the earth from invading enemies. The player must skillfully control the ship, shoot the invading enemies, and use tactical tricks and cover-ups to survive this ruthless space battle."
     static let fullDesc2 = "This  game with excellent graphics, which allows players to plunge into the exciting space atmosphere and enjoy the exciting action. Attacker offers exciting missions and addictive gameplay that will please fans of arcade shooters."
     static let fullDesc3 = "This game is an excellent choice for fans of rich arcade combat atmosphere and vivid visual effects. The player is also able to control his ship using gestures on the smartphone screen, which adds extra convenience to the gameplay."

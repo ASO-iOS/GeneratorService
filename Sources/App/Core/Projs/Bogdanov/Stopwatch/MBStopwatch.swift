@@ -8,6 +8,28 @@
 import Foundation
 
 struct MBStopwatch: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            StopwatchTheme() {
+                MBStopwatch()
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBStopwatch.kt"
     static func fileContent(
         packageName: String,

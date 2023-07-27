@@ -16,7 +16,7 @@ extension VSController {
         metaLoc: String
     ) {
         fileHandler.writeFile(filePath: path, contentText: VSStopwatch.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VSStopwatch.fileName)
-        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: StopwatchMeta.getShortDesc(), full: StopwatchMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: StopwatchMeta.getShortDesc(appName: appName), full: StopwatchMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createTorch(
@@ -34,7 +34,7 @@ extension VSController {
         fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.off3FileText(), fileName: VSTorchXmlRes.off3FileName)
         fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on1FileText(), fileName: VSTorchXmlRes.on1FileName)
         fileHandler.writeFile(filePath: resPath, contentText: VSTorchXmlRes.on3FileText(), fileName: VSTorchXmlRes.on3FileName)
-        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: TorchMeta.getShortDesc(), full: TorchMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: TorchMeta.getShortDesc(appName: appName), full: TorchMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
     
     func createPhoneInfo(
@@ -48,6 +48,6 @@ extension VSController {
         fileHandler.writeFile(filePath: path, contentText: VSPhoneInfo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VSPhoneInfo.fileName)
         fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.nothingFoundText(), fileName: VSPhoneInfoRes.nothingFoundName)
         fileHandler.writeFile(filePath: resPath, contentText: VSPhoneInfoRes.imgPhoneText(), fileName: VSPhoneInfoRes.imgPhoneName)
-        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(), full: PhoneInfoMeta.getFullDesc(), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(appName: appName), full: PhoneInfoMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
     }
 }

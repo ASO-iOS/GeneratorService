@@ -60,6 +60,7 @@ struct AppIDs {
     static let MB_PASS_GEN =         "mb-0014"
     static let MB_DEVICE_INFO =      "mb-0015"
     static let MB_HASH_GEN =         "mb-0016"
+    static let MB_SERIALS =          "mb-0017"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

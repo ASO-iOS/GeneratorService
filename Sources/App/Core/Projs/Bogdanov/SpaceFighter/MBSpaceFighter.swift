@@ -8,6 +8,57 @@
 import Foundation
 
 struct MBSpaceFighter: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBSpaseFighter()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: """
+import android.graphics.Rect
+import android.os.Build
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.BitmapsHandler.Companion.screenHeight
+""",
+                extraFunc: """
+    initInset()
+""",
+                content: """
+private fun initInset() {
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+
+    val statusBarHeight: Int
+    val navigationBarHeight: Int
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val insets = windowManager.currentWindowMetrics.windowInsets
+        statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+        navigationBarHeight =
+            insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+    } else {
+        val rect = Rect()
+        window.decorView.getWindowVisibleDisplayFrame(rect)
+
+        statusBarHeight = rect.top
+        navigationBarHeight = screenHeight - rect.top - rect.height()
+    }
+
+    insetScreenHeight = screenHeight + statusBarHeight + navigationBarHeight
+}
+"""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBSpaceFighter.kt"
     
     static func fileContent(

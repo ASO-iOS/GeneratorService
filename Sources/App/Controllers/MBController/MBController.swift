@@ -42,6 +42,10 @@ struct MBController {
             createPassGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
         case AppIDs.MB_DEVICE_INFO:
             createDeviceInfo(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+        case AppIDs.MB_HASH_GEN:
+            createHashGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+        case AppIDs.MB_SERIALS:
+            createSerials(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
         default:
             return
         }
@@ -54,28 +58,3 @@ struct MBController {
         }
     }
 }
-
-//protocol ProjectProtocol {
-//    var fileName: String { get set }
-//    var fileContent: String { get set }
-//    var resFiles: [ResFilesProtocol]? { get set }
-//    var mainActivityAdd: MainActivityAddProtocol { get set }
-//    var mainFragmentAdd: MainFragmentAddProtocol { get set }
-//    var gradleDependencies: String { get set }
-//}
-//
-//protocol ResFilesProtocol {
-//    var fileName: String { get set }
-//    var fileContent: String { get set }
-//}
-//
-//protocol MainActivityAddProtocol {
-//    var imports: String { get set }
-//    var fun: String { get set }
-//    var funInit: String { get set }
-//}
-//
-//protocol MainFragmentAddProtocol {
-//    var imports: String { get set }
-//    var content: String { get set }
-//}

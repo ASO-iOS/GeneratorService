@@ -8,6 +8,26 @@
 import Foundation
 
 struct VSStopwatch: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            V1StopwatchScreen()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: false,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "VSStopwatch.kt"
     static func fileContent(
         packageName: String,

@@ -8,6 +8,75 @@
 import Foundation
 
 struct MBCatcher: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: """
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+""",
+                content: """
+            val viewModel: MainViewModel = hiltViewModel()
+            val res = LocalContext.current.resources
+            LaunchedEffect(key1 = Unit) {
+
+                viewModel.initialize(res)
+            }
+
+            val state = viewModel.state.collectAsState()
+
+            when (state.value.screen) {
+                Screen.Finished -> EndGameScreen(viewModel = viewModel, state = state)
+                Screen.Loading -> LoadingScreen()
+                Screen.Running -> GameCanvas(viewModel = viewModel)
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: """
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import android.graphics.Rect
+import android.os.Build
+import \(packageName).presentation.fragments.main_fragment.Bitmaps.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.Bitmaps.screenHeight
+""",
+                extraFunc: """
+    initInset()
+""",
+                content: """
+private fun initInset() {
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+
+    val statusBarHeight: Int
+    val navigationBarHeight: Int
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val insets = windowManager.currentWindowMetrics.windowInsets
+        statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+        navigationBarHeight =
+            insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+    } else {
+        val rect = Rect()
+        window.decorView.getWindowVisibleDisplayFrame(rect)
+
+        statusBarHeight = rect.top
+        navigationBarHeight = screenHeight - rect.top - rect.height()
+    }
+
+    insetScreenHeight = screenHeight + statusBarHeight + navigationBarHeight
+}
+"""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBCatcher.kt"
     
     static func fileContent(
@@ -75,9 +144,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF")
-val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF")
-val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF")
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun LoadingScreen() {
@@ -198,12 +267,6 @@ fun EndGameScreen(viewModel: MainViewModel, state: State<GameState>) {
             colors = ButtonDefaults.buttonColors(containerColor = buttonColorPrimary),
             onClick = { viewModel.restart() }
         ) {
-            Icon(
-                modifier = Modifier.padding(end = 2.dp),
-                imageVector = Icons.Default.Refresh,
-                tint = buttonTextColorPrimary,
-                contentDescription = stringResource(R.string.restart_description)
-            )
             Text(
                 text = stringResource(R.string.restart),
                 color = buttonTextColorPrimary,

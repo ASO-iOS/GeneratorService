@@ -8,6 +8,28 @@
 import Foundation
 
 struct MBPingTest: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            PingTestTheme {
+                MBPing()
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBPingTest.kt"
     static func fileContent(
         packageName: String,

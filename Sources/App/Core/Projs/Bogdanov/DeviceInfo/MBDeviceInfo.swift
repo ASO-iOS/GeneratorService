@@ -8,34 +8,52 @@
 import Foundation
 
 struct MBDeviceInfo: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBDeviceInfo()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName: String = "MBDeviceInfo.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
+
 import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.Typography
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,62 +63,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
-val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
-val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
-val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
-val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
-val errorColor = Color(0xFF\(uiSettings.errorColor ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
-
-private val LightColorScheme = lightColorScheme(
-    onSurface = onSurfaceColor,
-    primary = primaryColor,
-    onPrimary = onPrimaryColor,
-    surface = surfaceColor,
-    error = errorColor,
-    background = backColorPrimary,
-    onBackground = backColorSecondary
-)
-
-@Composable
-fun MyappTheme(
-    content: @Composable () -> Unit
-) {
-    val colorScheme = LightColorScheme
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
-
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp,
-        color = textColorSecondary
-    ),
-    displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 30.sp,
-        lineHeight = 30.sp,
-        letterSpacing = 0.6.sp,
-        textAlign = TextAlign.Center,
-        color = textColorPrimary
-    )
-)
 
 @Composable
 fun MBDeviceInfo(appViewModel: AppViewModel = viewModel()) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backColorPrimary),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -112,53 +84,69 @@ fun MBDeviceInfo(appViewModel: AppViewModel = viewModel()) {
                 .weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(
-                items = mainState.value.deviceInfo.entries.toList(),
-                key = { index ->
-                    index.toString()
+            if (mainState.value.deviceInfo.isEmpty()) {
+                item {
+                    Spacer(modifier = Modifier.padding(50.dp))
+                    Text(
+                        text = "Click on the button to get information about the device",
+                        color = textColorPrimary,
+                        fontSize = 32.sp, textAlign = TextAlign.Center
+                    )
                 }
-            ) { deviceInfoItem ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    deviceInfoItem.value?.let { itemValueText ->
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(1f)
-                                .padding(4.dp),
-                            text = deviceInfoItem.key,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Justify
-                        )
+            } else {
+                items(
+                    items = mainState.value.deviceInfo.entries.toList(),
+                    key = { index ->
+                        index.toString()
+                    }
+                ) { deviceInfoItem ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        deviceInfoItem.value?.let { itemValueText ->
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .padding(4.dp),
+                                text = deviceInfoItem.key,
+                                textAlign = TextAlign.Justify,
+                                color = textColorPrimary,
+                                fontSize = 16.sp
+                            )
 
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(1f)
-                                .padding(4.dp),
-                            text = itemValueText,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Justify
-                        )
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .padding(4.dp),
+                                text = itemValueText,
+                                color = textColorPrimary,
+                                fontSize = 20.sp,
+                                textAlign = TextAlign.Justify
+                            )
+                        }
                     }
                 }
             }
+
         }
         OutlinedButton(
             modifier = Modifier
                 .padding(bottom = 32.dp),
             onClick = {
                 appViewModel.setDeviceInfo(DeviceInfoGetter.getDeviceInfo())
-            }
+            },
+            colors = ButtonDefaults.buttonColors(buttonColorPrimary)
         ) {
             Text(
                 text = "Get Device Info",
-                style = MaterialTheme.typography.displayLarge
+                color = buttonTextColorPrimary,
+                fontSize = 24.sp
             )
         }
     }
@@ -199,7 +187,6 @@ object DeviceInfoGetter {
 data class MainState(
     val deviceInfo: MutableMap<String, String?> = mutableMapOf()
 )
-
 """
     }
     

@@ -8,6 +8,26 @@
 import Foundation
 
 struct MBPassGen: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBPassGen()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName: String = "MBPassGen.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
@@ -69,7 +89,7 @@ fun MBPassGen(appViewModel: AppViewModel = viewModel()) {
         val clipboardManager = LocalClipboardManager.current
 
         val outputText = when(val state = mainState.value.resultState) {
-            ResultState.Failure -> "Error!\nAll fields must not be empty!"
+            ResultState.Failure -> "Error!\\nAll fields must not be empty!"
             ResultState.FirstEnter -> ""
             is ResultState.Success -> state.password
         }

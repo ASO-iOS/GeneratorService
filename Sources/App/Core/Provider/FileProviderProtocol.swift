@@ -11,6 +11,8 @@ protocol FileProviderProtocol {
     static var fileName: String { get }
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String
+    
+    static func dependencies(_ packageName: String) -> ANDData
 }
 
 struct UISettings {

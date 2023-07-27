@@ -8,6 +8,31 @@
 import Foundation
 
 struct MBLuckyNumber: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MyappTheme {
+                MBLuckyNumber()
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: """
+            implementation "com.touchlane:gridpad:1.1.0"
+            implementation "androidx.compose.animation:animation:1.5.0-beta01"
+        """
+            )
+        )
+    }
+    
     static var fileName = "MBLuckyNumber.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {

@@ -8,6 +8,34 @@
 import Foundation
 
 struct MBSpeedTest: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: """
+import androidx.compose.ui.platform.LocalContext
+""",
+                content: """
+            val context = LocalContext.current
+            SpeedTestTheme {
+                MainScreen(
+                    downSpeed = ConnectManager.getDownloadSpeed(context),
+                    upSpeed = ConnectManager.getUploadSpeed(context)
+                )
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBSpeedTest.kt"
     static func fileContent(
         packageName: String,

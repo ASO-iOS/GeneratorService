@@ -8,6 +8,57 @@
 import Foundation
 
 struct MBRace: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            MBRace()
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: """
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import android.graphics.Rect
+import android.os.Build
+import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.insetScreenHeight
+import \(packageName).presentation.fragments.main_fragment.BitmapsInitializer.Companion.screenHeight
+""",
+                extraFunc: """
+    initInset()
+""",
+                content: """
+private fun initInset() {
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+
+    val statusBarHeight: Int
+    val navigationBarHeight: Int
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val insets = windowManager.currentWindowMetrics.windowInsets
+        statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+        navigationBarHeight =
+            insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+    } else {
+        val rect = Rect()
+        window.decorView.getWindowVisibleDisplayFrame(rect)
+
+        statusBarHeight = rect.top
+        navigationBarHeight = screenHeight - rect.top - rect.height()
+    }
+
+    insetScreenHeight = screenHeight + statusBarHeight + navigationBarHeight
+}
+"""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: true,
+                dependencies: ""
+            )
+        )
+    }
+    
     static var fileName = "MBRace.kt"
     
     static func fileContent(
@@ -26,11 +77,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,32 +96,28 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.Typography
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import \(packageName).R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -90,16 +136,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
-import \(packageName).R
 
-val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 val buttonColor = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 val buttonTextColor = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
-val enterText = "\(enterText())"
-
+val enterText = "Start Game"
 
 @Composable
 fun MBRace(appViewModel: AppViewModel = viewModel()) {
@@ -114,17 +156,16 @@ fun MBRace(appViewModel: AppViewModel = viewModel()) {
         ScreenState.Paused -> PauseScreen()
         ScreenState.Finished -> FinishScreen()
         ScreenState.FirstEnter -> FirstEnterScreen()
-        else -> {}
     }
 }
 
 @Composable
 fun FinishScreen(appViewModel: AppViewModel = viewModel()) {
+    ComposeBack(image = R.drawable.background)
     val gameState = appViewModel.gameState.collectAsState()
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -143,18 +184,19 @@ fun FinishScreen(appViewModel: AppViewModel = viewModel()) {
         Spacer(
             modifier = Modifier
                 .padding(vertical = 16.dp)
-                .background(backColorSecondary)
+                .background(buttonColor)
         )
         IconButton(
             onClick = {
                 appViewModel.restartGame()
-            }, modifier = Modifier.size(100.dp)
+            }, modifier = Modifier.size(130.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Refresh,
                 contentDescription = "Restart",
-                modifier = Modifier.size(100.dp)
-                    .background(backColorSecondary),
+                modifier = Modifier
+                    .size(130.dp)
+                    .background(buttonColor),
                 tint = buttonTextColor
             )
         }
@@ -167,13 +209,13 @@ fun GameCanvas(appViewModel: AppViewModel = viewModel()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(backColorSecondary),
+            .background(buttonColor),
         contentAlignment = Alignment.Center
     ) {
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .background(backColorSecondary)
+                .background(buttonColor)
         ) {
 
             gameState.value.background.backgrounds.forEach { background ->
@@ -196,7 +238,6 @@ fun GameCanvas(appViewModel: AppViewModel = viewModel()) {
             modifier = Modifier
                 .scale(2f)
                 .padding(24.dp)
-                .background(buttonColor)
                 .align(Alignment.TopEnd),
             onClick = { appViewModel.pauseGame() }
         ) {
@@ -204,7 +245,7 @@ fun GameCanvas(appViewModel: AppViewModel = viewModel()) {
                 imageVector = Icons.Default.Pause,
                 contentDescription = "Pause game",
                 modifier = Modifier
-                    .background(buttonColor),
+                    .background(Color.Transparent),
                 tint = buttonTextColor
             )
         }
@@ -222,10 +263,10 @@ fun GameCanvas(appViewModel: AppViewModel = viewModel()) {
 
 @Composable
 fun PauseScreen(appViewModel: AppViewModel = viewModel()) {
+    ComposeBack(image = R.drawable.background)
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -238,18 +279,19 @@ fun PauseScreen(appViewModel: AppViewModel = viewModel()) {
         Spacer(
             modifier = Modifier
                 .padding(vertical = 16.dp)
-                .background(backColorSecondary)
+                .background(buttonColor)
         )
         IconButton(
             onClick = {
                 appViewModel.resumeGame()
-            }, modifier = Modifier.size(100.dp)
+            }, modifier = Modifier.size(130.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = "Resume",
-                modifier = Modifier.size(100.dp)
-                    .background(backColorSecondary),
+                modifier = Modifier
+                    .size(130.dp)
+                    .background(buttonColor),
                 tint = buttonTextColor
             )
         }
@@ -258,10 +300,10 @@ fun PauseScreen(appViewModel: AppViewModel = viewModel()) {
 
 @Composable
 fun FirstEnterScreen(appViewModel: AppViewModel = viewModel()) {
+    ComposeBack(image = R.drawable.background)
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -275,18 +317,19 @@ fun FirstEnterScreen(appViewModel: AppViewModel = viewModel()) {
         Spacer(
             modifier = Modifier
                 .padding(vertical = 16.dp)
-                .background(backColorSecondary)
+                .background(buttonColor)
         )
         IconButton(
             onClick = {
                 appViewModel.startGame()
-            }, modifier = Modifier.size(100.dp)
+            }, modifier = Modifier.size(130.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = "Start",
-                modifier = Modifier.size(100.dp)
-                    .background(backColorSecondary),
+                modifier = Modifier
+                    .size(130.dp)
+                    .background(buttonColor),
                 tint = buttonTextColor
             )
         }
@@ -296,14 +339,6 @@ fun FirstEnterScreen(appViewModel: AppViewModel = viewModel()) {
 class AccelerometerHandler @Inject constructor(
     private val gameThread: GameThread
 ) : SensorEventListener {
-
-    /**
-     * @param values[0] - наклон по оси X (вправо или влево когда экран смотрит на пользователя)
-     * // infinity..0..-infinity
-     * @param values[1] - наклон по оси Y (вправо или влево когда экран смотрит на пользователя)
-     * // как в математике
-     * @param values[2] - наклон по оси Z (от себя или на себя когда экран смотрит на пользователя)
-     */
     override fun onSensorChanged(p0: SensorEvent) {
         val currentRotation = p0.values[0]
         gameThread.registerRotation(currentRotation * 4)
@@ -411,10 +446,10 @@ class BitmapsInitializer(private val resources: Resources) {
         val backgroundHeight = insetScreenHeight + 10
 
         val playerWidth = resizeWidth(183)
-        val playerHeight = resizeHeight(400)
+        val playerHeight = resizeHeight(320)
 
         val enemyCarWidth = resizeWidth(201)
-        val enemyCarHeight = resizeHeight(400)
+        val enemyCarHeight = resizeHeight(358)
 
         background = initBitmap(
             R.drawable.background,
@@ -687,6 +722,23 @@ sealed class ScreenState {
     object Finished : ScreenState()
     object FirstEnter : ScreenState()
 }
+
+@Composable
+fun ComposeBack(image: Int) {
+    val res = LocalContext.current.resources
+    val back by remember {
+        mutableStateOf(
+            Bitmap.createScaledBitmap(
+                BitmapFactory.decodeResource(
+                    res,
+                    image
+                ), res.displayMetrics.widthPixels, res.displayMetrics.heightPixels, false
+            ).asImageBitmap()
+        )
+    }
+    Image(bitmap = back, contentDescription = null, contentScale = ContentScale.FillBounds)
+}
+
 
 """
     }

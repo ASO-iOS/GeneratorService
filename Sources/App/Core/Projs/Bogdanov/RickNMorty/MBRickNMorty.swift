@@ -8,6 +8,37 @@
 import Foundation
 
 struct MBRickNMorty: FileProviderProtocol {
+    static func dependencies(_ packageName: String) -> ANDData {
+        return ANDData(
+            mainFragmentData: ANDMainFragment(
+                imports: "",
+                content: """
+            PagingAppComposeTheme {
+                MBRickNMorty()
+            }
+        """
+            ),
+            mainActivityData: ANDMainActivity(
+                imports: "",
+                extraFunc: "",
+                content: ""
+            ),
+            buildGradleData: ANDBuildGradle(
+                obfuscation: false,
+                dependencies: """
+            implementation Dependencies.okhttp
+            implementation Dependencies.okhttp_login_interceptor
+            implementation Dependencies.retrofit
+            implementation Dependencies.converter_gson
+            implementation Dependencies.paging
+            implementation Dependencies.pagingCommon
+            implementation 'androidx.paging:paging-compose:3.2.0-rc01'
+            implementation Dependencies.coil_compose
+        """
+            )
+        )
+    }
+    
     static var fileName = "MBRickNMorty.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
