@@ -146,7 +146,6 @@ struct MainController {
             fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId), fileName: "MainFragment.kt")
             fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
             fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
-            //            fileHandler.writeFile(filePath: mainPath + "constant/", contentText: AndroidAppConstant.whiteAsoConstant(packageName: packageName), fileName: "Constant.kt")
         }
     }
     

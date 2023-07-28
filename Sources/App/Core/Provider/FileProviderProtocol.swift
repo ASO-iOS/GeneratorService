@@ -13,6 +13,8 @@ protocol FileProviderProtocol {
     static func fileContent(packageName: String, uiSettings: UISettings) -> String
     
     static func dependencies(_ packageName: String) -> ANDData
+    
+
 }
 
 struct UISettings {
@@ -33,4 +35,15 @@ struct UISettings {
     let paddingSecondary: Int?
     let textSizePrimary: Int?
     let textSizeSecondary: Int?
+}
+
+struct GradleFilesData {
+    let projectBuildGradle: GradleFileInfoData
+    let moduleBuildGradle: GradleFileInfoData
+    let dependencies: GradleFileInfoData
+}
+
+struct GradleFileInfoData {
+    let content: String
+    let name: String
 }
