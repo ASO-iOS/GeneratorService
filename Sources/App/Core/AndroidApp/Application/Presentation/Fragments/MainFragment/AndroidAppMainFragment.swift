@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppMainFragment {
-    static func fileContent(packageName: String, appId: String) -> String {
+    static func fileContent(packageName: String, appId: String, mainData: MainData) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import \(packageName).repository.state.StateViewModel
 import dagger.hilt.android.AndroidEntryPoint
-\(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainFragmentData.imports)
+\(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.imports)
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
 }
 
 @Composable fun MainScreen(stateViewModel: StateViewModel) {
-    \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainFragmentData.content)
+    \(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.content)
 }
 """
     }

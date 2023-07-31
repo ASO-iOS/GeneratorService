@@ -8,7 +8,7 @@
 import Foundation
 
 struct AndroidAppMainActivity {
-    static func fileContent(packageName: String, appId: String) -> String {
+    static func fileContent(packageName: String, appId: String, mainData: MainData) -> String {
         return """
 package \(packageName).presentation.main_activity
 
@@ -30,7 +30,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-\(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.imports)
+\(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.imports)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.extraFunc)
+        \(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.extraFunc)
         setContentView(binding.container)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: packageName).mainActivityData.content)
+    \(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.content)
 }
 
 class MainActivityScreen @Inject constructor(private val context: Context) {

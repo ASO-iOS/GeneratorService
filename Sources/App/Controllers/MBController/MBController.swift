@@ -10,42 +10,42 @@ import SwiftUI
 struct MBController {
     @ObservedObject var fileHandler: FileHandler
     
-    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, designLocation: MetaDesignLocation?) {
+    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, designLocation: MetaDesignLocation?, gradlePaths: GradlePaths) {
         switch id {
         case AppIDs.MB_STOPWATCH:
-            createStopwatch(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createStopwatch(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_SPEED_TEST:
-            createSpeedTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createSpeedTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_PING_TEST:
-            createPingTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createPingTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_ALARM:
-            createAlarm(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createAlarm(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_FACTS:
-            createFacts(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createFacts(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_TORCH:
-            createTorch(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createTorch(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_LUCKY_NUMBER:
-            createLuckyNumber(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createLuckyNumber(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_RACE:
-            createRace(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createRace(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_CATCHER:
-            createCatcher(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createCatcher(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_BMI_CALC_ID:
-            createBmi(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createBmi(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_SPACE_FIGHTER:
-            createSpaceFighter(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createSpaceFighter(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_CHECK_IP:
-            createIpChecker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createIpChecker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_RICK_AND_MORTY:
-            createRickNMorty(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createRickNMorty(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_PASS_GEN:
-            createPassGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createPassGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_DEVICE_INFO:
-            createDeviceInfo(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createDeviceInfo(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_HASH_GEN:
-            createHashGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createHashGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.MB_SERIALS:
-            createSerials(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc)
+            createSerials(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

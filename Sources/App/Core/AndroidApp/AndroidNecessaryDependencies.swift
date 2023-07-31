@@ -8,48 +8,54 @@
 import Foundation
 
 struct AndroidNecesseryDependencies {
-    static func dependencies(appId: String, packageName: String) -> ANDData {
-        switch appId {
+    static func dependencies(_ mainData: MainData) -> ANDData {
+        switch mainData.appId {
         case AppIDs.VS_STOPWATCH_ID:
-            return VSStopwatch.dependencies(packageName)
+            return VSStopwatch.dependencies(mainData)
         case AppIDs.VS_TORCH_ID:
-            return VSTorch.dependencies(packageName)
+            return VSTorch.dependencies(mainData)
         case AppIDs.VS_PHONE_INFO_ID:
-            return VSPhoneInfo.dependencies(packageName)
+            return VSPhoneInfo.dependencies(mainData)
         case AppIDs.MB_STOPWATCH:
-            return MBStopwatch.dependencies(packageName)
+            return MBStopwatch.dependencies(mainData)
         case AppIDs.MB_SPEED_TEST:
-            return MBSpeedTest.dependencies(packageName)
+            return MBSpeedTest.dependencies(mainData)
         case AppIDs.MB_PING_TEST:
-            return MBPingTest.dependencies(packageName)
+            return MBPingTest.dependencies(mainData)
         case AppIDs.MB_ALARM:
-            return MBAlarm.dependencies(packageName)
+            return MBAlarm.dependencies(mainData)
         case AppIDs.MB_CHECK_IP:
-            return MBIpChecker.dependencies(packageName)
+            return MBIpChecker.dependencies(mainData)
         case AppIDs.MB_LUCKY_NUMBER:
-            return MBLuckyNumber.dependencies(packageName)
+            return MBLuckyNumber.dependencies(mainData)
         case AppIDs.MB_SPACE_FIGHTER:
-            return MBSpaceFighter.dependencies(packageName)
+            return MBSpaceFighter.dependencies(mainData)
         case AppIDs.MB_RICK_AND_MORTY:
-            return MBRickNMorty.dependencies(packageName)
+            return MBRickNMorty.dependencies(mainData)
         case AppIDs.MB_BMI_CALC_ID:
-            return MBBmi.dependencies(packageName)
+            return MBBmi.dependencies(mainData)
         case AppIDs.MB_CATCHER:
-            return MBCatcher.dependencies(packageName)
+            return MBCatcher.dependencies(mainData)
         case AppIDs.MB_FACTS:
-            return MBFacts.dependencies(packageName)
+            return MBFacts.dependencies(mainData)
         case AppIDs.MB_RACE:
-            return MBRace.dependencies(packageName)
+            return MBRace.dependencies(mainData)
         case AppIDs.MB_TORCH:
-            return MBTorch.dependencies(packageName)
+            return MBTorch.dependencies(mainData)
         case AppIDs.MB_PASS_GEN:
-            return MBPassGen.dependencies(packageName)
+            return MBPassGen.dependencies(mainData)
         case AppIDs.MB_DEVICE_INFO:
-            return MBDeviceInfo.dependencies(packageName)
+            return MBDeviceInfo.dependencies(mainData)
         case AppIDs.MB_HASH_GEN:
-            return MBHashGen.dependencies(packageName)
+            return MBHashGen.dependencies(mainData)
         case AppIDs.MB_SERIALS:
-            return MBSerials.dependencies(packageName)
+            return MBSerials.dependencies(mainData)
+        case AppIDs.BC_NAME_GENERATOR:
+            return BCNameGenerator.dependencies(mainData)
+        case AppIDs.IT_QUICK_WRITER:
+            return ITQuickWriter.dependencies(mainData)
+        case AppIDs.VE_TYPES_AIRCRAFT:
+            return VETypesOfAircraft.dependencies(mainData)
         default:
             return ANDData.empty
         }
@@ -59,10 +65,12 @@ struct AndroidNecesseryDependencies {
 struct ANDData {
     let mainFragmentData: ANDMainFragment
     let mainActivityData: ANDMainActivity
-    let buildGradleData: ANDBuildGradle
+    let themesData: ANDThemesData
+    let stringsData: ANDStringsData
+    let colorsData: ANDColorsData
     
     static let empty: ANDData = {
-        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), buildGradleData: ANDBuildGradle(obfuscation: true, dependencies: ""))
+        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: ""), colorsData: ANDColorsData(additional: ""))
     }()
 }
 
@@ -77,7 +85,16 @@ struct ANDMainActivity {
     let content: String
 }
 
-struct ANDBuildGradle {
-    let obfuscation: Bool
-    let dependencies: String
+struct ANDThemesData {
+    let isDefault: Bool
+    let content: String
 }
+
+struct ANDStringsData {
+    let additional: String
+}
+
+struct ANDColorsData {
+    let additional: String
+}
+

@@ -62,6 +62,16 @@ struct AppIDs {
     static let MB_HASH_GEN =         "mb-0016"
     static let MB_SERIALS =          "mb-0017"
     
+    static let BC_PREFIX =           "bc"
+    static let BC_NAME_GENERATOR =   "bc-0018"
+    
+    static let IT_PREFIX =           "it"
+    static let IT_QUICK_WRITER =     "it-0019"
+    
+    static let VE_PREFIX =           "ve"
+    static let VE_TYPES_AIRCRAFT =   "ve-0020"
+    static let VE_ALARM =            "ve-0021"
+    
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
         if unsupportedIds.contains(id) {

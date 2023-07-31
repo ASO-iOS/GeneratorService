@@ -41,11 +41,7 @@ android {
 
     buildTypes {
         release {
-            \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: "").buildGradleData.obfuscation ?
-"""
-            minifyEnabled true
-            shrinkResources true
-""" : "")
+       
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -100,7 +96,6 @@ dependencies {
     implementation Dependencies.compose_permissions
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
     implementation 'androidx.navigation:navigation-fragment:2.6.0'
-    \(AndroidNecesseryDependencies.dependencies(appId: appId, packageName: "").buildGradleData.dependencies)
 }
 """
     }

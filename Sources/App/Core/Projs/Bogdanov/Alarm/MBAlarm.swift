@@ -9,7 +9,7 @@ import Foundation
 
 struct MBAlarm: FileProviderProtocol {
     
-    static func dependencies(_ packageName: String) -> ANDData {
+    static func dependencies(_ mainData: MainData) -> ANDData {
         return ANDData(
             mainFragmentData: ANDMainFragment(
                 imports: "",
@@ -24,15 +24,9 @@ struct MBAlarm: FileProviderProtocol {
                 extraFunc: "",
                 content: ""
             ),
-            buildGradleData: ANDBuildGradle(
-                obfuscation: true,
-                dependencies: """
-                        implementation Dependencies.room_runtime
-                        kapt Dependencies.room_compiler
-                        implementation Dependencies.room_ktx
-
-        """
-            )
+            themesData: ANDThemesData(isDefault: true, content: ""),
+            stringsData: ANDStringsData(additional: ""),
+            colorsData: ANDColorsData(additional: "")
         )
     }
     
@@ -613,7 +607,7 @@ class TimerWorkManager(
 """
     }
     
-    static func gradle(buildSrcPath: String, outerGradlePath: String, packageName: String) -> GradleFilesData {
+    static func gradle(_ packageName: String) -> GradleFilesData {
         let projectGradle = """
 import dependencies.Versions
 import dependencies.Build
@@ -641,7 +635,7 @@ task clean(type: Delete) {
 }
 """
         
-        let projectGradleName = "build.gradle.kts"
+        let projectGradleName = "build.gradle"
         
         let moduleGradle = """
 import dependencies.Versions
@@ -734,13 +728,13 @@ dependencies {
 
 }
 """
-        let moduleGradleName = "build.gradle.kts"
+        let moduleGradleName = "build.gradle"
         
         let dependencies = """
 package dependencies
 
 object Application {
-    const val id = "com.jhxwyqxc.qnbnue"
+    const val id = "\(packageName)"
     const val version_code = 1
     const val version_name = "1.0"
 }
@@ -843,6 +837,20 @@ object Dependencies {
 }
 """
         let dependenciesName = "Dependencies.kt"
+        
+        return GradleFilesData(
+            projectBuildGradle: GradleFileInfoData(
+                content: projectGradle,
+                name: projectGradleName
+            ),
+            moduleBuildGradle: GradleFileInfoData(
+                content: moduleGradle,
+                name: moduleGradleName
+            ),
+            dependencies: GradleFileInfoData(
+                content: dependencies,
+                name: dependenciesName
+            ))
     }
     
 }

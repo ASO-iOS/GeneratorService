@@ -60,6 +60,7 @@ extension CoreController {
         let uiSettings: UISettings
         let designLocation: MetaDesignLocation?
         let appBar: String
+        let mainData = MainData(appId: body.mainData.appId ?? "error", appName: body.mainData.appName, applicationName: body.mainData.applicationName, packageName: body.mainData.packageName)
         if body.mainData.manual {
             uiSettings = UISettings(
                 backColorPrimary: body.ui?.backColorPrimary ?? getColor(),
@@ -90,45 +91,15 @@ extension CoreController {
         }
         
         mainController.createOuterFiles(path: tempLoc, appName: body.mainData.appName)
-        mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: body.versions?.gradleWrapper ?? LibVersions.gradleWrapperVersion)
+        mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: LibVersions.gradleWrapperVersion)
         mainController.createBuildSrc(
-            path: tempLoc + "buildSrc/",
-            packageName: body.mainData.packageName,
-            gradleVersion: body.versions?.gradleVersion ?? LibVersions.gradleVersion,
-            compileSdk: body.versions?.compileSdk ?? LibVersions.compileSdk,
-            minsdk: body.versions?.minSdk ?? LibVersions.minsdk,
-            targetsdk: body.versions?.targetSdk ?? LibVersions.targetsdk,
-            kotlin: body.versions?.kotlin ?? LibVersions.kotlin,
-            kotlin_coroutines: body.versions?.kotlinCoroutines ?? LibVersions.kotlin_coroutines,
-            hilt: body.versions?.hilt ?? LibVersions.hilt,
-            hilt_viewmodel_compiler: body.versions?.hiltViewmodelCompiler ?? LibVersions.hilt_viewmodel_compiler,
-            ktx: body.versions?.ktx ?? LibVersions.ktx,
-            lifecycle: body.versions?.lifecycle ?? LibVersions.lifecycle,
-            fragment_ktx: body.versions?.fragmentKtx ?? LibVersions.fragment_ktx,
-            appcompat: body.versions?.appcompat ?? LibVersions.appcompat,
-            material: body.versions?.material ?? LibVersions.material,
-            compose: body.versions?.compose ?? LibVersions.compose,
-            compose_navigation: body.versions?.composeNavigation ?? LibVersions.compose_navigation,
-            activity_compose: body.versions?.activityCompose ?? LibVersions.activity_compose,
-            compose_hilt_nav: body.versions?.composeHiltNav ?? LibVersions.compose_hilt_nav,
-            oneSignal: body.versions?.oneSignal ?? LibVersions.oneSignal,
-            glide: body.versions?.glide ?? LibVersions.glide,
-            swipe: body.versions?.swipe ?? LibVersions.swipe,
-            glide_skydoves: body.versions?.glideSkydoves ?? LibVersions.glide_skydoves,
-            retrofit: body.versions?.retrofit ?? LibVersions.retrofit,
-            okhttp: body.versions?.okhttp ?? LibVersions.okhttp,
-            room: body.versions?.room ?? LibVersions.room,
-            coil: body.versions?.coil ?? LibVersions.coil,
-            exp: body.versions?.exp ?? LibVersions.exp,
-            calend: body.versions?.calend ?? LibVersions.calend,
-            paging: body.versions?.paging ?? LibVersions.paging,
-            accompanist: body.versions?.accompanist ?? LibVersions.accompanist
+            path: tempLoc + "buildSrc/"
         )
         mainController.createRes(
             path: tempLoc + "app/src/main/",
             appName: body.mainData.appName,
             color: appBar,
-            appId: body.mainData.appId ?? ""
+            appId: body.mainData.appId ?? "", mainData: mainData
         )
         mainController.createManifest(
             path: tempLoc + "app/src/main/",
@@ -146,13 +117,13 @@ extension CoreController {
             path: tempLoc + "app/src/main/",
             packageName: body.mainData.packageName,
             applicationName: body.mainData.applicationName,
-            appId: body.mainData.appId ?? ""
+            appId: body.mainData.appId ?? "", mainData: mainData
         )
         
         let appPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
         let resPath = tempLoc + "app/src/main/res/drawable/"
-
-
+        let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
+        let assetsLocation = tempLoc + "app/src/main/assets/"
         switch body.mainData.prefix {
         case AppIDs.ALPHA_PREFIX:
             _ = (() -> Void).self
@@ -166,7 +137,8 @@ extension CoreController {
                 packageName: body.mainData.packageName,
                 uiSettings: uiSettings,
                 metaLoc: metaLoc,
-                designLocation: designLocation
+                designLocation: designLocation,
+                gradlePaths: gradlePaths
             )
         case AppIDs.JK_PREFIX:
             _ = (() -> Void).self
@@ -182,7 +154,49 @@ extension CoreController {
                 packageName: body.mainData.packageName,
                 uiSettings: uiSettings,
                 metaLoc: metaLoc,
-                designLocation: designLocation
+                designLocation: designLocation,
+                gradlePaths: gradlePaths
+            )
+        case AppIDs.BC_PREFIX:
+            let bcController = BCController(fileHandler: fileHandler)
+            bcController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                designLocation: designLocation,
+                gradlePaths: gradlePaths,
+                applicationName: body.mainData.applicationName
+            )
+        case AppIDs.IT_PREFIX:
+            let itController = ITController(fileHandler: fileHandler)
+            itController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                designLocation: designLocation,
+                gradlePaths: gradlePaths
+            )
+        case AppIDs.VE_PREFIX:
+            let veController = VEController(fileHandler: fileHandler)
+            veController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                designLocation: designLocation,
+                gradlePaths: gradlePaths,
+                assetsLocation: assetsLocation
             )
         default:
             _ = (() -> Void).self

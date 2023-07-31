@@ -19,7 +19,6 @@ struct MainController {
         fileHandler.writeFile(filePath: path, contentText: LocalProperties.fileContent(homeDir: LocalConst.homeDir), fileName: "local.properties")
         fileHandler.writeFile(filePath: path, contentText: GradlewBat.fileContent(), fileName: "gradlew.bat")
         fileHandler.writeFile(filePath: path, contentText: GradleProperties.fileContent(), fileName: "gradle.properties")
-        fileHandler.writeFile(filePath: path, contentText: BuildGradleProject.fileContent(), fileName: "build.gradle")
         fileHandler.copyPaste(from: LocalConst.gradlewDir, to: path + "gradlew")
     }
     
@@ -29,78 +28,13 @@ struct MainController {
     }
     
     func createBuildSrc(
-        path: String,
-        packageName: String,
-        gradleVersion: String,
-        compileSdk: String,
-        minsdk: String,
-        targetsdk: String,
-        kotlin: String,
-        kotlin_coroutines: String,
-        hilt: String,
-        hilt_viewmodel_compiler: String,
-        ktx: String,
-        lifecycle: String,
-        fragment_ktx: String,
-        appcompat: String,
-        material: String,
-        compose: String,
-        compose_navigation: String,
-        activity_compose: String,
-        compose_hilt_nav: String,
-        oneSignal: String,
-        glide: String,
-        swipe: String,
-        glide_skydoves: String,
-        retrofit: String,
-        okhttp: String,
-        room: String,
-        coil: String,
-        exp: String,
-        calend: String,
-        paging: String,
-        accompanist: String
+        path: String
     ) {
-        let src = "src/main/java/dependencies/"
         
         fileHandler.writeFile(filePath: path, contentText: BuildSrc.bSrcKts(), fileName: "build.gradle.kts")
-        fileHandler.writeFile(filePath: path + src, contentText: BuildSrc.bSrcApplication(packageName: packageName), fileName: "Application.kt")
-        fileHandler.writeFile(filePath: path + src, contentText: BuildSrc.bSrcBuild(), fileName: "Build.kt")
-        fileHandler.writeFile(filePath: path + src, contentText: BuildSrc.bSrcDependencies(), fileName: "Dependencies.kt")
-        fileHandler.writeFile(filePath: path + src, contentText: BuildSrc.bSrcVersions(
-            gradleVersion: gradleVersion,
-            compileSdk: compileSdk,
-            minsdk: minsdk,
-            targetsdk: targetsdk,
-            kotlin: kotlin,
-            kotlin_coroutines: kotlin_coroutines,
-            hilt: hilt,
-            hilt_viewmodel_compiler: hilt_viewmodel_compiler,
-            ktx: ktx,
-            lifecycle: lifecycle,
-            fragment_ktx: fragment_ktx,
-            appcompat: appcompat,
-            material: material,
-            compose: compose,
-            compose_navigation: compose_navigation,
-            activity_compose: activity_compose,
-            compose_hilt_nav: compose_hilt_nav,
-            oneSignal: oneSignal,
-            glide: glide,
-            swipe: swipe,
-            glide_skydoves: glide_skydoves,
-            retrofit: retrofit,
-            okhttp: okhttp,
-            room: room,
-            coil: coil,
-            exp: exp,
-            calend: calend,
-            paging: paging,
-            accompanist: accompanist
-        ), fileName: "Versions.kt")
     }
     
-    func createRes(path: String, appName: String, color: String, appId: String) {
+    func createRes(path: String, appName: String, color: String, appId: String, mainData: MainData) {
         do {
             if !FileManager.default.fileExists(atPath: path) {
                 try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true)
@@ -111,9 +45,9 @@ struct MainController {
         } catch {
             print(error)
         }
-        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.colorsText(), fileName: "colors.xml")
-        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.stringsText(name: appName, appId: appId), fileName: "strings.xml")
-        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.themesText(name: appName, color: color), fileName: "themes.xml")
+        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.colorsText(mainData: mainData), fileName: "colors.xml")
+        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.stringsText(name: appName, mainData: mainData), fileName: "strings.xml")
+        fileHandler.writeFile(filePath: path + "res/values/", contentText: ResDefault.themesText(name: appName, color: color, mainData: mainData), fileName: "themes.xml")
     }
     
     func createManifest(
@@ -131,19 +65,16 @@ struct MainController {
         path: String,
         appId: String
     ) {
-        fileHandler.writeFile(filePath: path, contentText: BuildGradleApp.fileContent(appId: appId), fileName: "build.gradle")
         fileHandler.writeFile(filePath: path, contentText: ProguardRules.fileContent(), fileName: "proguard-rules.pro")
     }
     
-    
-    
-    func createApp(path: String, packageName: String, applicationName: String, appId: String, commonPresentation: Bool = true) {
+    func createApp(path: String, packageName: String, applicationName: String, appId: String, commonPresentation: Bool = true, mainData: MainData) {
         let mainPath = path + "java/\(packageName.replacing(".", with: "/"))/"
-        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName), fileName: applicationName + ".kt")
+        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName, useContext: appId == AppIDs.BC_NAME_GENERATOR), fileName: applicationName + ".kt")
         
         if commonPresentation {
-            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId), fileName: "MainActivity.kt")
-            fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId), fileName: "MainFragment.kt")
+            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
+            fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainFragment.kt")
             fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
             fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
         }
@@ -157,4 +88,10 @@ struct MainController {
 """
         fileHandler.writeFile(filePath: path, contentText: content, fileName: "Log.txt")
     }
+}
+
+struct GradlePaths {
+    let projectGradlePath: String
+    let moduleGradlePath: String
+    let dependenciesPath: String
 }
