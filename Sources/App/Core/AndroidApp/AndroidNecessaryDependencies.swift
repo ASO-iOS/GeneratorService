@@ -56,6 +56,10 @@ struct AndroidNecesseryDependencies {
             return ITQuickWriter.dependencies(mainData)
         case AppIDs.VE_TYPES_AIRCRAFT:
             return VETypesOfAircraft.dependencies(mainData)
+        case AppIDs.VE_QUIZ_BOOKS:
+            return VEQuizBooks.dependencies(mainData)
+        case AppIDs.VE_FACTS:
+            return VEFacts.dependencies(mainData)
         default:
             return ANDData.empty
         }

@@ -33,6 +33,25 @@ extension VEController {
         fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEAlarm.gradle(packageName).projectBuildGradle.content, fileName: VEAlarm.gradle(packageName).projectBuildGradle.name)
         fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEAlarm.gradle(packageName).moduleBuildGradle.content, fileName: VEAlarm.gradle(packageName).moduleBuildGradle.name)
         fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEAlarm.gradle(packageName).dependencies.content, fileName: VEAlarm.gradle(packageName).dependencies.name)
+    }
+    
+    func createQuizBooks(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEQuizBooks.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEQuizBooks.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: QuizMeta.getShortDesc(appName: appName), full: QuizMeta.getFullDesc(appName: appName), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VEQuizBooksRes.content, fileName: VEQuizBooksRes.bookName)
         
+        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEQuizBooks.gradle(packageName).projectBuildGradle.content, fileName: VEQuizBooks.gradle(packageName).projectBuildGradle.name)
+        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEQuizBooks.gradle(packageName).moduleBuildGradle.content, fileName: VEQuizBooks.gradle(packageName).moduleBuildGradle.name)
+        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEQuizBooks.gradle(packageName).dependencies.content, fileName: VEQuizBooks.gradle(packageName).dependencies.name)
+    }
+    
+    func createFacts(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEFacts.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEFacts.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: FactsMeta.getShortDesc(appName: appName), full: FactsMeta.getFullDesc(appName: appName), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VEFactsRes.alarmContent, fileName: VEFactsRes.alarmName)
+        
+        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEFacts.gradle(packageName).projectBuildGradle.content, fileName: VEFacts.gradle(packageName).projectBuildGradle.name)
+        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEFacts.gradle(packageName).moduleBuildGradle.content, fileName: VEFacts.gradle(packageName).moduleBuildGradle.name)
+        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEFacts.gradle(packageName).dependencies.content, fileName: VEFacts.gradle(packageName).dependencies.name)
     }
 }

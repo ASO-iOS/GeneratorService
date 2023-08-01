@@ -71,6 +71,8 @@ struct AppIDs {
     static let VE_PREFIX =           "ve"
     static let VE_TYPES_AIRCRAFT =   "ve-0020"
     static let VE_ALARM =            "ve-0021"
+    static let VE_QUIZ_BOOKS =       "ve-0022"
+    static let VE_FACTS =            "ve-0023"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
