@@ -68,16 +68,19 @@ struct MainController {
         fileHandler.writeFile(filePath: path, contentText: ProguardRules.fileContent(), fileName: "proguard-rules.pro")
     }
     
-    func createApp(path: String, packageName: String, applicationName: String, appId: String, commonPresentation: Bool = true, mainData: MainData) {
+    func createApp(path: String, packageName: String, applicationName: String, appId: String,  mainData: MainData, customMainFragment: Bool = false) {
         let mainPath = path + "java/\(packageName.replacing(".", with: "/"))/"
         fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName, useContext: appId == AppIDs.BC_NAME_GENERATOR), fileName: applicationName + ".kt")
-        
-        if commonPresentation {
-            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
+        if !cmfList().contains(appId) {
             fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainFragment.kt")
-            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
-            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
         }
+        
+        //        if commonPresentation {
+        fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
+        
+        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
+        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
+        //        }
     }
     
     func createLogFile(path: String, token: String) {
@@ -87,6 +90,10 @@ struct MainController {
 \(getIfConfigOutput())
 """
         fileHandler.writeFile(filePath: path, contentText: content, fileName: "Log.txt")
+    }
+    
+    func cmfList() -> [String] {
+        return [AppIDs.IT_STOPWATCH]
     }
 }
 

@@ -33,6 +33,8 @@ class Manifest {
         android:largeHeap="true"
         android:theme="@style/Theme.\(name.replace(" ", with: ""))"
         android:usesCleartextTraffic="true">
+            
+            \(appendService(appId))
         <activity
             android:name=".presentation.main_activity.MainActivity"
             android:exported="true"
@@ -59,6 +61,25 @@ class Manifest {
         case AppIDs.MB_ALARM:
             return """
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+"""
+        case AppIDs.IT_STOPWATCH:
+            return """
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+"""
+        default:
+            return ""
+        }
+    }
+    
+    static func appendService(_ id: String) -> String {
+        switch id {
+        case AppIDs.IT_STOPWATCH:
+            return """
+        <service
+            android:name=".presentation.fragments.main_fragment.StopWatchService"
+            android:enabled="true"
+            android:exported="false"/>
 """
         default:
             return ""

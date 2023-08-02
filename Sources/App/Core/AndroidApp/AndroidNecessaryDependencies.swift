@@ -60,11 +60,29 @@ struct AndroidNecesseryDependencies {
             return VEQuizBooks.dependencies(mainData)
         case AppIDs.VE_FACTS:
             return VEFacts.dependencies(mainData)
+        case AppIDs.VE_FIND_UNIVERSITY:
+            return VEFindUniversity.dependencies(mainData)
+        case AppIDs.VE_PASS_GEN:
+            return VEPassGen.dependencies(mainData)
+        case AppIDs.IT_STOPWATCH:
+            return ITStopwatch.dependencies(mainData)
         default:
             return ANDData.empty
         }
     }
 }
+
+//struct ANDDataCMF {
+//    let mainFragment: ANDMainFragmentCMF
+//    let mainActivityData: ANDMainActivity
+//    let themesData: ANDThemesData
+//    let stringsData: ANDStringsData
+//    let colorsData: ANDColorsData
+//
+//    static let empty: ANDData = {
+//        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: ""), colorsData: ANDColorsData(additional: ""))
+//    }()
+//}
 
 struct ANDData {
     let mainFragmentData: ANDMainFragment
@@ -76,6 +94,11 @@ struct ANDData {
     static let empty: ANDData = {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: ""), colorsData: ANDColorsData(additional: ""))
     }()
+}
+
+struct ANDMainFragmentCMF {
+    let content: String
+    let fileName: String
 }
 
 struct ANDMainFragment {

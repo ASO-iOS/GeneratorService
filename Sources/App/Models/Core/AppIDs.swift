@@ -63,16 +63,23 @@ struct AppIDs {
     static let MB_SERIALS =          "mb-0017"
     
     static let BC_PREFIX =           "bc"
-    static let BC_NAME_GENERATOR =   "bc-0018"
+    static let BC_NAME_GENERATOR =   "bc-0001"
     
     static let IT_PREFIX =           "it"
-    static let IT_QUICK_WRITER =     "it-0019"
+    static let IT_QUICK_WRITER =     "it-0001"
+    static let IT_STOPWATCH =        "it-0002"
     
     static let VE_PREFIX =           "ve"
-    static let VE_TYPES_AIRCRAFT =   "ve-0020"
-    static let VE_ALARM =            "ve-0021"
-    static let VE_QUIZ_BOOKS =       "ve-0022"
-    static let VE_FACTS =            "ve-0023"
+    static let VE_TYPES_AIRCRAFT =   "ve-0001"
+    static let VE_ALARM =            "ve-0002"
+    static let VE_QUIZ_BOOKS =       "ve-0003"
+    static let VE_FACTS =            "ve-0004"
+    static let VE_FIND_UNIVERSITY =  "ve-0005"
+    static let VE_PASS_GEN =         "ve-0006"
+    
+    static let AK_PREFIX =           "ak"
+    static let KL_PREFIX =           "kl"
+    static let EG_PREFIX =           "eg"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

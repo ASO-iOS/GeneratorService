@@ -50,8 +50,22 @@ extension VEController {
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: FactsMeta.getShortDesc(appName: appName), full: FactsMeta.getFullDesc(appName: appName), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
         fileHandler.writeFile(filePath: resPath, contentText: VEFactsRes.alarmContent, fileName: VEFactsRes.alarmName)
         
-        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEFacts.gradle(packageName).projectBuildGradle.content, fileName: VEFacts.gradle(packageName).projectBuildGradle.name)
-        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEFacts.gradle(packageName).moduleBuildGradle.content, fileName: VEFacts.gradle(packageName).moduleBuildGradle.name)
-        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEFacts.gradle(packageName).dependencies.content, fileName: VEFacts.gradle(packageName).dependencies.name)
+        fileHandler.createGradle(VEFacts.self, packageName: packageName, gradlePaths: gradlePaths)
+//        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEFacts.gradle(packageName).projectBuildGradle.content, fileName: VEFacts.gradle(packageName).projectBuildGradle.name)
+//        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEFacts.gradle(packageName).moduleBuildGradle.content, fileName: VEFacts.gradle(packageName).moduleBuildGradle.name)
+//        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEFacts.gradle(packageName).dependencies.content, fileName: VEFacts.gradle(packageName).dependencies.name)
+    }
+    
+    func createFindUniversity(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEFindUniversity.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEFindUniversity.fileName)
+        
+        fileHandler.createGradle(VEFindUniversity.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createPassGen(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEPassGen.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEPassGen.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PassGeneratorMeta.getShortDesc(appName: appName), full: PassGeneratorMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.createGradle(VEPassGen.self, packageName: packageName, gradlePaths: gradlePaths)
+        
     }
 }
