@@ -60,7 +60,6 @@ extension CoreController {
         let uiSettings: UISettings
         let designLocation: MetaDesignLocation?
         let appBar: String
-        let mainData = MainData(appId: body.mainData.appId ?? "error", appName: body.mainData.appName, applicationName: body.mainData.applicationName, packageName: body.mainData.packageName)
         if body.mainData.manual {
             uiSettings = UISettings(
                 backColorPrimary: body.ui?.backColorPrimary ?? getColor(),
@@ -90,6 +89,7 @@ extension CoreController {
             appBar = designData.uiSettings.backColorPrimary ?? "ffffff"
         }
         
+        let mainData = MainData(appId: body.mainData.appId ?? "error", appName: body.mainData.appName, applicationName: body.mainData.applicationName, packageName: body.mainData.packageName, uiSettings: uiSettings)
         mainController.createOuterFiles(path: tempLoc, appName: body.mainData.appName)
         mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: LibVersions.gradleWrapperVersion)
         mainController.createBuildSrc(
@@ -122,11 +122,13 @@ extension CoreController {
         
         let appPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
         let resPath = tempLoc + "app/src/main/res/drawable/"
+
+        
+        let layoutPath = tempLoc + "app/src/main/res/layout/"
+        let valuesPath = tempLoc + "app/src/main/res/values/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
         switch body.mainData.prefix {
-        case AppIDs.ALPHA_PREFIX:
-            _ = (() -> Void).self
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
             vsController.boot(
@@ -140,10 +142,6 @@ extension CoreController {
                 designLocation: designLocation,
                 gradlePaths: gradlePaths
             )
-        case AppIDs.JK_PREFIX:
-            _ = (() -> Void).self
-        case AppIDs.SK_PREFIX:
-            _ = (() -> Void).self
         case AppIDs.MB_PREFIX:
             let mbController = MBController(fileHandler: fileHandler)
             mbController.boot(
@@ -198,8 +196,23 @@ extension CoreController {
                 gradlePaths: gradlePaths,
                 assetsLocation: assetsLocation
             )
+        case AppIDs.EG_PREFIX:
+            let egController = EGController(fileHandler: fileHandler)
+            egController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                layoutPath: layoutPath,
+                valuesPath: valuesPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                designLocation: designLocation,
+                gradlePaths: gradlePaths
+            )
         default:
-            _ = (() -> Void).self
+            return
         }
         mainController.createLogFile(path: LocalConst.tempDir + stamp + "/", token: token)
         if FileManager.default.fileExists(atPath: tempLoc) {

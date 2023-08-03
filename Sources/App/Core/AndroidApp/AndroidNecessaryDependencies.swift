@@ -66,6 +66,10 @@ struct AndroidNecesseryDependencies {
             return VEPassGen.dependencies(mainData)
         case AppIDs.IT_STOPWATCH:
             return ITStopwatch.dependencies(mainData)
+        case AppIDs.IT_DEVICE_INFO:
+            return ITDeviceInfo.dependencies(mainData)
+        case AppIDs.EG_STOPWATCH:
+            return EGStopwatch.dependencies(mainData)
         default:
             return ANDData.empty
         }

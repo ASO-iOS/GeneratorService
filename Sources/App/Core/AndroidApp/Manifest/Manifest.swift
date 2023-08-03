@@ -81,6 +81,13 @@ class Manifest {
             android:enabled="true"
             android:exported="false"/>
 """
+        case AppIDs.EG_STOPWATCH:
+            return """
+        <service
+            android:name=".presentation.fragments.main_fragment.TimerService"
+            android:enabled="true"
+            android:exported="false"/>
+"""
         default:
             return ""
         }

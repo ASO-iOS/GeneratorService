@@ -26,6 +26,15 @@ extension ITController {
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: StopwatchMeta.getShortDesc(appName: appName), full: StopwatchMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
         
         fileHandler.createGradle(ITStopwatch.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createDeviceInfo(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: ITDeviceInfo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITDeviceInfo.fileName)
         
+        fileHandler.writeFile(filePath: path, contentText: ITDeviceInfo.cmfHandler(packageName).content, fileName: ITDeviceInfo.cmfHandler(packageName).fileName)
+        
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: DeviceInfoMeta.getShortDesc(appName: appName), full: DeviceInfoMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        
+        fileHandler.createGradle(ITDeviceInfo.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
