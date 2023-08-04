@@ -78,8 +78,8 @@ struct MainController {
         //        if commonPresentation {
         fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
         
-        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(packageName: packageName), fileName: "FragmentState.kt")
-        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(packageName: packageName), fileName: "StateViewModel.kt")
+        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(mainData: mainData), fileName: "FragmentState.kt")
+        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(mainData: mainData), fileName: "StateViewModel.kt")
         //        }
     }
     
@@ -93,7 +93,7 @@ struct MainController {
     }
     
     func cmfList() -> [String] {
-        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH]
+        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER]
     }
 }
 

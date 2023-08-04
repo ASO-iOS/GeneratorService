@@ -46,6 +46,7 @@ struct ResDefault {
             <item name="windowActionBar">false</item>
             <item name="windowNoTitle">true</item>
         </style>
+        \(AndroidNecesseryDependencies.dependencies(mainData).themesData.content)
     </resources>
     """
         } else {

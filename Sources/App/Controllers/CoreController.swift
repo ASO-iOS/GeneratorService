@@ -126,8 +126,10 @@ extension CoreController {
         
         let layoutPath = tempLoc + "app/src/main/res/layout/"
         let valuesPath = tempLoc + "app/src/main/res/values/"
+        let animPath = tempLoc + "app/src/main/res/anim/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
+        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath)
         switch body.mainData.prefix {
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
@@ -209,7 +211,8 @@ extension CoreController {
                 uiSettings: uiSettings,
                 metaLoc: metaLoc,
                 designLocation: designLocation,
-                gradlePaths: gradlePaths
+                gradlePaths: gradlePaths,
+                xmlPaths: xmlPaths
             )
         default:
             return

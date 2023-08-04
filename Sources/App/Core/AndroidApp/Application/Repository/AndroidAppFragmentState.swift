@@ -8,12 +8,13 @@
 import Foundation
 
 struct AndroidAppFragmentState {
-    static func fileContent(packageName: String) -> String {
+    static func fileContent(mainData: MainData) -> String {
         return """
-package \(packageName).repository.state
+package \(mainData.packageName).repository.state
 
 sealed class FragmentState {
     object MainState : FragmentState()
+    \(AndroidNecesseryDependencies.dependencies(mainData).fragmentStateData ?? "")
 }
 """
     }

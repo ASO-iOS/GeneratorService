@@ -70,6 +70,10 @@ struct AndroidNecesseryDependencies {
             return ITDeviceInfo.dependencies(mainData)
         case AppIDs.EG_STOPWATCH:
             return EGStopwatch.dependencies(mainData)
+        case AppIDs.EG_RACE:
+            return EGRace.dependencies(mainData)
+        case AppIDs.EG_LUCKY_NUMBER:
+            return EGLuckyNumber.dependencies(mainData)
         default:
             return ANDData.empty
         }
@@ -94,6 +98,8 @@ struct ANDData {
     let themesData: ANDThemesData
     let stringsData: ANDStringsData
     let colorsData: ANDColorsData
+    var stateViewModelData: String? = ""
+    var fragmentStateData: String? = ""
     
     static let empty: ANDData = {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: ""), colorsData: ANDColorsData(additional: ""))
@@ -114,6 +120,7 @@ struct ANDMainActivity {
     let imports: String
     let extraFunc: String
     let content: String
+    var extraStates: String = ""
 }
 
 struct ANDThemesData {

@@ -761,7 +761,7 @@ class MainFragment : Fragment() {
         return [XMLLayoutData(content: fragmentMainContent, name: fragmentMainName), XMLLayoutData(content: itemContent, name: itemName)]
     }
     
-    static func dimens() -> XMLLayoutData {
+    static func dimens(_ uiSettings: UISettings) -> XMLLayoutData {
         let content = """
 <?xml version="1.0" encoding="utf-8"?>
 <resources>

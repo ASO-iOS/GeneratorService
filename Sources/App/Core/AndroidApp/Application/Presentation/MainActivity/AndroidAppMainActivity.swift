@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.state.collect {
                     when(it) {
                         is FragmentState.MainState -> replace(MainFragment())
+                        \(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.extraStates)
                     }
                 }
             }

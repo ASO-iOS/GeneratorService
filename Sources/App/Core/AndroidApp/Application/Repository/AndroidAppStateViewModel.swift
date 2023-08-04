@@ -8,9 +8,9 @@
 import Foundation
 
 struct AndroidAppStateViewModel {
-    static func fileContent(packageName: String) -> String {
+    static func fileContent(mainData: MainData) -> String {
         return """
-package \(packageName).repository.state
+package \(mainData.packageName).repository.state
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +28,7 @@ class StateViewModel @Inject constructor() :
     fun setMainState() {
         _state.value = FragmentState.MainState
     }
+    \(AndroidNecesseryDependencies.dependencies(mainData).stateViewModelData ?? "")
 }
 """
     }
