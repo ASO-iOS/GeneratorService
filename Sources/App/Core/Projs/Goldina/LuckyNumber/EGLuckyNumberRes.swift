@@ -19,4 +19,27 @@ struct EGLuckyNumberRes {
 
 """
     }
+    static let borderName = "border_icon.xml"
+    static let borderContent = """
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+            <solid android:color="@color/backColorSecondary" />
+            <padding android:left="10dp" android:top="10dp" android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+            <solid android:color="@color/backColorSecondary" />
+            <stroke android:width="5dp" android:color="@color/backColorPrimary" />
+            <padding android:left="10dp" android:top="10dp" android:right="10dp"
+                android:bottom="10dp" />
+        </shape>
+    </item>
+</layer-list>
+"""
 }

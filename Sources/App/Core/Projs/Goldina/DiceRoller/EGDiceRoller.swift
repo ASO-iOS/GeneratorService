@@ -2,66 +2,195 @@
 //  File.swift
 //  
 //
-//  Created by admin on 04.08.2023.
+//  Created by admin on 07.08.2023.
 //
 
 import Foundation
 
-struct EGLuckyNumber: XMLFileProviderProtocol {
-    static var fileName: String = "EGLuckyNumber.kt"
-    
-    
-    
+struct EGDiceRoller: CMFFileProviderProtocol {
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
+import \(packageName).R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
+
+
+val Typography = Typography(
+    displayLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W500,
+        fontSize = 30.sp,
+        lineHeight = 35.sp,
+        letterSpacing = 0.4.sp,
+        textAlign = TextAlign.Center
+    )
+)
+
+@Composable
+fun DiceRollerTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        typography = Typography,
+        content = content
+    )
+}
+
 @HiltViewModel
-class NumberViewModel @Inject constructor(): ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
+    var statusSensor by mutableStateOf(false)
+        private set
 
-    fun getResult(inputNumber: String, hiddenNumber: Int, resultCallback: (result: Boolean) -> Unit){
-        val number = parseNumber(inputNumber)
-        if(number>=0){
-            if(number == hiddenNumber){
-                resultCallback.invoke(true)
-            }else{
-                resultCallback.invoke(false)
-            }
-
-        }
-    }
-
-    private fun parseNumber(number: String?): Int {
-        return number?.trim()?.toInt() ?: -1
+    fun updateStatus() {
+        statusSensor = !statusSensor
     }
 
 }
+
+@Composable
+fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
+    var result: Int by remember { mutableStateOf(1) }
+    var count: Int by remember { mutableStateOf(0) }
+    var total: Int by remember { mutableStateOf(0) }
+
+    if (viewModel.statusSensor) {
+        result = (1..6).random()
+        count++
+        total += result
+        viewModel.updateStatus()
+    }
+
+    val imageResource = when (result) {
+        1 -> R.drawable.dice1
+        2 -> R.drawable.dice2
+        3 -> R.drawable.dice3
+        4 -> R.drawable.dice4
+        5 -> R.drawable.dice6
+        else -> R.drawable.dice5
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = backColorPrimary)
+    ) {
+        Column(
+            modifier = Modifier.align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Text(
+                    text = stringResource(id = R.string.counter, count),
+                    fontSize = 20.sp,
+                    color = textColorSecondary
+                )
+                Text(
+                    text = stringResource(id = R.string.total, total),
+                    fontSize = 20.sp,
+                    color = textColorSecondary
+                )
+            }
+
+            Text(
+                modifier = Modifier.padding(20.dp),
+                text = stringResource(R.string.start),
+                style = MaterialTheme.typography.displayLarge,
+                color = buttonColorPrimary
+            )
+
+            Text(
+                modifier = Modifier.padding(top = 40.dp, bottom = 20.dp),
+                text = stringResource(id = R.string.result, result),
+                fontSize = 24.sp,
+                color = textColorSecondary
+            )
+
+            Image(
+                modifier = Modifier
+                    .width(150.dp)
+                    .height(150.dp),
+                painter = painterResource(imageResource),
+                contentDescription = "1",
+            )
+        }
+
+        Button(
+            onClick = {
+                count = 0
+                total = 0
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(30.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = buttonColorPrimary)
+        ) {
+            Text(
+                text = stringResource(id = R.string.btn_reset),
+                style = MaterialTheme.typography.displayLarge,
+                color = buttonTextColorPrimary
+            )
+        }
+    }
+}
+
 """
     }
     
     static func dependencies(_ mainData: MainData) -> ANDData {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
-    <string name="main_info">Try to guess the lucky number from 0 to 10…</string>
-    <string name="congratulation">Right!\\nCongratulate, you\\'re really lucky</string>
-    <string name="wrong_message">Didn\\'t guess, try again!</string>
-    <string name="think_up">think up</string>
-    <string name="give_up">Give Up</string>
-    <string name="_try">Try</string>
-    <string name="icon_result">icon result</string>
-    <string name="hint"> </string>
-"""), colorsData: ANDColorsData(additional: """
-    <color name="backColorPrimary">#\(mainData.uiSettings.backColorPrimary ?? "FFFFFF")</color>
-    <color name="backColorSecondary">#\(mainData.uiSettings.backColorSecondary ?? "FFFFFF")</color>
-    <color name="buttonTextColorPrimary">#\(mainData.uiSettings.buttonTextColorPrimary ?? "FFFFFF")</color>
-    <color name="surfaceColor">#4D\(mainData.uiSettings.surfaceColor ?? "FFFFFF")</color>
-    <color name="textColorPrimary">#\(mainData.uiSettings.textColorPrimary ?? "FFFFFF")</color>
-    <color name="buttonColorPrimary">#\(mainData.uiSettings.buttonColorPrimary ?? "FFFFFF")</color>
-    <color name="errorColor">#\(mainData.uiSettings.errorColor ?? "FFFFFF")</color>
-"""))
+    <string name="start">Shake your phone to roll dice</string>
+    <string name="btn_roll">Roll</string>
+    <string name="btn_reset">Reset</string>
+    <string name="counter">Counter: %1$d</string>
+    <string name="total">Total: %1$d</string>
+    <string name="average">Average: %1$f</string>
+    <string name="result">You rolled a %1$d!</string>
+"""), colorsData: ANDColorsData(additional: ""))
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {
@@ -136,7 +265,6 @@ android {
     }
     buildFeatures {
         compose true
-        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
@@ -227,7 +355,6 @@ object Versions {
     const val calend = "0.5.1"
     const val paging_version = "3.1.1"
 }
-
 object Dependencies {
     const val core_ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -307,254 +434,80 @@ object Dependencies {
         return ANDMainFragmentCMF(content: """
 package \(packageName).presentation.fragments.main_fragment
 
+import android.content.Context.SENSOR_SERVICE
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import \(packageName).R
-import \(packageName).databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Random
+import kotlin.math.sqrt
 
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-
-    private lateinit var binding:FragmentMainBinding
-    private var maxRange = 10
-    private var hiddenNumber:Int = 0
-    private val viewModel: NumberViewModel by viewModels()
+    private lateinit var sensorManager:SensorManager
+    private lateinit var sensorListener: SensorEventListener
+    private var acceleration = 0f
+    private var currentAcceleration = 0f
+    private var lastAcceleration = 0f
+    private val viewModel: MainViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(layoutInflater)
 
-        return binding.root
-    }
+        sensorManager = requireActivity().getSystemService(SENSOR_SERVICE) as SensorManager
+        val shakeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                val x = event.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+                lastAcceleration = currentAcceleration
+                currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+                val delta: Float = currentAcceleration - lastAcceleration
+                acceleration = acceleration * 0.9f + delta
+                if (acceleration > 12) {
+                    viewModel.updateStatus()
+                }
+            }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        with(binding) {
-            btnStart.setOnClickListener {
-                tvSuccess.visibility = View.GONE
-                tvInfo.visibility = View.VISIBLE
-                etNumber.visibility = View.VISIBLE
-                btnStart.visibility = View.GONE
-                layoutBtnGame.visibility = View.VISIBLE
-                ivResult.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_question
-                    )
-                )
-                hiddenNumber = makeNumber(maxRange)
-
-            }
-            btnTry.setOnClickListener {
-                if (etNumber.text.isNotEmpty())
-                    checkNumber()
-            }
-            btnGiveUp.setOnClickListener {
-                setDefault()
-            }
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
         }
-    }
+        sensorManager.registerListener(
+            sensorListener,
+            shakeSensor,
+            SensorManager.SENSOR_DELAY_NORMAL
+        )
 
-    private fun setDefault() {
-        with(binding) {
-            ivResult.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.clover
-                )
-            )
-            layoutBtnGame.visibility = View.GONE
-            btnStart.visibility = View.VISIBLE
-            tvError.visibility = View.INVISIBLE
-            etNumber.text.clear()
-        }
-    }
 
-    private fun checkNumber() {
-        with(binding) {
-            viewModel.getResult(etNumber.text.toString(),hiddenNumber){result ->
-                if(result){
-                    tvSuccess.visibility = View.VISIBLE
-                    tvInfo.visibility = View.GONE
-                    etNumber.visibility = View.GONE
-                    setDefault()
-                }else{
-                    tvError.visibility = View.VISIBLE
-                    etNumber.text.clear()
+
+        return ComposeView(requireContext()).apply {
+            setContent {
+                DiceRollerTheme {
+                    MainScreen()
                 }
             }
         }
     }
 
-    private fun makeNumber(max:Int):Int {
-        return Random().nextInt(max + 1)
+
+    override fun onPause() {
+        sensorManager.unregisterListener(sensorListener)
+        super.onPause()
     }
 }
 
 """, fileName: "MainFragment.kt")
     }
     
-    static func layout(_ uiSettings: UISettings) -> [XMLLayoutData] {
-        let mainFragment = """
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backColorPrimary"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
-
-    <ImageView
-        android:id="@+id/ivResult"
-        android:layout_width="@dimen/image_size_150dp"
-        android:layout_height="@dimen/image_size_150dp"
-        android:layout_marginTop="@dimen/margin_35dp"
-        android:background="@drawable/border_icon"
-        android:padding="@dimen/_40dp"
-        android:src="@drawable/clover"
-        android:contentDescription="@string/icon_result" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_40dp"
-        app:cardBackgroundColor="@color/surfaceColor"
-        app:cardCornerRadius="@dimen/corner_radius_20dp"
-        app:cardElevation="@dimen/default_elevation">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_20dp">
-
-            <TextView
-                android:id="@+id/tvInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20dp"
-                android:layout_marginBottom="@dimen/margin_10dp"
-                android:maxWidth="@dimen/max_width"
-                android:maxLines="2"
-                android:text="@string/main_info"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/text_20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvSuccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10dp"
-                android:lines="2"
-                android:text="@string/congratulation"
-                android:textAlignment="center"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/text_20sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-
-            <EditText
-                android:id="@+id/etNumber"
-                android:layout_width="50dp"
-                android:layout_height="@dimen/_48dp"
-                android:layout_marginHorizontal="@dimen/margin_50dp"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:autofillHints=""
-                android:backgroundTint="@color/textColorPrimary"
-                android:hint="@string/hint"
-                android:inputType="number"
-                android:textColor="@color/textColorPrimary"
-                tools:ignore="LabelFor" />
-
-            <TextView
-                android:id="@+id/tvError"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_50dp"
-                android:text="@string/wrong_message"
-                android:textColor="@color/errorColor"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/btnStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/buttonColorPrimary"
-                android:text="@string/think_up"
-                android:textColor="@color/buttonTextColorPrimary" />
-
-            <LinearLayout
-                android:id="@+id/layoutBtnGame"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/btnGiveUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_35dp"
-                    android:backgroundTint="@color/buttonColorPrimary"
-                    android:text="@string/give_up"
-                    android:textColor="@color/buttonTextColorPrimary"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-                <Button
-                    android:id="@+id/btnTry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/buttonColorPrimary"
-                    android:text="@string/_try"
-                    android:textColor="@color/buttonTextColorPrimary"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
-"""
-        let mainFragmentName = "fragment_main.xml"
-        return [XMLLayoutData(content: mainFragment, name: mainFragmentName)]
-    }
-    
-    static func dimens(_ uiSettings: UISettings) -> XMLLayoutData {
-        return XMLLayoutData(content: """
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="image_size_150dp">150dp</dimen>
-    <dimen name="margin_35dp">35dp</dimen>
-    <dimen name="_40dp">40dp</dimen>
-    <dimen name="corner_radius_20dp">20dp</dimen>
-    <dimen name="default_elevation">0dp</dimen>
-    <dimen name="_20dp">20dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="max_width">300dp</dimen>
-    <dimen name="text_20sp">20sp</dimen>
-    <dimen name="margin_50dp">50dp</dimen>
-    <dimen name="margin_5dp">5dp</dimen>
-    <dimen name="_48dp">48dp</dimen>
-</resources>
-""", name: "dimens.xml")
-    }
-    
-    
+    static var fileName: String = "EGDiceRoller.kt"
 }

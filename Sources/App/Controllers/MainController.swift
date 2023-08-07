@@ -93,7 +93,7 @@ struct MainController {
     }
     
     func cmfList() -> [String] {
-        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER]
+        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER, AppIDs.EG_PHONE_CHECKER, AppIDs.EG_DICE_ROLLER]
     }
 }
 

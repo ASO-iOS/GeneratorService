@@ -86,6 +86,8 @@ struct AppIDs {
     static let EG_STOPWATCH =        "eg-0001"
     static let EG_RACE =             "eg-0002"
     static let EG_LUCKY_NUMBER =     "eg-0003"
+    static let EG_PHONE_CHECKER =    "eg-0004"
+    static let EG_DICE_ROLLER =      "eg-0005"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

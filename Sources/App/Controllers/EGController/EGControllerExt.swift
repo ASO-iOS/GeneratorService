@@ -62,10 +62,13 @@ extension EGController {
         
     }
     
-    func createLuckyNumber(appName: String, path: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+    func createLuckyNumber(appName: String, path: String, resPath: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: EGLuckyNumber.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGLuckyNumber.fileName)
         fileHandler.writeFile(filePath: path, contentText: EGLuckyNumber.cmfHandler(packageName).content, fileName: EGLuckyNumber.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: LuckyNumberMeta.getShortDesc(appName: appName), full: LuckyNumberMeta.getFullDesc(appName: appName), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: EGLuckyNumberRes.questContent(uiSettings.buttonColorPrimary ?? "FFFFFF"), fileName: EGLuckyNumberRes.questName)
+        fileHandler.writeFile(filePath: resPath, contentText: EGLuckyNumberRes.borderContent, fileName: EGLuckyNumberRes.borderName)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/images/clover.webp", to: resPath + "clover.webp")
         let layoutPath = xmlPaths.layoutPath
         let valuesPath = xmlPaths.valuesPath
         let layouts = EGLuckyNumber.layout(uiSettings)
@@ -75,6 +78,27 @@ extension EGController {
         fileHandler.checkDirectory(atPath: valuesPath)
         fileHandler.writeFile(filePath: valuesPath, contentText: EGLuckyNumber.dimens(uiSettings).content, fileName: EGLuckyNumber.dimens(uiSettings).name)
         fileHandler.createGradle(EGLuckyNumber.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createPhoneChecker(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGPhoneChecker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGPhoneChecker.fileName)
+        
+        fileHandler.writeFile(filePath: path, contentText: EGPhoneChecker.cmfHandler(packageName).content, fileName: EGPhoneChecker.cmfHandler(packageName).fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: EGPhoneCkeckerRes.content, fileName: EGPhoneCkeckerRes.name)
+        
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(appName: appName), full: PhoneInfoMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.createGradle(EGPhoneChecker.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createDiceRoller(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGDiceRoller.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGDiceRoller.fileName)
+        fileHandler.writeFile(filePath: path, contentText: EGDiceRoller.cmfHandler(packageName).content, fileName: EGDiceRoller.cmfHandler(packageName).fileName)
+        for i in 1..<7 {
+            fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/egdiceroller/dice\(i).png", to: resPath + "dice\(i).png")
+        }
+//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(appName: appName), full: PhoneInfoMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.createGradle(EGDiceRoller.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
 
