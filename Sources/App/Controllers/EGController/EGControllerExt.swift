@@ -97,8 +97,15 @@ extension EGController {
         for i in 1..<7 {
             fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/egdiceroller/dice\(i).png", to: resPath + "dice\(i).png")
         }
-//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PhoneInfoMeta.getShortDesc(appName: appName), full: PhoneInfoMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: DiceRollerMeta.getShortDesc(appName: appName), full: DiceRollerMeta.getFullDesc(appName: appName), category: AppCategory.app_entertainment.rawValue), fileName: MetaHandler.fileName)
         fileHandler.createGradle(EGDiceRoller.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createWaterTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGWaterTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGWaterTracker.fileName)
+//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: <#T##String#>, full: <#T##String#>, category: <#T##String#>), fileName: <#T##String#>)
+        fileHandler.createGradle(EGWaterTracker.self, packageName: packageName, gradlePaths: gradlePaths)
+        
     }
 }
 

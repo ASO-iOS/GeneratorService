@@ -21,6 +21,8 @@ struct EGController {
             createPhoneChecker(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.EG_DICE_ROLLER:
             createDiceRoller(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.EG_WATER_TRACKER:
+            createWaterTracker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

@@ -88,16 +88,16 @@ import javax.inject.Singleton
 
 //generate
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val surfaceColor = Color(0xff\(uiSettings.surfaceColor ?? "FFFFFF"))
+val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF")) // errorColor
+val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF")) // colorSuccess
 
-//const
-val errorColor = Color(0xFFFFB3B3)
-val colorSuccess = Color(0xFF99E699)
-val colorTransparent = Color(0x00FFFFFF)
+////const
+//val errorColor = Color(0xFFFFB3B3)
+//val colorSuccess = Color(0xFF99E699)
+//val colorTransparent = Color(0x00FFFFFF)
 
 sealed class ResultState<out R> {
     data class Success<out T>(val data: T) : ResultState<T>()
@@ -271,14 +271,14 @@ fun ShowResult(viewModel: MainFragmentViewModel) {
     when (val result = viewModel.state.collectAsState().value) {
         is ResultState.Error -> {
             ShowCardResult(
-                errorColor, stringResource(id = R.string.error_unspecified),
+                onPrimaryColor, stringResource(id = R.string.error_unspecified),
                 Icons.Rounded.Error
             )
         }
 
         ResultState.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(color = primaryColor)
+                CircularProgressIndicator(color = buttonColorPrimary)
             }
         }
 
@@ -290,10 +290,10 @@ fun ShowResult(viewModel: MainFragmentViewModel) {
                         location, formatNational, formatInternational
                     )
                 }
-                ShowCardResult(colorSuccess, info, Icons.Rounded.Done)
+                ShowCardResult(onSurfaceColor, info, Icons.Rounded.Done)
             } else {
                 ShowCardResult(
-                    errorColor,
+                    onPrimaryColor,
                     stringResource(R.string.error_invalid),
                     Icons.Rounded.Error
                 )
@@ -302,14 +302,14 @@ fun ShowResult(viewModel: MainFragmentViewModel) {
 
         ResultState.Empty -> {
             ShowCardResult(
-                surfaceColor,
+                onSurfaceColor,
                 stringResource(R.string.default_info),
                 Icons.Rounded.Done
             )
         }
 
         is ResultState.Exception -> {
-            ShowCardResult(errorColor, stringResource(R.string.error_internet), Icons.Rounded.Error)
+            ShowCardResult(onPrimaryColor, stringResource(R.string.error_internet), Icons.Rounded.Error)
         }
     }
 }
@@ -373,7 +373,7 @@ fun InputRaw(
                 fontSize = 20.sp
             ),
             colors = OutlinedTextFieldDefaults.colors(
-                cursorColor = primaryColor,
+                cursorColor = buttonColorPrimary,
                 focusedTextColor = textColorPrimary,
                 disabledTextColor = textColorPrimary
             ),
@@ -384,7 +384,7 @@ fun InputRaw(
                     modifier = Modifier
                         .size(40.dp)
                         .padding(5.dp),
-                    tint = primaryColor
+                    tint = buttonColorPrimary
                 )
             }
         )

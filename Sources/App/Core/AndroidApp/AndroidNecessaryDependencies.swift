@@ -76,6 +76,8 @@ struct AndroidNecesseryDependencies {
             return EGLuckyNumber.dependencies(mainData)
         case AppIDs.EG_DICE_ROLLER:
             return EGDiceRoller.dependencies(mainData)
+        case AppIDs.EG_WATER_TRACKER:
+            return EGWaterTracker.dependencies(mainData)
         default:
             return ANDData.empty
         }
