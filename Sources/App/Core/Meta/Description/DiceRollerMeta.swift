@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DiceRollerMeta {
+struct DiceRollerMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile app designed for all board game enthusiasts, role-playing games and just those who love to play dice. It is a handy tool that will help you make a dice roll right on your smartphone or tablet. With this app, you can forget about the need to have physical dice or game dice always at hand, because \(appName) will always be ready for your gaming sessions. One of the main advantages of \(appName) is its ease of use. The application has an intuitive interface that makes it easy to master all its functions. To start rolling dice, all you need to do is select the desired number of dice and click on the \"Roll\" button. After that, the application will generate random numbers corresponding to the results of the rolls, and you will be able to see them on the screen."
     

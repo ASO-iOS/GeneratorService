@@ -78,23 +78,21 @@ struct AndroidNecesseryDependencies {
             return EGDiceRoller.dependencies(mainData)
         case AppIDs.EG_WATER_TRACKER:
             return EGWaterTracker.dependencies(mainData)
+        case AppIDs.EG_CURRENCY_RATE:
+            return EGCurrencyRate.dependencies(mainData)
+        case AppIDs.EG_LEARN_SLANG:
+            return EGLearnSlang.dependencies(mainData)
+        case AppIDs.EG_FLASHLIGHT:
+            return EGFlashlight.dependencies(mainData)
+        case AppIDs.AK_RICK_AND_MORTY:
+            return AKRickAndMorty.dependencies(mainData)
+        case AppIDs.EG_EXPENSETRACKER:
+            return EGExpenseTracker.dependencies(mainData)
         default:
             return ANDData.empty
         }
     }
 }
-
-//struct ANDDataCMF {
-//    let mainFragment: ANDMainFragmentCMF
-//    let mainActivityData: ANDMainActivity
-//    let themesData: ANDThemesData
-//    let stringsData: ANDStringsData
-//    let colorsData: ANDColorsData
-//
-//    static let empty: ANDData = {
-//        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: ""), colorsData: ANDColorsData(additional: ""))
-//    }()
-//}
 
 struct ANDData {
     let mainFragmentData: ANDMainFragment
@@ -140,3 +138,18 @@ struct ANDColorsData {
     let additional: String
 }
 
+//struct RandomizeName {
+//    static func randomName() -> String {
+//        let lettersUp = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+//        var lettersDown: [String]
+//        lettersUp.forEach { letter in
+//            lettersDown.append(letter.lowercased())
+//        }
+//        let len = Int.random(in: 5...15)
+//        var result = lettersUp.randomElement() ?? lettersUp[0]
+//        while result.count <= len {
+//            result += Int.random(in: 0...1) == 0 ? lettersUp.randomElement() ?? lettersUp[0] : lettersDown.randomElement() ?? lettersDown[0]
+//        }
+//        return result
+//    }
+//}

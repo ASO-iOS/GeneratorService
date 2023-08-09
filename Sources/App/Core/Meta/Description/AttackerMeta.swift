@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AttackerMeta {
+struct AttackerMeta: MetaProviderProtocol {
     static var appName = ""
     
     static let fullDesc1 = "It’s an arcade shooter where the player has to control a spaceship and defend the earth from invading enemies. The player must skillfully control the ship, shoot the invading enemies, and use tactical tricks and cover-ups to survive this ruthless space battle."
@@ -19,11 +19,11 @@ struct AttackerMeta {
     static let fullDesc7 = "This game, which will allow any player to feel like a real space hero and become the savior of earth. You will skillfully control the ship, shoot at the advancing enemies and use tactical tricks and cover-ups to survive in this ruthless space battle."
     static let fullDesc8 = "This is an arcade shooter where the player has to control a spaceship and defend Earth from invading enemies. Join the exciting battles in Attacker and become the best in this battle for survival."
     static let fullDesc9 = "This game is a combination of classic arcade shooter and modern gameplay experience, which makes the game unique. Players will be able to enjoy exciting graphics, vivid effects and sound special effects as they play."
-    static let fullDesc10 = "Embark on an exciting space adventure using a variety of combat tactics, weapons and cover-ups, and become the best defender of Earth in Attacker! Attacker has an easy interface that makes the game simple and easy to use, even for beginners."
+    static let fullDesc10 = "Embark on an exciting \(appName) using a variety of combat tactics, weapons and cover-ups, and become the best defender of Earth in Attacker! Attacker has an easy interface that makes the game simple and easy to use, even for beginners."
 
-    static let shortDesc1 = "Immerse yourself in the exciting world of space adventure!"
+    static let shortDesc1 = "Immerse yourself in the exciting world of \(appName)!"
     static let shortDesc2 = "Join an exciting space game!"
-    static let shortDesc3 = "Go on an exciting space adventure!"
+    static let shortDesc3 = "Go on an exciting \(appName)!"
     static let shortDesc4 = "Become the hero of the universe in this exciting game!"
     static let shortDesc5 = "Immerse yourself in the exciting space world!"
     static let shortDesc6 = "Become a real hero in this exciting game!"
@@ -32,12 +32,14 @@ struct AttackerMeta {
     static let shortDesc9 = "Only the strong of spirit can triumph in the vastness of space!"
     static let shortDesc10 = "A fascinating space game that will capture your attention!"
     
-    static func getFullDesc() -> String {
+    static func getFullDesc(appName: String) -> String {
+        self.appName = appName
         let fullDesc = [fullDesc1, fullDesc2, fullDesc3, fullDesc4, fullDesc5, fullDesc6, fullDesc7, fullDesc8, fullDesc9, fullDesc10]
         return fullDesc.randomElement() ?? fullDesc1
     }
     
-    static func getShortDesc() -> String {
+    static func getShortDesc(appName: String) -> String {
+        self.appName = appName
         let shortDesc = [shortDesc1, shortDesc2, shortDesc3, shortDesc4, shortDesc5, shortDesc6, shortDesc7, shortDesc8, shortDesc9, shortDesc10]
         return shortDesc.randomElement() ?? shortDesc1
     }

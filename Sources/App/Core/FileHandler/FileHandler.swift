@@ -137,29 +137,9 @@ class FileHandler: ObservableObject {
         writeFile(filePath: gradlePaths.dependenciesPath, contentText: provider.gradle(packageName).dependencies.content, fileName: provider.gradle(packageName).dependencies.name)
     }
     
-//    func reset() {
-//        self.processingState = .none
-//        self.errorExist = false
-//        self.errorMessage = ""
-//    }
-//
-//    func errorManage(message: String) {
-//        DispatchQueue.main.async {
-//            self.processingState = .failure
-//            self.errorExist = true
-//            self.errorMessage = message
-//        }
-//
-//    }
-//
-//    func publishersInit() {
-//        DispatchQueue.main.async {
-//            self.processingState = .processing
-//            self.errorExist = false
-//            self.errorMessage = ""
-//        }
-//
-//    }
+    func createMeta<T: MetaProviderProtocol>(_ provider: T.Type, metaLoc: String, category: AppCategory, appName: String) {
+        writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: provider.getShortDesc(appName: appName), full: provider.getFullDesc(appName: appName), category: category.rawValue), fileName: MetaHandler.fileName)
+    }
     
     func createFile(
         destination: String,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PaintAppMeta {
+struct PaintAppMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile app that allows you to express your creative nature and create amazing works of art right on your device. With this app you can become a true artist and immerse yourself in a world of endless possibilities. \(appName) offers you a wide range of tools and features to bring your ideas to life. It has a simple and intuitive interface, making it accessible to users of all ages and skill levels. With a variety of brushes, pencils, markers, and other tools, you can create unique drawings and illustrations."
     static let fullDesc2 = "One of the features of \(appName) is the ability to work with different layers. Layers allow you to create complex compositions, add details, and make changes without affecting the rest of your drawing. You can move, resize, hide, or change the transparency of layers to achieve the effect you want. \(appName) also offers a wide selection of colors and palettes so you can choose the perfect hues for your artwork. You can mix colors, create gradients, and add shadows and effects to give your artwork depth and dimension."

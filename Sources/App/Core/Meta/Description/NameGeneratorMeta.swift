@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NameGeneratorMeta {
+struct NameGeneratorMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application that will help you choose a smart, original and personalized name. With its help, you can easily create a unique name that will reflect your personality and be remembered by others. Finding the perfect name can be a difficult and costly process. However, thanks to \(appName), this process will become much easier and more interesting. The application offers a wide range of creative names that can be a source of inspiration for you and your family. One of the main features of \(appName) is its ability to create names that will have a special meaning for you. You will be able to specify keywords or meanings that you would like to see in a name, and the app will offer you options that match your preferences."
 

@@ -103,10 +103,38 @@ extension EGController {
     
     func createWaterTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: EGWaterTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGWaterTracker.fileName)
-//        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: <#T##String#>, full: <#T##String#>, category: <#T##String#>), fileName: <#T##String#>)
+        fileHandler.createMeta(WaterTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(EGWaterTracker.self, packageName: packageName, gradlePaths: gradlePaths)
         
     }
+    
+    func createCurrencyRate(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGCurrencyRate.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGCurrencyRate.fileName)
+//        fileHandler.writeFile(filePath: <#T##String#>, contentText: <#T##String#>, fileName: <#T##String#>)
+        fileHandler.createGradle(EGCurrencyRate.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createLearnSlang(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGLearnSlang.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGLearnSlang.fileName)
+//        fileHandler.createMeta(<#T##provider: MetaProviderProtocol.Protocol##MetaProviderProtocol.Protocol#>, metaLoc: <#T##String#>, category: <#T##AppCategory#>, appName: <#T##String#>)
+        fileHandler.createGradle(EGLearnSlang.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createFlashlight(appName: String, path: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGFlashlight.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGFlashlight.fileName)
+        fileHandler.writeFile(filePath: path, contentText: EGFlashlight.cmfHandler(packageName).content, fileName: EGFlashlight.cmfHandler(packageName).fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.rawPath)
+        fileHandler.writeFile(filePath: xmlPaths.rawPath, contentText: EGFlashlight.motionScene().content, fileName: EGFlashlight.motionScene().name)
+        fileHandler.createMeta(TorchMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(EGFlashlight.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createExpenseTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGExpenseTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGExpenseTracker.fileName)
+        fileHandler.createGradle(EGExpenseTracker.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    
 }
 
 extension FileHandler {

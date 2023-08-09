@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BirdGameMeta {
+struct BirdGameMeta: MetaProviderProtocol {
+    static var appName = ""
     static let fullDesc1 = "This is an arcade game about a bird that flies through different locations and avoids obstacles. The player must control the bird by tapping the screen to lift it up or release it to start falling. The levels get progressively more difficult, so you have to react quickly to new obstacles and maneuver cleverly to advance"
     static let fullDesc2 = "This is a fun and addictive game that will suit beginners and experienced gamers alike. This game with great graphics, a great way to pass the time and test your reaction and dexterity. Gameplay is accompanied by pleasant sound design and bright graphics."
     static let fullDesc3 = "This is an addictive arcade game where the main character is a bird. The player has to go through different levels, avoiding obstacles and making his way to the finish line. To control the bird, you have to press the screen to make it go up, and release it to start falling. This is a great way to spend time and test your reaction and dexterity."
@@ -30,12 +31,14 @@ struct BirdGameMeta {
     static let shortDesc9 = "Last as long as possible, avoiding obstacles and collecting bonuses!"
     static let shortDesc10 = "A fun game that will grab your attention!"
     
-    static func getFullDesc() -> String {
+    static func getFullDesc(appName: String) -> String {
+        self.appName = appName
         let fullDesc = [fullDesc1, fullDesc2, fullDesc3, fullDesc4, fullDesc5, fullDesc6, fullDesc7, fullDesc8, fullDesc9, fullDesc10]
         return fullDesc.randomElement() ?? fullDesc1
     }
     
-    static func getShortDesc() -> String {
+    static func getShortDesc(appName: String) -> String {
+        self.appName = appName
         let shortDesc = [shortDesc1, shortDesc2, shortDesc3, shortDesc4, shortDesc5, shortDesc6, shortDesc7, shortDesc8, shortDesc9, shortDesc10]
         return shortDesc.randomElement() ?? shortDesc1
     }

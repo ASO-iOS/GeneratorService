@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FindUniversityMeta {
+struct FindUniversityMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is an innovative mobile app that helps you find the perfect university for your education and career. With our app you can get to know different universities from all over the world, explore their study programs, professors, tuition fees and much more. One of the main functions of the app is to search for universities based on various criteria. You can select a country, city, specialization or other parameters to find universities that match your needs and interests. We provide detailed information about each university, including its ranking, accreditation, history and more."
 

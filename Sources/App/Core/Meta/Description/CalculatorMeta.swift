@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CalculatorMeta {
+struct CalculatorMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "This is an application for solving mathematical calculations. It allows you to perform arithmetic operations such as addition, subtraction, multiplication, and division quickly and conveniently. The calculator has a simple and intuitive interface that makes it easy to enter data and get results. It can be useful for schoolchildren, students, businessmen and anyone who needs fast and accurate solutions of mathematical problems."
     static let fullDesc2 = "It is a handy application for solving mathematical calculations. You can use it to perform arithmetic operations quickly and accurately. The intuitive interface makes it easy to enter data and get results. It is an indispensable tool for schoolchildren, students, businessmen and everyone who needs fast solution of mathematical problems."

@@ -127,9 +127,11 @@ extension CoreController {
         let layoutPath = tempLoc + "app/src/main/res/layout/"
         let valuesPath = tempLoc + "app/src/main/res/values/"
         let animPath = tempLoc + "app/src/main/res/anim/"
+        let rawPath = tempLoc + "app/src/main/res/raw/"
+        let fontPath = tempLoc + "app/src/main/res/font/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
-        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath)
+        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath)
         switch body.mainData.prefix {
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
@@ -214,6 +216,18 @@ extension CoreController {
                 gradlePaths: gradlePaths,
                 xmlPaths: xmlPaths
             )
+        case AppIDs.AK_PREFIX:
+            let akController = AKController(fileHandler: fileHandler)
+            akController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath, resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                gradlePaths: gradlePaths,
+                xmlPaths: xmlPaths
+                )
         default:
             return
         }
@@ -241,4 +255,12 @@ extension CoreController {
         ]
         return backColors.randomElement() ?? "FF6666"
     }
+}
+
+struct XMLLayoutPaths {
+    let valuesPath: String
+    let animPath: String
+    let layoutPath: String
+    let rawPath: String
+    let fontPath: String
 }

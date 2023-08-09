@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TorchMeta {
+struct TorchMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a simple and handy flashlight app that helps you illuminate dark corners and make your life a little easier. It offers a bright light for use in any environment, from looking for keys in a darkened room to walking around in the dark. The benefits of the \(appName) are obvious: it's a simple and efficient way to get a bright light when you need it. You can use it anytime, anywhere, and adjust the brightness of the light to suit your needs."
     static let fullDesc2 = "\(appName) is a mobile app that turns your smartphone into a bright flashlight. It's an app that's suitable for all ages and skill levels. It's simple and intuitive, so even beginners can quickly figure out how to use it. You can use it at work, at home, in the car, or on vacation. One of the main advantages of the \(appName) is its bright light. It allows you to illuminate even the darkest corners and provides good visibility in all conditions. You can use it to find lost things, read in the dark, or just to create an atmospheric light."

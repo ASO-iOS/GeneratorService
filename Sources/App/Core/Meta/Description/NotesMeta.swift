@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NotesMeta {
+struct NotesMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a simple notepad. It allows you to take notes, reminders, emails, messages, to-do lists, and shopping lists easily and easily. \(appName) is easier to create notes than any other notebook or organizer. This application allows you to create notes quickly and easily, making it an indispensable tool for various tasks."
     static let fullDesc2 = "\(appName) is a handy note taking application that will help you organize your life and not forget important moments. It is a simple notepad that allows you to quickly and easily write notes, reminders, emails, messages, to-do lists and shopping. All the controls are in one screen, which makes working with the application as convenient and efficient as possible."

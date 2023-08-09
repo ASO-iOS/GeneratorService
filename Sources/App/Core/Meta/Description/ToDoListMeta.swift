@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoListMeta {
+struct ToDoListMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "The \(appName) is an application that helps you organize and organize the tasks that need to be done. It is designed for people who want to be more productive and efficient and who want a more structured approach to managing their time. The basic interface of \(appName) is very simple and intuitive. The user can create new tasks, set priorities and deadlines for them, and mark tasks that have already been completed."
     static let fullDesc2 = "\(appName) is a simple and effective task management application that helps people organize their lives and become more productive. Its intuitive interface and many features make it an ideal choice for those who want to organize their tasks and manage their time more efficiently. In addition, \(appName) also provides the ability to add comments and attachments to tasks so that users can describe their tasks in more detail and share information with colleagues or friends."

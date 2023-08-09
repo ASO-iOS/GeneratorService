@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecorderMeta {
+struct RecorderMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "When you need to quickly and easily record audio files in any situation, \(appName) is your perfect partner. It is a simple and effective recorder application that allows you to record high-quality audio files, save them and share them with others. With \(appName), you can record audio files anytime, and anywhere you have access to your device's microphone. Whether you need to record a lecture, an interview, music or just take a note, \(appName) meets all your needs."
     static let fullDesc2 = "One of the best features of \(appName) is its ease of use. You can start recording with just one click and then stop recording when you need. The files are automatically saved in mp3 format which ensures high sound quality and minimal file size. \(appName) also has many additional features that make it even more convenient and functional. You can use tags to organize your recordings into categories, and add notes to each recording so you won't forget what was recorded. You can also change the playback speed to better understand audio files with fast conversation or, conversely, slow down playback to hear every word."

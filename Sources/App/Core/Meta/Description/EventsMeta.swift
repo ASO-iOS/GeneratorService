@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventsMeta {
+struct EventsMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "The \(appName) is a handy tool for managing tasks and planning your time. Here you can create and keep track of various tasks, meetings, events, holidays, and plan your schedule for a week, month, or year ahead. Clear and visually appealing interface allows you to quickly and conveniently customize the application to your needs and ease of use."
     static let fullDesc2 = "The \(appName) is a reliable assistant in planning the schedule for each day. It provides the ability to create numerous events, set reminders, customize dates and times, and set up notifications so you never miss important things. The app features reminders, notifications, and synchronization with other devices, so you can always be aware of your plans and never miss important meetings and events."

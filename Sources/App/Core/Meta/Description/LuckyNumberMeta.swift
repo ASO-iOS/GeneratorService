@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LuckyNumberMeta {
+struct LuckyNumberMeta: MetaProviderProtocol {
     
     static var appName = ""
     

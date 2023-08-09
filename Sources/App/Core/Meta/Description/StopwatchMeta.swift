@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StopwatchMeta {
+struct StopwatchMeta: MetaProviderProtocol {
     static var appName = ""
     
     static let fullDesc1 = "\(appName) is a mobile application designed to measure time. It is a simple and easy-to-use tool that allows users to accurately track time in different situations. One of the main features of \(appName) is its simple and intuitive interface. The app has a minimalistic design, which makes it easy to use even for beginners. All information is displayed on the home screen, making it quick and easy to set up and control the timer."

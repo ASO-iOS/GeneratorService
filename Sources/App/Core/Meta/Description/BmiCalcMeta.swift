@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BmiCalcMeta {
+struct BmiCalcMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application that helps users monitor their weight and assess their health based on their body mass index (BMI). It is a reliable tool for those who are looking to maintain a healthy lifestyle and monitor their physical condition.One of the key benefits of \(appName) is its ease of use. Users can easily enter their data such as weight and height and get instant results. The app automatically calculates BMI and provides interpretation of results according to set standards."
     

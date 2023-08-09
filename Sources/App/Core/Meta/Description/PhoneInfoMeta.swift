@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PhoneInfoMeta {
+struct PhoneInfoMeta: MetaProviderProtocol {
     
     static var appName = ""
     static let fullDesc1 = "\(appName) is a reliable and convenient mobile application that will help you maintain optimal performance of your mobile device. Thanks to this application, you can quickly and easily get all the necessary information about the status of your phone. With \(appName), you will be able to find out about all the basic characteristics of your phone such as operating system, model, memory capacity and much more. You will also be able to find out about the available space on your device and monitor its usage. You will never have to worry about full memory or lack of free space again."

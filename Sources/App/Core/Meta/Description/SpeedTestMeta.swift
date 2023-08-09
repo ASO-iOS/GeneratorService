@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SpeedTestMeta {
+struct SpeedTestMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application designed to test the speed and quality of internet connection on mobile devices. With this application, users can quickly and easily test the speed of their Internet connection and evaluate the quality of the connection. One of the main features of the app is its simple and intuitive interface. Even beginners will be able to quickly understand how to use the app and test their internet connection speed. The app offers several test modes, including normal and advanced, which allow you to check download and upload speeds and get more detailed information about your connection."
     

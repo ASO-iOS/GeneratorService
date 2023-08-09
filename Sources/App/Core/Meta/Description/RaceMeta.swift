@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RaceMeta {
+struct RaceMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) mobile app is an exciting racing game that allows users to experience themselves as professional racers. It provides users with the opportunity to participate in exciting races on various tracks, compete with other players and win. One of the main features of the app is its simple and intuitive interface. All functions of the app are easily accessible and understandable even for beginners. Users can easily choose a car, customize it and head to the race track."
     

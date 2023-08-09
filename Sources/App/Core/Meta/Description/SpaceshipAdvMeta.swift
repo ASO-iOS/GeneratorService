@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SpaceshipAdventureMeta {
+struct SpaceshipAdventureMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is an addictive game that allows you to go on an exciting space adventure. In the game you will control a spaceship and explore the unexplored corners of the galaxy. However, along the way you will be threatened by numerous dangers, such as aliens and meteorites. You will fight for survival, using your ship and its weapons to destroy obstacles. Each enemy you destroy earns you points that can be used to improve your ship and its weapons. The game has several levels of difficulty, each one presenting a new challenge to you and your ship."
     static let fullDesc2 = "The \(appName) game has a simple and intuitive interface that makes it easy to control your ship and its weapons. You can use different strategies and tactics to defeat your enemies and reach your goal. One of the main advantages of the game is its variety. In the game, you will have access to different types of ships and weapons that you can improve and upgrade. In addition, the game has many levels and missions that will allow you to explore the galaxy and defeat enemies."

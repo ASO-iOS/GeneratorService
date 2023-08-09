@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct QuizMeta {
+struct QuizMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is not only a great way to test your knowledge, but also a great way to learn something new. In the process of taking the quiz you can learn many interesting facts and sights that you didn't know before. Our app is suitable for all ages and knowledge levels. You can choose a category that interests you and start taking the test. Take several tests and improve your knowledge in different areas."
     static let fullDesc2 = "\(appName) is a great way to spend your time with mental benefit. You can play alone or with friends, competing in knowledge. The app is suitable for use both at school and at home. Join the millions of users worldwide who have already tested their knowledge with \(appName). Start taking the quiz now and see how much you know about the world around you."

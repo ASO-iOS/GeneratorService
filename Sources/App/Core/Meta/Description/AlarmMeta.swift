@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AlarmMeta {
+struct AlarmMeta: MetaProviderProtocol {
     
     static var appName = ""
     

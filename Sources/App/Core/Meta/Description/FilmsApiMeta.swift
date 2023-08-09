@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FilmsAPIMeta {
+struct FilmsAPIMeta: MetaProviderProtocol {
     
     static var appName = ""
     static let fullDesc1 = "It's an app that helps you find movies according to your preferences and mood. With Movie Generator, you can get recommendations for movies you like and find new movies to watch. The Movie Generator has many features to help you find movies for your interests. You can choose the genre of the movie, the year of release, the rating, and more. You can also choose the mood you want to convey from watching a movie, from drama and thriller to comedy and romance."

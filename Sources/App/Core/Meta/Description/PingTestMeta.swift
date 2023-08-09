@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PingTestMeta {
+struct PingTestMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "The \(appName) mobile app is a tool that allows users to check the speed and stability of their internet connection. With this application, users can quickly and easily check the quality of their Internet connection and identify possible problems. One of the main features of the app is its simple and intuitive interface. All the features of the app are easily accessible and understandable even for beginners. Users can quickly run a connection speed test and get real-time results."
     

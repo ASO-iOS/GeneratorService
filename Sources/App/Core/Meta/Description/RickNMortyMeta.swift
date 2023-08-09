@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RickNMortyMeta {
+struct RickNMortyMeta: MetaProviderProtocol {
     static var appName = ""
     
     static let fullDesc21 = "Immerse yourself in the world of cartoons with the \(appName) app. Here you can look at all the characters from the animated series, get to know those you haven't seen or see new characters"

@@ -79,6 +79,7 @@ struct AppIDs {
     static let VE_PASS_GEN =         "ve-0006"
     
     static let AK_PREFIX =           "ak"
+    static let AK_RICK_AND_MORTY =   "ak-0001"
     
     static let KL_PREFIX =           "kl"
     
@@ -90,6 +91,9 @@ struct AppIDs {
     static let EG_DICE_ROLLER =      "eg-0005"
     static let EG_WATER_TRACKER =    "eg-0006"
     static let EG_CURRENCY_RATE =    "eg-0007"
+    static let EG_LEARN_SLANG =      "eg-0008"
+    static let EG_FLASHLIGHT =       "eg-0009"
+    static let EG_EXPENSETRACKER =   "eg-0010"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

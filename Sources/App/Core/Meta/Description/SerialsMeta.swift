@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SerialsMeta {
+struct SerialsMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application designed for fans of serials and TV shows. It provides users with a convenient way to track, find and watch their favorite TV shows and series. One of the key features of \(appName) is the ability to create a personalized list of shows. Users can add their favorite shows to the list and receive notifications about new episodes, new season releases or other important events. This makes it possible to stay up to date with all the updates and not miss a single series. The app also offers the user a wide range of series and TV shows to watch. It offers various genres including dramas, comedies, sci-fi, crime and many more. Users can easily find the series or TV shows they are interested in with a handy search or browse through recommendations based on their preferences."
 

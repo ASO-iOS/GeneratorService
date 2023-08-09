@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CartoonCharactersMeta {
+struct CartoonCharactersMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application that allows users to enjoy their favorite cartoons and characters on their mobile devices. This app is designed for those who love cartoons and want to access a large number of animated characters on their phone or tablet. One of the main features of \(appName) is its huge collection of cartoons and characters. The app features characters from various cartoons such as Tom and Jerry, Scooby-Doo, Luntik, Masha and the Bear, Fiksiki and many more. Users can select and watch their favorite cartoons and episodes anytime and anywhere."
     

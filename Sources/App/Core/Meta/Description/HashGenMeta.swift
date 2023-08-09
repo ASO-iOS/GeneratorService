@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HashMeta {
+struct HashMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a reliable and efficient application that allows you to create high-quality values in MD5, SHA-1 and other algorithms with fast and reliable performance. This application is designed for those who want to protect their passwords, messages, files and other confidential information. \(appName) has a simple and intuitive interface that allows you to quickly become familiar with its functionality."
     static let fullDesc2 = "With \(appName), you can easily create hashes in multiple algorithms by selecting the desired option from the list of available options. The application provides fast and accurate hash creation, making it an ideal choice for those looking for high efficiency without sacrificing quality. The app also provides a high level of security."

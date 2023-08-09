@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct CountdownTimerMeta {
+struct CountdownTimerMeta: MetaProviderProtocol {
+    static var appName = ""
     static let fullDesc1 = "It is an application that allows you to set a specific time and count it back down to zero. The timer can be used for a variety of purposes, such as timing when preparing a meal, setting a time to complete a task, monitoring the duration of an activity, and more. The application has a simple and intuitive interface, making it easy to use for any user."
     static let fullDesc2 = "It is an indispensable tool for those who need accurate time control and planning of their tasks. The timer can be used for various purposes, such as counting down the time when cooking, setting time for tasks and controlling the duration of activities. The app has a simple and intuitive interface, and users can customize the beep and number of repetitions."
     static let fullDesc3 = "It is a mobile app that allows users to set a specific time and count it back down to zero. It can be used for a variety of purposes, such as counting down time when cooking, setting time for tasks and monitoring the duration of activities. The app has a simple and intuitive interface, and users can customize the number of repetitions."
@@ -30,12 +31,14 @@ struct CountdownTimerMeta {
     static let shortDesc9 = "A handy timer in your cell phone!"
     static let shortDesc10 = "Efficient timer in your smartphone!"
     
-    static func getFullDesc() -> String {
+    static func getFullDesc(appName: String) -> String {
+        self.appName = appName
         let fullDesc = [fullDesc1, fullDesc2, fullDesc3, fullDesc4, fullDesc5, fullDesc6, fullDesc7, fullDesc8, fullDesc9, fullDesc10]
         return fullDesc.randomElement() ?? fullDesc1
     }
     
-    static func getShortDesc() -> String {
+    static func getShortDesc(appName: String) -> String {
+        self.appName = appName
         let shortDesc = [shortDesc1, shortDesc2, shortDesc3, shortDesc4, shortDesc5, shortDesc6, shortDesc7, shortDesc8, shortDesc9, shortDesc10]
         return shortDesc.randomElement() ?? shortDesc1
     }

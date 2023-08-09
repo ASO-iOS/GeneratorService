@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FactsMeta {
+struct FactsMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application that gives users access to a huge database of facts on various topics. This app allows users to learn interesting and useful facts about the world around them. One of the main features of the \(appName) is its vast database of facts. Users can find information about various topics such as history, science, geography, geography, sports, culture and many more. With this app, users can expand their knowledge and learn something new every day."
     

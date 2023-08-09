@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RememberColorMeta {
+struct RememberColorMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is based on scientific studies that show that association with colors can significantly increase the efficiency of remembering information. The app offers you a number of different tasks that require you to remember color combinations and their sequence. You will train your memory, analyze and improve your visualization and association skills. \(appName) is a fun mobile app that will help you develop your memory and improve your color perception."
     static let fullDesc2 = "\(appName) is an innovative mobile app that will help you develop and improve your memory using the color association method. This unique app offers a fun and interesting way to train your brain and improve your ability to remember information. Do not miss the opportunity to improve your memory and develop your cognitive skills with \(appName). This app will be your indispensable assistant in memory training and reaching new heights. Download \(appName) now and start your journey to better memory and mental flexibility!"

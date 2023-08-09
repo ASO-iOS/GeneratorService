@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CatcherMeta {
+struct CatcherMeta: MetaProviderProtocol {
     static var appName = ""
     
     static let fullDesc1 = "\(appName) is an exciting mobile application that offers you a unique gaming experience and a chance to test your reflexes. In this game, your goal will be to catch falling objects using a special tool that you can control. One of the key features of \(appName) is its simplicity and ease of use. The application has an intuitive interface that allows you to start the game in just a few clicks. You will be able to quickly learn the tool controls and start catching falling objects."

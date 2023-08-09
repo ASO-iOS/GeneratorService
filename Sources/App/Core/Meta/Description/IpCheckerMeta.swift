@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct IpCheckerMeta {
+struct IpCheckerMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a handy and useful mobile application that allows users to quickly and easily check IP address information. This app provides many useful features for analyzing and researching IP addresses to help users get the most information about them. One of the key features of \"\(appName)\" is the ability to check an IP address for location. Users can enter an IP address and get information about what country, region, and city that IP address is located in. This can be useful for location, activity tracking, or just for curiosity"
     static let fullDesc2 = "The \(appName) app also provides information about the Internet Service Provider associated with the IP address. Users can find out the name of the ISP, its contact information, and other details. This can be useful for checking network reliability and security, as well as for debugging Internet connection problems. Another important feature of \(appName) is the ability to check an IP address for blocking or spam lists. Users can find out if an IP address is blacklisted or has a bad reputation. This can help users determine if an IP address is insecure or suspicious"

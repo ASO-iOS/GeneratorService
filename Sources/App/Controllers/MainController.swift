@@ -93,7 +93,7 @@ struct MainController {
     }
     
     func cmfList() -> [String] {
-        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER, AppIDs.EG_PHONE_CHECKER, AppIDs.EG_DICE_ROLLER]
+        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER, AppIDs.EG_PHONE_CHECKER, AppIDs.EG_DICE_ROLLER, AppIDs.EG_FLASHLIGHT]
     }
 }
 
@@ -102,3 +102,4 @@ struct GradlePaths {
     let moduleGradlePath: String
     let dependenciesPath: String
 }
+

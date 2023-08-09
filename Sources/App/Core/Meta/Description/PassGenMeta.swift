@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PassGeneratorMeta {
+struct PassGeneratorMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) is a mobile application that offers the user a unique and reliable way to generate passwords. Nowadays, with more and more information being stored and transmitted over the Internet, security has become an important issue. One of the main aspects of security is the use of complex and unique passwords for all accounts. However, many people find it difficult to come up with passwords that are both secure and easy to remember. This is where \(appName) comes to the rescue. It is an intuitive and easy-to-use application that generates unique passwords for various accounts and services"
     static let fullDesc2 = "The main function of \(appName) is the generation of passwords. The application prompts the user to select a password length and specify which characters should be included in the password (numbers, upper and lower case letters, special characters). After that, \(appName) creates a random password that matches the specified parameters. Thus, the user can be sure that his or her password will be safe and tamper-proof. In addition, \(appName) offers an auto-complete password function. The application integrates with the user's browser and automatically fills in the password fields on various sites and services. This simplifies the process of logging into accounts and prevents mistakes in password entry"

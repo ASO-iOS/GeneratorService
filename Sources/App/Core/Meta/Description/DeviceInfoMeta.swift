@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DeviceInfoMeta {
+struct DeviceInfoMeta: MetaProviderProtocol {
     static var appName = ""
     static let fullDesc1 = "\(appName) also offers a real-time mode that allows you to get up-to-date information about your device. You will be able to observe changes in battery status, memory usage and other parameters of your device in real time. This will help you to react quickly to any changes and take necessary actions.In conclusion, \(appName) is a reliable assistant for working with your device. It provides you with all the information you need about your device, helps you optimize its performance and improves its efficiency. With its simple interface and extensive functionality, \(appName) will become your indispensable tool for working with your device. ﻿"
 
