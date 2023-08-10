@@ -14,6 +14,8 @@ struct AKController {
         switch id {
         case AppIDs.AK_RICK_AND_MORTY:
             createRickAndMorty(appName: appName, path: path, resPath: resPath, xmlPaths: xmlPaths, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_SHASHLICK_CALCULATOR:
+            createShashlikCalculator(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

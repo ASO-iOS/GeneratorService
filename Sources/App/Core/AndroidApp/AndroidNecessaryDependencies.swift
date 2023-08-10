@@ -88,6 +88,10 @@ struct AndroidNecesseryDependencies {
             return AKRickAndMorty.dependencies(mainData)
         case AppIDs.EG_EXPENSETRACKER:
             return EGExpenseTracker.dependencies(mainData)
+        case AppIDs.EG_WHICH_SPF:
+            return EGWhichSpf.dependencies(mainData)
+        case AppIDs.AK_SHASHLICK_CALCULATOR:
+            return AKShahlikCalculator.dependencies(mainData)
         default:
             return ANDData.empty
         }

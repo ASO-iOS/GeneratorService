@@ -23,4 +23,19 @@ extension AKController {
         fileHandler.createMeta(CartoonCharactersMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(AKRickAndMorty.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createShashlikCalculator(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKShahlikCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKShahlikCalculator.fileName)
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/chicken.webp", to: resPath + "chicken.webp")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/cow.webp", to: resPath + "cow.webp")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/pig.webp", to: resPath + "pig.webp")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/shashlik.webp", to: resPath + "shashlik.webp")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/sheep.webp", to: resPath + "sheep.webp")
+        fileHandler.createGradle(AKShahlikCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+//    func createAlarm(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+//        fileHandler.writeFile(filePath: path, contentText: AKAlarm.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKAlarm.fileName)
+//        fileHandler.writeFile(filePath: resPath, contentText: <#T##String#>, fileName: <#T##String#>)
+//    }
 }
