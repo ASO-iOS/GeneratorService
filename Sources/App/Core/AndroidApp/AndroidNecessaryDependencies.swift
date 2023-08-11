@@ -92,6 +92,16 @@ struct AndroidNecesseryDependencies {
             return EGWhichSpf.dependencies(mainData)
         case AppIDs.AK_SHASHLICK_CALCULATOR:
             return AKShahlikCalculator.dependencies(mainData)
+        case AppIDs.AK_ALARM:
+            return AKAlarm.dependencies(mainData)
+        case AppIDs.AK_TODO:
+            return AKToDo.dependencies(mainData)
+        case AppIDs.AK_BOILING_EGG:
+            return AKBoilingEgg.dependencies(mainData)
+        case AppIDs.AK_COLOR_CONVERTER:
+            return AKColorConverter.dependencies(mainData)
+        case AppIDs.EG_LOVE_CALCULATOR:
+            return EGLoveCalculator.dependencies(mainData)
         default:
             return ANDData.empty
         }

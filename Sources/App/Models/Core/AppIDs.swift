@@ -82,6 +82,9 @@ struct AppIDs {
     static let AK_RICK_AND_MORTY =   "ak-0001"
     static let AK_SHASHLICK_CALCULATOR = "ak-0002"
     static let AK_ALARM =            "ak-0003"
+    static let AK_TODO =             "ak-0004"
+    static let AK_BOILING_EGG =      "ak-0005"
+    static let AK_COLOR_CONVERTER =  "ak-0006"
     
     static let KL_PREFIX =           "kl"
     
@@ -97,6 +100,8 @@ struct AppIDs {
     static let EG_FLASHLIGHT =       "eg-0009"
     static let EG_EXPENSETRACKER =   "eg-0010"
     static let EG_WHICH_SPF =        "eg-0011"
+    static let EG_LOVE_CALCULATOR =  "eg-0012"
+    static let EG_GET_LYRICS_GEN =   "eg-0013"
 
     
     static func checkSupportedProject(_ id: String) -> Bool {

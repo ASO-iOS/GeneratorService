@@ -16,6 +16,14 @@ struct AKController {
             createRickAndMorty(appName: appName, path: path, resPath: resPath, xmlPaths: xmlPaths, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.AK_SHASHLICK_CALCULATOR:
             createShashlikCalculator(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_ALARM:
+            createAlarm(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_TODO:
+            createToDo(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_BOILING_EGG:
+            createBoilingEgg(appName: appName, path: path, resPath: resPath, xmlPaths: xmlPaths, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_COLOR_CONVERTER:
+            createColorConverter(appName: appName, path: path, resPath: resPath, xmlPaths: xmlPaths, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

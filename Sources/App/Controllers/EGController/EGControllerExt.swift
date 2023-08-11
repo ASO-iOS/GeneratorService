@@ -110,7 +110,6 @@ extension EGController {
     
     func createCurrencyRate(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: EGCurrencyRate.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGCurrencyRate.fileName)
-//        fileHandler.writeFile(filePath: <#T##String#>, contentText: <#T##String#>, fileName: <#T##String#>)
         fileHandler.createMeta(CurrencyRateMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(EGCurrencyRate.self, packageName: packageName, gradlePaths: gradlePaths)
     }
@@ -132,12 +131,21 @@ extension EGController {
     
     func createExpenseTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: EGExpenseTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGExpenseTracker.fileName)
+        fileHandler.createMeta(ExpenseTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(EGExpenseTracker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createWhichSpf(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: EGWhichSpf.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGWhichSpf.fileName)
+        // MARK: - todo meta
         fileHandler.createGradle(EGWhichSpf.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createLoveCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGLoveCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGLoveCalculator.fileName)
+        fileHandler.writeFile(filePath: path, contentText: EGLoveCalculator.cmfHandler(packageName).content, fileName: EGLoveCalculator.cmfHandler(packageName).fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(EGLoveCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     
