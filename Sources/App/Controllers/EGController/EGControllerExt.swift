@@ -148,7 +148,11 @@ extension EGController {
         fileHandler.createGradle(EGLoveCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
-    
+    func createGetLyrics(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGGetLyrics.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGGetLyrics.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(EGGetLyrics.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
 
 extension FileHandler {

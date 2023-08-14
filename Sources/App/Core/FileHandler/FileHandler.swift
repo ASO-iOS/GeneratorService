@@ -130,11 +130,13 @@ class FileHandler: ObservableObject {
         }
     }
     
-    func createGradle<T: FileProviderProtocol>(_ provider: T.Type, packageName: String, gradlePaths: GradlePaths) {
+    func createGradle<T: FileProviderProtocol>(_ provider: T.Type, packageName: String, gradlePaths: GradlePaths, useDeps: Bool = true) {
         
         writeFile(filePath: gradlePaths.projectGradlePath, contentText: provider.gradle(packageName).projectBuildGradle.content, fileName: provider.gradle(packageName).projectBuildGradle.name)
         writeFile(filePath: gradlePaths.moduleGradlePath, contentText: provider.gradle(packageName).moduleBuildGradle.content, fileName: provider.gradle(packageName).moduleBuildGradle.name)
-        writeFile(filePath: gradlePaths.dependenciesPath, contentText: provider.gradle(packageName).dependencies.content, fileName: provider.gradle(packageName).dependencies.name)
+        if useDeps {
+            writeFile(filePath: gradlePaths.dependenciesPath, contentText: provider.gradle(packageName).dependencies.content, fileName: provider.gradle(packageName).dependencies.name)
+        }
     }
     
     func createMeta<T: MetaProviderProtocol>(_ provider: T.Type, metaLoc: String, category: AppCategory, appName: String) {

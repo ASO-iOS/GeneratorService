@@ -74,13 +74,10 @@ struct MainController {
         if !cmfList().contains(appId) {
             fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainFragment.kt")
         }
-        
-        //        if commonPresentation {
         fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
         
         fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(mainData: mainData), fileName: "FragmentState.kt")
         fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(mainData: mainData), fileName: "StateViewModel.kt")
-        //        }
     }
     
     func createLogFile(path: String, token: String) {
@@ -93,7 +90,21 @@ struct MainController {
     }
     
     func cmfList() -> [String] {
-        return [AppIDs.IT_STOPWATCH, AppIDs.IT_DEVICE_INFO, AppIDs.EG_STOPWATCH, AppIDs.EG_RACE, AppIDs.EG_LUCKY_NUMBER, AppIDs.EG_PHONE_CHECKER, AppIDs.EG_DICE_ROLLER, AppIDs.EG_FLASHLIGHT, AppIDs.EG_LOVE_CALCULATOR]
+        return [
+            AppIDs.IT_STOPWATCH,
+            AppIDs.IT_DEVICE_INFO,
+            AppIDs.EG_STOPWATCH,
+            AppIDs.EG_RACE,
+            AppIDs.EG_LUCKY_NUMBER,
+            AppIDs.EG_PHONE_CHECKER,
+            AppIDs.EG_DICE_ROLLER,
+            AppIDs.EG_FLASHLIGHT,
+            AppIDs.EG_LOVE_CALCULATOR,
+            AppIDs.KL_BMI_CALCULATOR,
+            AppIDs.KL_CONVERTER,
+            AppIDs.KL_RECORDER,
+            AppIDs.KL_SPEED_TEST
+        ]
     }
 }
 
@@ -102,4 +113,3 @@ struct GradlePaths {
     let moduleGradlePath: String
     let dependenciesPath: String
 }
-

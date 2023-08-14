@@ -78,15 +78,28 @@ struct AppIDs {
     static let VE_FIND_UNIVERSITY =  "ve-0005"
     static let VE_PASS_GEN =         "ve-0006"
     
-    static let AK_PREFIX =           "ak"
-    static let AK_RICK_AND_MORTY =   "ak-0001"
+    static let AK_PREFIX =               "ak"
+    static let AK_RICK_AND_MORTY =       "ak-0001"
     static let AK_SHASHLICK_CALCULATOR = "ak-0002"
-    static let AK_ALARM =            "ak-0003"
-    static let AK_TODO =             "ak-0004"
-    static let AK_BOILING_EGG =      "ak-0005"
-    static let AK_COLOR_CONVERTER =  "ak-0006"
+    static let AK_ALARM =                "ak-0003"
+    static let AK_TODO =                 "ak-0004"
+    static let AK_BOILING_EGG =          "ak-0005"
+    static let AK_COLOR_CONVERTER =      "ak-0006"
+    static let AK_NEW_YEAR_COUNTDOWN =   "ak-0007"
+    static let AK_UV_PROTECT =           "ak-0008"
+    static let AK_RGB_CONVERTER =        "ak-0009"
+    static let AK_RETROGRADE_MERCURY =   "ak-0010"
+    static let AK_RANDOM_JOKE =          "ak-0011"
+    static let AK_CARTOON_LOCATIONS =    "ak-0012"
+    static let AK_FRUITS =               "ak-0013"
+    static let AK_POKER_CHANCES =        "ak-0014"
+    static let AK_RANDOM_COFFEE =        "ak-0015"
     
     static let KL_PREFIX =           "kl"
+    static let KL_BMI_CALCULATOR =   "kl_0001"
+    static let KL_SPEED_TEST =       "kl_0002"
+    static let KL_CONVERTER =        "kl_0003"
+    static let KL_RECORDER =         "kl_0004"
     
     static let EG_PREFIX =           "eg"
     static let EG_STOPWATCH =        "eg-0001"
@@ -102,7 +115,6 @@ struct AppIDs {
     static let EG_WHICH_SPF =        "eg-0011"
     static let EG_LOVE_CALCULATOR =  "eg-0012"
     static let EG_GET_LYRICS_GEN =   "eg-0013"
-
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
@@ -113,4 +125,3 @@ struct AppIDs {
         }
     }
 }
-

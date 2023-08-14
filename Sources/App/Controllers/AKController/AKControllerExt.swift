@@ -70,4 +70,76 @@ extension AKController {
         // MARK: - todo meta
         fileHandler.createGradle(AKColorConverter.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createNewYearCountdown(appName: String, path: String, resPath: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKNewYearCountdowm.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKNewYearCountdowm.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/main_font.ttf", to: xmlPaths.fontPath + "main_font.ttf")
+        // MARK: - todo meta
+        fileHandler.createGradle(AKNewYearCountdowm.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createUVProtect(appName: String, path: String, resPath: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKUVProtect.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKUVProtect.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/unbounded_font.ttf", to: xmlPaths.fontPath + "unbounded_font.ttf")
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/unbounded_normal_font.ttf", to: xmlPaths.fontPath + "unbounded_normal_font.ttf")
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/bannerResources/akuvprotect/bg_colors_image.webp", to: resPath + "bg_colors_image.webp")
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/bannerResources/akuvprotect/uv_index_logo.webp", to: resPath + "uv_index_logo.webp")
+        // MARK: - todo meta
+        fileHandler.createGradle(AKUVProtect.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRGBConverter(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKRGBConverter.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKRGBConverter.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(AKRGBConverter.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRetrogradeMercury(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKRetrogradeMercury.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKRetrogradeMercury.fileName)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/bannerResources/akretrogrademercury/background_image.webp", to: resPath + "background_image.webp")
+        // MARK: - todo meta
+        fileHandler.createGradle(AKRetrogradeMercury.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomJoke(appName: String, path: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKRandomJoke.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKRandomJoke.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/brutalistmono.ttf", to: xmlPaths.fontPath + "brutalistmono.ttf")
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/howlimit.ttf", to: xmlPaths.fontPath + "howlimit.ttf")
+        // MARK: - todo meta
+        fileHandler.createGradle(AKRandomJoke.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCartoonLocations(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKCartoonLocations.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKCartoonLocations.fileName)
+        fileHandler.createMeta(RickNMortyMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(AKCartoonLocations.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createFruits(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKFruits.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKFruits.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(AKFruits.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createPokerChances(appName: String, path: String, resPath: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKPokerChances.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKPokerChances.fileName)
+        AKPokerChances.images.forEach { name in
+            fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/bannerResources/akpokerchances/\(name)", to: resPath + name)
+        }
+        fileHandler.checkDirectory(atPath: xmlPaths.libsPath)
+        fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/bannerResources/akpokerchances/PokerCalculator.jar", to: xmlPaths.libsPath + "PokerCalculator.jar")
+        // MARK: - todo meta
+        fileHandler.createGradle(AKPokerChances.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomCoffee(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKRandomCoffee.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKRandomCoffee.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: AKRandomCoffeeRes.errorOutlineContent, fileName: AKRandomCoffeeRes.errorOutlineName)
+        fileHandler.writeFile(filePath: resPath, contentText: AKRandomCoffeeRes.imageContent, fileName: AKRandomCoffeeRes.imageName)
+        // MARK: - todo meta
+        fileHandler.createGradle(AKRandomCoffee.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

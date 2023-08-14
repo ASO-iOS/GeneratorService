@@ -53,7 +53,6 @@ extension CoreController {
         body: RequestDto,
         completion: @escaping () -> Void
     ) {
-        //        DispatchQueue.global(qos: .default).sync {
         let stamp = body.mainData.stamp
         let tempLoc = LocalConst.tempDir + stamp + "/" + body.mainData.appName + "/"
         let metaLoc = LocalConst.tempDir + stamp + "/"
@@ -89,7 +88,7 @@ extension CoreController {
             appBar = designData.uiSettings.backColorPrimary ?? "ffffff"
         }
         
-        let mainData = MainData(appId: body.mainData.appId ?? "error", appName: body.mainData.appName, applicationName: body.mainData.applicationName, packageName: body.mainData.packageName, uiSettings: uiSettings)
+        let mainData = MainData(appId: body.mainData.appId ?? "error", appName: body.mainData.appName, applicationName: body.mainData.applicationName, packageName: body.mainData.packageName, uiSettings: uiSettings, prefix: body.mainData.prefix ?? "error")
         mainController.createOuterFiles(path: tempLoc, appName: body.mainData.appName)
         mainController.createGradle(path: tempLoc + "gradle/wrapper/", gradleWrapper: LibVersions.gradleWrapperVersion)
         mainController.createBuildSrc(
@@ -131,7 +130,8 @@ extension CoreController {
         let fontPath = tempLoc + "app/src/main/res/font/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
-        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath)
+        let libPath = tempLoc + "app/libs/"
+        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath, libsPath: libPath)
         switch body.mainData.prefix {
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
@@ -221,13 +221,27 @@ extension CoreController {
             akController.boot(
                 id: body.mainData.appId ?? "error",
                 appName: body.mainData.appName,
-                path: appPath, resPath: resPath,
+                path: appPath,
+                resPath: resPath,
                 packageName: body.mainData.packageName,
                 uiSettings: uiSettings,
                 metaLoc: metaLoc,
                 gradlePaths: gradlePaths,
                 xmlPaths: xmlPaths
                 )
+        case AppIDs.KL_PREFIX:
+            let klController = KLController(fileHandler: fileHandler)
+            klController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                gradlePaths: gradlePaths,
+                xmlPaths: xmlPaths
+            )
         default:
             return
         }
@@ -263,4 +277,5 @@ struct XMLLayoutPaths {
     let layoutPath: String
     let rawPath: String
     let fontPath: String
+    let libsPath: String
 }

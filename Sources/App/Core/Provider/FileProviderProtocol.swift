@@ -43,6 +43,7 @@ struct MainData {
     let applicationName: String
     let packageName: String
     let uiSettings: UISettings
+    let prefix: String
 }
 
 struct GradleFilesData {

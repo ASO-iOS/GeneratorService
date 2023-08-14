@@ -1,0 +1,25 @@
+//
+//  File.swift
+//  
+//
+//  Created by admin on 14.08.2023.
+//
+
+import Foundation
+
+extension AndroidNecesseryDependencies {
+    static func dependenciesKL(_ mainData: MainData) -> ANDData {
+        switch mainData.appId {
+        case AppIDs.KL_BMI_CALCULATOR:
+            return KLBMICalculator.dependencies(mainData)
+        case AppIDs.KL_CONVERTER:
+            return KLMetricsConverter.dependencies(mainData)
+        case AppIDs.KL_RECORDER:
+            return KLRecorder.dependencies(mainData)
+        case AppIDs.KL_SPEED_TEST:
+            return KLSpeedTest.dependencies(mainData)
+        default:
+            return ANDData.empty
+        }
+    }
+}
