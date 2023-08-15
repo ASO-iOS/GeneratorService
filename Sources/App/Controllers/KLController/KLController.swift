@@ -20,6 +20,14 @@ struct KLController {
             createRecorder(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
         case AppIDs.KL_SPEED_TEST:
             createSpeedTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
+        case AppIDs.KL_CLICK_FASTER:
+            createClicker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_COLOR_SWATCHER:
+            createColorSwatcher(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_DS_WEAPON:
+            createDSWeapon(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_REACTION_TEST:
+            createReactionTest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

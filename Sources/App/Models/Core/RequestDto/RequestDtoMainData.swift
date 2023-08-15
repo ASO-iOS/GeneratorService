@@ -17,6 +17,7 @@ struct RequestDtoMainData: Codable {
     let uiDesignId: String?
     let prefix: String?
     let appId: String?
+    let test: Bool?
     
     
     enum CodingKeys: String, CodingKey {
@@ -28,5 +29,6 @@ struct RequestDtoMainData: Codable {
         case uiDesignId = "ui_design_id"
         case prefix = "prefix"
         case appId = "app_id"
+        case test = "test"
     }
 }

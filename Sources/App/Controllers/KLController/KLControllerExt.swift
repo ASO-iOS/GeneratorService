@@ -67,4 +67,35 @@ extension KLController {
         fileHandler.createMeta(SpeedTestMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLSpeedTest.self, packageName: packageName, gradlePaths: gradlePaths, useDeps: false)
     }
+    
+    func createClicker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLClicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLClicker.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLClicker.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createColorSwatcher(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLColorSwatcher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLColorSwatcher.fileName)
+        
+        // MARK: - todo meta
+        fileHandler.createGradle(KLColorSwatcher.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createDSWeapon(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLDSWeapon.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLDSWeapon.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLDSWeapon.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createReactionTest(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLReactionTest.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLReactionTest.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLReactionTest.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createSupernaturalQuotes(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLSupernaturalQuotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLSupernaturalQuotes.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLSupernaturalQuotes.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

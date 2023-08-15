@@ -20,10 +20,18 @@ struct CoreController: RouteCollection {
     
     func boot(routes: Vapor.RoutesBuilder) throws {
         routes.on(.POST, PathComponent(stringLiteral: RouteConst.EMPTY_CORE_PROJECT), use: launch)
+//        routes.on(.GET, PathComponent(stringLiteral: RouteConst.LOG), use: logging)
+        routes.post("log") { req async throws in
+            let log = try req.content.decode(DBLogModel.self)
+            try await log.save(on: req.db)
+            return log
+        }
     }
     
     /// -  главный метод создания проекта
-    func launch(_ request: Request) throws -> Response {
+    func launch(_ request: Request) async throws -> Response {
+        
+        
         
         // MARK: - инициализация локации файла, изнвчально пустой проект
         var fileLoc = "\(LocalConst.homeDir)GeneratorProjects/resources/empty.zip"
@@ -33,7 +41,6 @@ struct CoreController: RouteCollection {
         guard let bodyByteBuffer = request.body.data else { throw Abort(.badRequest) }
         let bodyData = Data(buffer: bodyByteBuffer)
         let body = try JSONDecoder().decode(RequestDto.self, from: bodyData)
-        
         if UserToken.checkToken(token) {
             create(token: token ?? "error", body: body, completion: {
                 fileLoc = "\(FileManager.default.homeDirectoryForCurrentUser.absoluteString.replacing("file://", with: ""))GeneratorProjects/temp/\(body.mainData.stamp).zip"
@@ -44,6 +51,16 @@ struct CoreController: RouteCollection {
         }
     }
     
+    func logging(_ request: Request) async throws -> DBLogModel {
+        let log = try request.content.decode(DBLogModel.self)
+        do {
+            try await log.save(on: request.db)
+        } catch {
+            print(error)
+        }
+        
+        return log
+    }
 }
 
 extension CoreController {

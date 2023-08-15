@@ -12,5 +12,6 @@ struct RouteConst {
     
     // MARK: - core preject destinations
     static let EMPTY_CORE_PROJECT = "empty_core_project"
+    static let LOG = "log"
     
 }

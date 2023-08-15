@@ -31,7 +31,7 @@ extension AKController {
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/pig.webp", to: resPath + "pig.webp")
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/shashlik.webp", to: resPath + "shashlik.webp")
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/images/akshashlikcalculator/sheep.webp", to: resPath + "sheep.webp")
-        // MARK: - todo meta
+        fileHandler.createMeta(ShashlikCalculatorMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(AKShahlikCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -58,7 +58,7 @@ extension AKController {
         fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
         fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/bold_halvar_breit.ttf", to: xmlPaths.fontPath + "bold_halvar_breit.ttf")
         fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/main_halvar_breit.ttf", to: xmlPaths.fontPath + "main_halvar_breit.ttf")
-        // MARK: - todo meta
+        fileHandler.createMeta(BoilingEggMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(AKBoilingEgg.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -67,7 +67,7 @@ extension AKController {
         fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
         fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/brainstorm_marker.ttf", to: xmlPaths.fontPath + "brainstorm_marker.ttf")
         fileHandler.copyPaste(from: LocalConst.homeDir + "GeneratorProjects/resources/font/brainstorm_rollerball.ttf", to: xmlPaths.fontPath + "brainstorm_rollerball.ttf")
-        // MARK: - todo meta
+        fileHandler.createMeta(ColorConverterMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(AKColorConverter.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

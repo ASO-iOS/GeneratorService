@@ -10,5 +10,6 @@ func routes(_ app: Application) throws {
     let core = CoreController(fileHandler: fileHandler)
     
     try app.register(collection: core)
-}
+    
 
+}

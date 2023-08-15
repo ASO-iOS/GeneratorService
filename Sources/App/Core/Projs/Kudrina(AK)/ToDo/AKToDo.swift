@@ -76,7 +76,7 @@ import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Update
-import com.todo.app.R
+import \(packageName).R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
