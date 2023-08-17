@@ -98,4 +98,10 @@ extension KLController {
         // MARK: - todo meta
         fileHandler.createGradle(KLSupernaturalQuotes.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createTeaWiki(ppName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLTeaWiki.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLTeaWiki.fileName)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLTeaWiki.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

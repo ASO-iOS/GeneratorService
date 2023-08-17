@@ -30,6 +30,8 @@ extension AndroidNecesseryDependencies {
             return KLReactionTest.dependencies(mainData)
         case AppIDs.KL_SUPERNATURAL_QUOTES:
             return KLSupernaturalQuotes.dependencies(mainData)
+        case AppIDs.KL_TEA_WIKI:
+            return KLTeaWiki.dependencies(mainData)
         default:
             return ANDData.empty
         }

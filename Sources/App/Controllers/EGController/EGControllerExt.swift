@@ -154,15 +154,3 @@ extension EGController {
         fileHandler.createGradle(EGGetLyrics.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
-
-extension FileHandler {
-    func checkDirectory(atPath path: String) {
-        if !FileManager.default.fileExists(atPath: path) {
-            do {
-                try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true)
-            } catch {
-                print(error)
-            }
-        }
-    }
-}
