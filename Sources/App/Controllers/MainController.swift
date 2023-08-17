@@ -103,7 +103,8 @@ struct MainController {
             AppIDs.KL_BMI_CALCULATOR,
             AppIDs.KL_CONVERTER,
             AppIDs.KL_RECORDER,
-            AppIDs.KL_SPEED_TEST
+            AppIDs.KL_SPEED_TEST,
+            AppIDs.KL_WEATHER_APP
         ]
     }
 }

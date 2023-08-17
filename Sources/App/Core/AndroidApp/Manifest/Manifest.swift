@@ -67,6 +67,10 @@ class Manifest {
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 """
+        case AppIDs.KL_WEATHER_APP:
+            return """
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+"""
         default:
             return ""
         }

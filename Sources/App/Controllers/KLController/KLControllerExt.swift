@@ -99,9 +99,25 @@ extension KLController {
         fileHandler.createGradle(KLSupernaturalQuotes.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
-    func createTeaWiki(ppName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+    func createTeaWiki(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLTeaWiki.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLTeaWiki.fileName)
         // MARK: - todo meta
         fileHandler.createGradle(KLTeaWiki.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createWeatherApp(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLWeatherApp.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLWeatherApp.fileName)
+        fileHandler.writeFile(filePath: path, contentText: KLWeatherApp.cmfHandler(packageName).content, fileName: KLWeatherApp.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: KLWeatherAppRes.content, fileName: KLWeatherAppRes.name)
+        fileHandler.checkDirectory(atPath: xmlPaths.layoutPath)
+        let layouts = KLWeatherApp.layout(uiSettings)
+        layouts.forEach { layout in
+            fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: layout.content, fileName: layout.name)
+        }
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLWeatherApp.dimens(uiSettings).content, fileName: KLWeatherApp.dimens(uiSettings).name)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLWeatherApp.styles().content, fileName: KLWeatherApp.styles().name)
+        // MARK: - todo meta
+        fileHandler.createGradle(KLWeatherApp.self, packageName: packageName, gradlePaths: gradlePaths, useDeps: false)
+        
     }
 }

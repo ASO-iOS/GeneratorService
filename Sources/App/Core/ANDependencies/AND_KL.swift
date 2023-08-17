@@ -32,6 +32,8 @@ extension AndroidNecesseryDependencies {
             return KLSupernaturalQuotes.dependencies(mainData)
         case AppIDs.KL_TEA_WIKI:
             return KLTeaWiki.dependencies(mainData)
+        case AppIDs.KL_WEATHER_APP:
+            return KLWeatherApp.dependencies(mainData)
         default:
             return ANDData.empty
         }
