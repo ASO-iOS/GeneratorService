@@ -32,6 +32,10 @@ struct KLController {
             createTeaWiki(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KL_WEATHER_APP:
             createWeatherApp(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, xmlPaths: xmlPaths)
+        case AppIDs.KL_BODY_TYPE_CACLULATOR:
+            createBodyTypeCalculator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
+        case AppIDs.KL_HIDDEN_PARIS:
+            createHiddenParis(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
         default:
             return
         }

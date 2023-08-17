@@ -34,6 +34,10 @@ extension AndroidNecesseryDependencies {
             return KLTeaWiki.dependencies(mainData)
         case AppIDs.KL_WEATHER_APP:
             return KLWeatherApp.dependencies(mainData)
+        case AppIDs.KL_BODY_TYPE_CACLULATOR:
+            return KLBodyTypeCalculator.dependencies(mainData)
+        case AppIDs.KL_HIDDEN_PARIS:
+            return KLHiddenParis.dependencies(mainData)
         default:
             return ANDData.empty
         }

@@ -120,4 +120,30 @@ extension KLController {
         fileHandler.createGradle(KLWeatherApp.self, packageName: packageName, gradlePaths: gradlePaths, useDeps: false)
         
     }
+    
+    func createBodyTypeCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLBodyTypeCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLBodyTypeCalculator.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_light.ttf", to: xmlPaths.fontPath + "montserrat_light.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_medium.ttf", to: xmlPaths.fontPath + "montserrat_medium.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_regular.ttf", to: xmlPaths.fontPath + "montserrat_regular.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
+        
+        // MARK: - todo meta
+        fileHandler.createGradle(KLBodyTypeCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createHiddenParis(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLHiddenParis.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLHiddenParis.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_light.ttf", to: xmlPaths.fontPath + "montserrat_light.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_medium.ttf", to: xmlPaths.fontPath + "montserrat_medium.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_regular.ttf", to: xmlPaths.fontPath + "montserrat_regular.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
+        
+        // MARK: - todo meta
+        fileHandler.createGradle(KLHiddenParis.self, packageName: packageName, gradlePaths: gradlePaths)
+        
+        
+    }
 }

@@ -26,6 +26,10 @@ struct CoreController: RouteCollection {
             try await log.save(on: req.db)
             return log
         }
+        
+//        routes.post("has_meta") { req async throws in
+//
+//        }
     }
     
     /// -  главный метод создания проекта
