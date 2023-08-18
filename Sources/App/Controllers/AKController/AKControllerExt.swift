@@ -120,7 +120,7 @@ extension AKController {
     
     func createFruits(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: AKFruits.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKFruits.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(FruitsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(AKFruits.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

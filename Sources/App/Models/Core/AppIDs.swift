@@ -71,12 +71,22 @@ struct AppIDs {
     static let IT_DEVICE_INFO =      "it-0003"
     
     static let VE_PREFIX =           "ve"
-    static let VE_TYPES_AIRCRAFT =   "ve-0001"
-    static let VE_ALARM =            "ve-0002"
-    static let VE_QUIZ_BOOKS =       "ve-0003"
-    static let VE_FACTS =            "ve-0004"
-    static let VE_FIND_UNIVERSITY =  "ve-0005"
-    static let VE_PASS_GEN =         "ve-0006"
+    static let VE_QUIZ_BOOKS =                "ve-0001"
+    static let VE_TYPES_OF_AIRCRAFT =         "ve-0002"
+    static let VE_EVERY_DAY_FACTS =           "ve-0003"
+    static let VE_FIND_UNIVERSITY =           "ve-0004"
+    static let VE_PASS_GENERATOR =            "ve-0005"
+    static let VE_NIGHT_BIRD =                "ve-0006"
+    static let VE_QUIZ_VIDEOGAMES =           "ve-0007"
+    static let VE_CHARGE_ME =                 "ve-0008"
+    static let VE_FACTS_ABOUT_DOGS =          "ve-0009"
+    static let VE_LUCKY_SPAN =                "ve-0010"
+    static let VE_ALARM_MATERIAL =          "ve-0011"
+    static let VE_CALENDAR_EVENTS =           "ve-0012"
+    static let VE_ENGLISH_DICTIONARY_HELPER = "ve-0013"
+    static let VE_RANDOM_DOGS =               "ve-0014"
+    static let VE_VIGENERE_CHIPHER =          "ve-0015"
+    static let VE_RECIPES_BOOK =              "ve-0016"
     
     static let AK_PREFIX =               "ak"
     static let AK_RICK_AND_MORTY =       "ak-0001"
@@ -128,6 +138,9 @@ struct AppIDs {
     static let EG_WHICH_SPF =        "eg-0011"
     static let EG_LOVE_CALCULATOR =  "eg-0012"
     static let EG_GET_LYRICS_GEN =   "eg-0013"
+    static let EG_COCKTAIL_CRAFT =   "eg-0014"
+    static let EG_PUZZLE_DIGITS =    "eg-0015"
+
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

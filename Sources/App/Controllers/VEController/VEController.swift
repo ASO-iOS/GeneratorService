@@ -12,17 +12,17 @@ struct VEController {
     
     func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, designLocation: MetaDesignLocation?, gradlePaths: GradlePaths, assetsLocation: String) {
         switch id {
-        case AppIDs.VE_TYPES_AIRCRAFT:
+        case AppIDs.VE_TYPES_OF_AIRCRAFT:
             createAircraft(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, assetsLocation: assetsLocation)
-        case AppIDs.VE_ALARM:
+        case AppIDs.VE_ALARM_MATERIAL:
             createAlarm(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.VE_QUIZ_BOOKS:
             createQuizBooks(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
-        case AppIDs.VE_FACTS:
+        case AppIDs.VE_EVERY_DAY_FACTS:
             createFacts(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.VE_FIND_UNIVERSITY:
             createFindUniversity(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
-        case AppIDs.VE_PASS_GEN:
+        case AppIDs.VE_PASS_GENERATOR:
             createPassGen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return

@@ -667,7 +667,7 @@ private fun TimePickerWithButtons(
             Button(
                 onClick = onCancelClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonColorPrimary
+                    containerColor = backColorSecondary
                 )
             ) {
                 Text(text = stringResource(id = R.string.cancel))
@@ -675,7 +675,7 @@ private fun TimePickerWithButtons(
             Button(
                 onClick = { onSaveClick(title, timeState.hour, timeState.minute) },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonColorPrimary
+                    containerColor = backColorSecondary
                 )
             ) {
                 Text(text = stringResource(id = R.string.save))
@@ -944,7 +944,7 @@ dependencies {
 package dependencies
 
 object Application {
-    const val id = "com.vagavagusdevelop.alarmmaterial"
+    const val id = "\(packageName)"
     const val version_code = 1
     const val version_name = "1.0"
 }

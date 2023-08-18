@@ -58,7 +58,7 @@ class Manifest {
     
     static func permsById(_ id: String) -> String {
         switch id {
-        case AppIDs.MB_ALARM:
+        case AppIDs.MB_ALARM, AppIDs.VE_ALARM_MATERIAL:
             return """
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 """
