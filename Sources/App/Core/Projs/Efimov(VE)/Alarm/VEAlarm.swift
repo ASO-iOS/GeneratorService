@@ -42,6 +42,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Alarm
@@ -61,7 +62,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.Typography
@@ -641,9 +641,14 @@ private fun TimePickerWithButtons(
             state = timeState,
             colors = TimePickerDefaults.colors(
                 containerColor = backColorSecondary,
-                selectorColor = textColorPrimary,
-                clockDialSelectedContentColor = backColorPrimary,
-                clockDialColor = backColorSecondary
+                selectorColor = buttonColorPrimary,
+                clockDialSelectedContentColor = textColorPrimary,
+                clockDialColor = backColorSecondary,
+                timeSelectorSelectedContainerColor = surfaceColor,
+                timeSelectorUnselectedContainerColor = buttonColorPrimary,
+                clockDialUnselectedContentColor = textColorPrimary,
+                timeSelectorSelectedContentColor = textColorPrimary,
+                timeSelectorUnselectedContentColor = textColorPrimary
             )
         )
 
@@ -657,7 +662,8 @@ private fun TimePickerWithButtons(
                     color = textColorPrimary
                 )
             },
-            singleLine = true
+            singleLine = true,
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backColorPrimary)
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
