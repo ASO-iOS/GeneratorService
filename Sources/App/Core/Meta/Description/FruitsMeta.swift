@@ -9,7 +9,7 @@ import Foundation
 
 struct FruitsMeta: MetaProviderProtocol {
     static var appName: String = ""
-    
+
     
     static let fullDesc1 = "\(appName) is a mobile app that will help you discover the world of healthy eating and learn how to make your meals healthy and delicious. It is your guide to a healthy lifestyle that will help you keep your calories under control and reach your goals. One of the main advantages of \(appName) is its extensive database of foods. The app features all the popular fruits and vegetables, as well as many lesser known but equally healthy foods. Thanks to this, you will be able to get acquainted with new flavors and diversify your diet. One of the main advantages of Fruits and vegetables calories is its ability to synchronize with other devices. You can save your data in cloud storage and access it from any device. This allows you to be flexible and always have access to your calorie intake data."
 
