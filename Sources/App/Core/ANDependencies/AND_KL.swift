@@ -38,6 +38,10 @@ extension AndroidNecesseryDependencies {
             return KLBodyTypeCalculator.dependencies(mainData)
         case AppIDs.KL_HIDDEN_PARIS:
             return KLHiddenParis.dependencies(mainData)
+        case AppIDs.KL_BUBBLE_PICKER:
+            return KLBubblePicker.dependencies(mainData)
+        case AppIDs.KL_MOOD_TRACKER:
+            return KLMoodTracker.dependencies(mainData)
         default:
             return ANDData.empty
         }

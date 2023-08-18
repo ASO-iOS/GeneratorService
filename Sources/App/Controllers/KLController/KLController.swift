@@ -36,6 +36,10 @@ struct KLController {
             createBodyTypeCalculator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
         case AppIDs.KL_HIDDEN_PARIS:
             createHiddenParis(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths)
+        case AppIDs.KL_BUBBLE_PICKER:
+            createBubblePicker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_MOOD_TRACKER:
+            createMoodTracker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths, resPath: resPath)
         default:
             return
         }

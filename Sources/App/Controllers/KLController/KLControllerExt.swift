@@ -146,4 +146,30 @@ extension KLController {
         
         
     }
+    
+    func createBubblePicker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLBubblePicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLBubblePicker.fileName)
+        
+        // MARK: - todo meta
+        fileHandler.createGradle(KLBubblePicker.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createMoodTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: KLMoodTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLMoodTracker.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_light.ttf", to: xmlPaths.fontPath + "montserrat_light.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_medium.ttf", to: xmlPaths.fontPath + "montserrat_medium.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_regular.ttf", to: xmlPaths.fontPath + "montserrat_regular.ttf")
+        fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
+        
+        fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.happyFace.content, fileName: KLMoodTrackerRes.happyFace.name)
+        fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.neutalFace.content, fileName: KLMoodTrackerRes.neutalFace.name)
+        fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.sadFace.content, fileName: KLMoodTrackerRes.sadFace.name)
+        fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.smileFace.content, fileName: KLMoodTrackerRes.smileFace.name)
+        
+        // MARK: - todo meta
+        fileHandler.createGradle(KLMoodTracker.self, packageName: packageName, gradlePaths: gradlePaths)
+        
+        
+    }
 }
