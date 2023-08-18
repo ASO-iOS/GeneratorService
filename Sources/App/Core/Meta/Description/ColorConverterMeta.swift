@@ -50,6 +50,46 @@ struct ColorConverterMeta: MetaProviderProtocol {
 
     static let fullDesc20 = "One of the key features of Color Converter is the ability to convert colors between different color models. You can easily switch between RGB, CMYK, HSL and other models to find the most suitable color for your project. The application also provides tools to change the hue, saturation and brightness of a color to create the perfect blend. \(appName) will help you save time searching for the right color. With its quick access to palettes and shades, you can quickly find the color you need and apply it to your project. This is especially useful when working with a large number of colors and when you need to quickly select a specific shade. The app will also help you improve your color skills. It provides many tools and features that will help you develop as a designer. You will be able to experiment with different color combinations, create unique and stylish solutions, and turn your ideas into vibrant color schemes. \(appName) is not only a handy application for working with colors, but also a fascinating journey into the world of colors. You will be able to explore different color models, learn more about color combinations and create your own unique palette. It's a great way to expand your design knowledge and skills."
     
+    static let fullDesc21 = "\(appName) is your personal guide in the world of colors. It is a unique mobile application that will help you translate the world into colors and turn everything around you into art. With \(appName) you will be able to discover new facets of beauty and unlock your creativity. \(appName) is a handy mobile application that allows users to easily and quickly convert colors from one format to another. Thanks to its ease of use and a wide range of features, it will become an indispensable tool for designers, artists, web developers and anyone who works with colors."
+
+    static let fullDesc22 = "One of the main advantages of \(appName) is its perfect combination of style and functionality. The application has a simple and intuitive interface that allows you to switch between colors quickly and easily. You will be able to create gorgeous color palettes and discover endless color possibilities. One of the main features of \(appName) is its intuitive interface. Users can easily find the features they need and customize the application to suit their needs. The main screen offers several basic color conversion options such as RGB, HEX, CMYK, and HSL. Just select the desired format and enter the corresponding color values, and the app will instantly convert them to other formats."
+
+    static let fullDesc23 = "\(appName) will be your reliable assistant in choosing a color scheme. You will be able to turn your ideas into reality with the help of this application. It will help you change your life by changing colors and immerse yourself in an amazing world of colors. \(appName) also provides the ability to work with color palettes. Users can create their own palettes or choose from the preset options. This is especially useful for designers who want to save their favorite color combinations for future use. The application also allows exporting palettes to various formats so that they can be easily imported into other applications or programs."
+
+    static let fullDesc24 = "One of the main features of \(appName) is its ease of use. It is a solution for complex color problems that is accessible to everyone. You will be able to give your ideas a bright hue and make your projects unique with \(appName). Another useful feature of \(appName) is the ability to work with images. Users can choose an image from their device's gallery or take a photo right in the app. They can then select a color on the image and get its values in different formats. This is especially useful for designers who want to use colors from photos in their designs."
+
+    static let fullDesc25 = "The app also offers the opportunity to let your imagination blossom. You will be able to create unique color combinations and discover new color horizons. \(appName) is the perfect tool for designers and artists who want to unleash their creativity. \(appName) also offers additional features that make working with colors easier. For example, users can adjust the brightness, saturation, and hue of a color to get the desired result. They can also view the conversion history and save their settings for later use."
+
+    static let fullDesc26 = "\(appName) allows you to translate the world into your favorite shades. You will be able to customize the app to your preferences and create a unique color palette that reflects your personality. In addition, \(appName) has a wide range of additional tools to help users work with colors. For example, they can create gradients, generate random colors, find similar colors, and much more. These tools will help users breathe life into their designs and create unique color schemes."
+
+    static let fullDesc27 = "\(appName) is a unique mobile application that helps you unleash your creativity and translate the world into colors. It offers a simple solution for complex color tasks, as well as the perfect combination of style and functionality. Let your imagination blossom with \(appName) and discover new color horizons. \(appName) is also highly accurate and reliable. The application uses the most advanced color conversion algorithms to ensure accurate results. It is also constantly updated and updated with new features and functions to meet the needs of users."
+
+    static let fullDesc28 = "\(appName) is a powerful color tool that offers a wide range of features and an intuitive interface. Thanks to it, users can easily and quickly convert colors, create palettes, work with images and use additional tools to create unique color schemes. It is an indispensable application for anyone who works with colors in their projects. \(appName) also has a high degree of accuracy and reliability. The application uses the most advanced color conversion algorithms, which guarantees accurate results. It is also constantly updated and updated with new features and functions to meet the needs of users."
+
+    static let fullDesc29 = "In addition, \(appName) has a wide range of additional tools to help users with colors. For example, they can create gradients, generate random colors, find similar colors and much more. These tools will help users breathe life into their designs and create unique color schemes. \(appName) also offers additional features that make working with colors easier. For example, users can adjust the brightness, saturation, and hue of a color to get the desired results. They can also view the conversion history and save their settings for later use."
+
+    static let fullDesc30 = "Another useful feature of \(appName) is the ability to work with images. Users can select an image from their device's gallery or take a photo right in the app. They can then select a color on the image and get its values in different formats. This is especially useful for designers who want to use colors from photos in their designs. \(appName) also provides the ability to work with color palettes. Users can create their own palettes or choose from preset options. This is especially useful for designers who want to save their favorite color combinations for future use. The application also allows you to export palettes to various formats so that they can be easily imported into other applications or programs."
+    
+    static let fullDesc31 = "One of the main features of \(appName) is its intuitive interface. Users can easily find the features they need and customize the application to suit their needs. The main screen offers several basic color conversion options such as RGB, HEX, CMYK, and HSL. Just select the desired format and enter the corresponding color values, and the app will instantly convert them to other formats. \(appName) is a handy mobile app that allows users to easily and quickly convert colors from one format to another. With its ease of use and wide range of features, it will become an indispensable tool for designers, artists, web developers and anyone who works with colors."
+
+    static let fullDesc32 = "\(appName) is a unique mobile application that helps you unleash your creativity and translate the world into colors. It offers a simple solution for complex color tasks, as well as the perfect combination of style and functionality. Let your imagination blossom with \(appName) and discover new horizons of color. \(appName) lets you translate the world into your favorite shades. You will be able to customize the app to your preferences and create a unique color palette that reflects your personality. The app also offers the opportunity to let your imagination blossom. You will be able to create unique color combinations and discover new color horizons. \(appName) is the perfect tool for designers and artists who want to unleash their creativity."
+
+    static let fullDesc33 = "One of the main features of \(appName) is its ease of use. It is a solution for complex color problems that is accessible to everyone. You can give your ideas a bright shade and make your projects unique with \(appName). \(appName) will be your reliable assistant in choosing a color scheme. You will be able to turn your ideas into reality with the help of this application. It will help you change your life by changing colors and immerse yourself in the amazing world of colors. One of the main advantages of \(appName) is its perfect combination of style and functionality. The application has a simple and intuitive interface that allows you to switch between colors quickly and easily. You will be able to create gorgeous color palettes and discover endless color possibilities."
+
+    static let fullDesc34 = "\(appName) is your personal guide in the world of colors. It is a unique mobile application that will help you translate the world into colors and turn everything around you into art. With \(appName) you can discover new facets of beauty and unleash your creativity. The app also offers the opportunity to let your imagination blossom. You will be able to create unique color combinations and discover new horizons of color. \(appName) is the perfect tool for designers and artists who want to unleash their creativity. \(appName) allows you to translate the world into your favorite shades. You will be able to customize the application to your preferences and create a unique color palette that will reflect your personality."
+
+    static let fullDesc35 = "\(appName) is a handy mobile application that allows users to quickly and easily convert colors from one format to another. Thanks to its ease of use and wide range of features, it will become an indispensable tool for designers, artists, web developers and anyone who works with colors. \(appName) also provides the ability to work with color palettes. Users can create their own palettes or choose from preset options. This is especially useful for designers who want to save their favorite color combinations for future use. The application also allows exporting palettes to various formats so that they can be easily imported into other applications or programs."
+
+    static let fullDesc36 = "One of the main features of \(appName) is its intuitive interface. Users can easily find the features they need and customize the application to suit their needs. The main screen offers several basic color conversion options such as RGB, HEX, CMYK, and HSL. Just select the desired format and enter the corresponding color values, and the app will instantly convert them to other formats. Another useful feature of \(appName) is the ability to work with images. Users can select an image from their device's gallery or take a photo right in the app. They can then select a color on the image and get its values in different formats. This is especially useful for designers who want to use colors from photos in their designs."
+
+    static let fullDesc37 = "\(appName) has a wide range of additional tools to help users with colors. For example, they can create gradients, generate random colors, find similar colors and much more. These tools will help users breathe life into their designs and create unique color schemes. \(appName) is a powerful color tool that offers a wide range of features and an intuitive interface. Thanks to it, users will be able to quickly and easily convert colors, create palettes, work with images and use additional tools to create unique color schemes. It is an indispensable application for everyone who works with colors in their projects."
+
+    static let fullDesc38 = "\(appName) is a unique mobile application that will open the whole world of colors before you and turn your environment into a real art. With \(appName) you will be able to discover new facets of beauty and develop your creativity. \(appName) will be your reliable assistant in choosing a color scheme. You will be able to turn your ideas into reality with the help of this application. It will help you change your life by changing colors and plunge into the amazing world of colors. One of the main features of \(appName) is its ease of use. It is a solution for complex color problems, accessible to everyone. You will be able to give your ideas a bright shade and make your projects unique with \(appName)!"
+
+    static let fullDesc39 = "The app also offers you the opportunity to unleash your imagination. You can create unique color combinations and discover new color horizons. \(appName) is an ideal tool for designers and artists who want to unleash their creativity. \(appName) also offers additional features that make working with colors easier. For example, users can adjust the brightness, saturation, and hue of a color to get the desired result. They can also view the conversion history and save their settings for later use."
+
+    static let fullDesc40 = "\(appName) is a unique mobile application that helps you unleash your creativity and translate the world into colors. It offers a simple solution for complex color tasks and the perfect combination of style and functionality. Let your imagination run wild with \(appName) and discover new color horizons. \(appName) also offers additional features that make working with colors easier. For example, users can adjust the brightness, saturation, and hue of a color to get the desired result. They can also view the conversion history and save their settings for later use. One of the main features of \(appName) is its ease of use. It is a solution for complex color problems that is accessible to everyone. You will be able to give your ideas a vibrant touch and make your projects unique with \(appName)!"
+    
     static let shortDesc1 = "\(appName) is a universal assistant in color selection."
 
     static let shortDesc2 = "\(appName) is an easy way to transform your color scheme."
@@ -90,16 +130,56 @@ struct ColorConverterMeta: MetaProviderProtocol {
 
     static let shortDesc20 = "\(appName) - a simple and effective application for working with colors."
     
+    static let shortDesc21 = "\(appName) is your personal guide to the world of colors."
+
+    static let shortDesc22 = "Translate the world into colors with \(appName)."
+
+    static let shortDesc23 = "Turn everything around you into art with \(appName)."
+
+    static let shortDesc24 = "Discover new facets of beauty with \(appName)."
+
+    static let shortDesc25 = "\(appName) is the perfect combination of style and functionality."
+
+    static let shortDesc26 = "Switch between colors quickly and easily with \(appName)."
+
+    static let shortDesc27 = "Create gorgeous color palettes with \(appName)."
+
+    static let shortDesc28 = "Discover endless color possibilities with \(appName)."
+
+    static let shortDesc29 = "\(appName) is your trusted assistant in choosing a color scheme."
+
+    static let shortDesc30 = "Turn your ideas into reality with \(appName)."
+
+    static let shortDesc31 = "Change your life by changing colors with \(appName)."
+
+    static let shortDesc32 = "Immerse yourself in a world of colors with \(appName)."
+
+    static let shortDesc33 = "\(appName) is a simple solution to complex color problems."
+
+    static let shortDesc34 = "Give your ideas a bright hue with \(appName)."
+
+    static let shortDesc35 = "Unleash your creativity with \(appName)."
+
+    static let shortDesc36 = "Make your projects unique with \(appName)."
+
+    static let shortDesc37 = "Let your imagination blossom with \(appName)."
+
+    static let shortDesc38 = "\(appName) is the ideal tool for designers and artists."
+
+    static let shortDesc39 = "Discover new horizons of color with \(appName)."
+
+    static let shortDesc40 = "Translate the world into your favorite hues with \(appName)."
+    
     static func getFullDesc(appName: String) -> String {
         self.appName = appName
-        let fullDesc = [fullDesc1, fullDesc2, fullDesc3, fullDesc4, fullDesc5, fullDesc6, fullDesc7, fullDesc8, fullDesc9, fullDesc10, fullDesc11, fullDesc12, fullDesc13, fullDesc14, fullDesc15, fullDesc16, fullDesc17, fullDesc18, fullDesc19, fullDesc20]
+        let fullDesc = [fullDesc1, fullDesc2, fullDesc3, fullDesc4, fullDesc5, fullDesc6, fullDesc7, fullDesc8, fullDesc9, fullDesc10, fullDesc11, fullDesc12, fullDesc13, fullDesc14, fullDesc15, fullDesc16, fullDesc17, fullDesc18, fullDesc19, fullDesc20, fullDesc21, fullDesc22,fullDesc23,fullDesc24,fullDesc25,fullDesc26,fullDesc27,fullDesc28,fullDesc29,fullDesc30,fullDesc31,fullDesc32,fullDesc33,fullDesc34,fullDesc35,fullDesc36,fullDesc37,fullDesc38,fullDesc39,fullDesc40]
 
         return fullDesc.randomElement() ?? fullDesc1
     }
     
     static func getShortDesc(appName: String) -> String {
         self.appName = appName
-        let shortDesc = [shortDesc1, shortDesc2, shortDesc3, shortDesc4, shortDesc5, shortDesc6, shortDesc7, shortDesc8, shortDesc9, shortDesc10, shortDesc11, shortDesc12, shortDesc13, shortDesc14, shortDesc15, shortDesc16, shortDesc17, shortDesc18, shortDesc19, shortDesc20]
+        let shortDesc = [shortDesc1, shortDesc2, shortDesc3, shortDesc4, shortDesc5, shortDesc6, shortDesc7, shortDesc8, shortDesc9, shortDesc10, shortDesc11, shortDesc12, shortDesc13, shortDesc14, shortDesc15, shortDesc16, shortDesc17, shortDesc18, shortDesc19, shortDesc20,shortDesc21,shortDesc22,shortDesc23,shortDesc24,shortDesc25,shortDesc26,shortDesc27,shortDesc28,shortDesc29,shortDesc30,shortDesc31,shortDesc32,shortDesc33,shortDesc34,shortDesc35,shortDesc36,shortDesc37,shortDesc38,shortDesc39,shortDesc40]
 
         return shortDesc.randomElement() ?? shortDesc1
     }

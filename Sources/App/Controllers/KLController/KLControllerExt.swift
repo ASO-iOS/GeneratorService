@@ -70,38 +70,38 @@ extension KLController {
     
     func createClicker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLClicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLClicker.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(KLClicker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createColorSwatcher(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLColorSwatcher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLColorSwatcher.fileName)
         
-        // MARK: - todo meta
+        fileHandler.createMeta(ColorSwatcherMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLColorSwatcher.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createDSWeapon(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLDSWeapon.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLDSWeapon.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(DarkSoulsWeaponMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLDSWeapon.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createReactionTest(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLReactionTest.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLReactionTest.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(ReactionTestMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(KLReactionTest.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createSupernaturalQuotes(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLSupernaturalQuotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLSupernaturalQuotes.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(SupernaturalQuotMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLSupernaturalQuotes.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createTeaWiki(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLTeaWiki.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLTeaWiki.fileName)
-        // MARK: - todo meta
+        fileHandler.createMeta(TeaWikiMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLTeaWiki.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -116,7 +116,7 @@ extension KLController {
         }
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLWeatherApp.dimens(uiSettings).content, fileName: KLWeatherApp.dimens(uiSettings).name)
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLWeatherApp.styles().content, fileName: KLWeatherApp.styles().name)
-        // MARK: - todo meta
+        fileHandler.createMeta(WeatherAppMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLWeatherApp.self, packageName: packageName, gradlePaths: gradlePaths, useDeps: false)
         
     }
@@ -129,7 +129,7 @@ extension KLController {
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_regular.ttf", to: xmlPaths.fontPath + "montserrat_regular.ttf")
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
         
-        // MARK: - todo meta
+        fileHandler.createMeta(BodyTypeCalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLBodyTypeCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -141,7 +141,7 @@ extension KLController {
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_regular.ttf", to: xmlPaths.fontPath + "montserrat_regular.ttf")
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
         
-        // MARK: - todo meta
+        fileHandler.createMeta(HiddenParisMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(KLHiddenParis.self, packageName: packageName, gradlePaths: gradlePaths)
         
         
@@ -150,7 +150,7 @@ extension KLController {
     func createBubblePicker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLBubblePicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLBubblePicker.fileName)
         
-        // MARK: - todo meta
+        fileHandler.createMeta(BubblePickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(KLBubblePicker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -167,7 +167,7 @@ extension KLController {
         fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.sadFace.content, fileName: KLMoodTrackerRes.sadFace.name)
         fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.smileFace.content, fileName: KLMoodTrackerRes.smileFace.name)
         
-        // MARK: - todo meta
+        fileHandler.createMeta(MoodTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLMoodTracker.self, packageName: packageName, gradlePaths: gradlePaths)
         
         
