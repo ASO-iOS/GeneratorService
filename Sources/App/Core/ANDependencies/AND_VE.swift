@@ -22,6 +22,22 @@ extension AndroidNecesseryDependencies {
             return VEFindUniversity.dependencies(mainData)
         case AppIDs.VE_PASS_GENERATOR:
             return VEPassGen.dependencies(mainData)
+        case AppIDs.VE_QUIZ_VIDEOGAMES:
+            return VEQuizVideoGames.dependencies(mainData)
+        case AppIDs.VE_FACTS_ABOUT_DOGS:
+            return VEFactsAboutDogs.dependencies(mainData)
+        case AppIDs.VE_LUCKY_SPAN:
+            return VELuckySpan.dependencies(mainData)
+        case AppIDs.VE_SOUND_RECORDER:
+            return VESoundRecorder.dependencies(mainData)
+        case AppIDs.VE_CALENDAR_EVENTS:
+            return VECalendarEvents.dependencies(mainData)
+        case AppIDs.VE_VIGENERE_CHIPHER:
+            return VEVigenereCipher.dependencies(mainData)
+        case AppIDs.VE_RANDOM_WORD_QUIZ:
+            return VERandomWordQuiz.dependencies(mainData)
+        case AppIDs.VE_RECIPES_BOOK:
+            return VERecipesBook.dependencies(mainData)
         default:
             return ANDData.empty
         }
