@@ -87,6 +87,8 @@ struct AppIDs {
     static let VE_RANDOM_DOGS =               "ve-0014"
     static let VE_VIGENERE_CHIPHER =          "ve-0015"
     static let VE_RECIPES_BOOK =              "ve-0016"
+    static let VE_RANDOM_WORD_QUIZ =          "ve-0017"
+    static let VE_SOUND_RECORDER =            "ve-0018"
     
     static let AK_PREFIX =               "ak"
     static let AK_RICK_AND_MORTY =       "ak-0001"

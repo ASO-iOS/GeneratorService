@@ -17,7 +17,7 @@ extension VEController {
         } catch {
             print(error)
         }
-
+        
         fileHandler.writeFile(filePath: assetsLocation, contentText: VETypesOfAircraftAssets.content, fileName: VETypesOfAircraftAssets.name)
         
         fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: TypesOfAircraftMeta.getShortDesc(appName: appName), full: TypesOfAircraftMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
@@ -47,9 +47,9 @@ extension VEController {
         fileHandler.writeFile(filePath: resPath, contentText: VEFactsRes.alarmContent, fileName: VEFactsRes.alarmName)
         
         fileHandler.createGradle(VEFacts.self, packageName: packageName, gradlePaths: gradlePaths)
-//        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEFacts.gradle(packageName).projectBuildGradle.content, fileName: VEFacts.gradle(packageName).projectBuildGradle.name)
-//        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEFacts.gradle(packageName).moduleBuildGradle.content, fileName: VEFacts.gradle(packageName).moduleBuildGradle.name)
-//        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEFacts.gradle(packageName).dependencies.content, fileName: VEFacts.gradle(packageName).dependencies.name)
+        //        fileHandler.writeFile(filePath: gradlePaths.projectGradlePath, contentText: VEFacts.gradle(packageName).projectBuildGradle.content, fileName: VEFacts.gradle(packageName).projectBuildGradle.name)
+        //        fileHandler.writeFile(filePath: gradlePaths.moduleGradlePath, contentText: VEFacts.gradle(packageName).moduleBuildGradle.content, fileName: VEFacts.gradle(packageName).moduleBuildGradle.name)
+        //        fileHandler.writeFile(filePath: gradlePaths.dependenciesPath, contentText: VEFacts.gradle(packageName).dependencies.content, fileName: VEFacts.gradle(packageName).dependencies.name)
     }
     
     func createFindUniversity(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
@@ -66,4 +66,63 @@ extension VEController {
         fileHandler.createGradle(VEPassGen.self, packageName: packageName, gradlePaths: gradlePaths)
         
     }
+    
+        func createQuizVideoGames(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+            fileHandler.writeFile(filePath: path, contentText: VEQuizVideoGames.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEQuizVideoGames.fileName)
+    
+    
+            fileHandler.createMeta(QuizVideoGamesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+            fileHandler.createGradle(VEQuizVideoGames.self, packageName: packageName, gradlePaths: gradlePaths)
+        }
+    
+    func createFactsAboutDogs(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEFactsAboutDogs.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEFactsAboutDogs.fileName)
+        
+        fileHandler.createMeta(FactsAboutDogsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VEFactsAboutDogs.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createLuckySpan(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VELuckySpan.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VELuckySpan.fileName)
+        
+        fileHandler.createMeta(LuckySpanMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VELuckySpan.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createSoundRecorder(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VESoundRecorder.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VESoundRecorder.fileName)
+        
+        fileHandler.createMeta(SoundRecorderMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VESoundRecorder.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCalendarEvents(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VECalendarEvents.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VECalendarEvents.fileName)
+        
+        fileHandler.createMeta(CalendarEventsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VECalendarEvents.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createVigenereCipher(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEVigenereCipher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEVigenereCipher.fileName)
+        
+        fileHandler.createMeta(VigenereCipherMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VEVigenereCipher.self, packageName: packageName, gradlePaths: gradlePaths)
+        
+    }
+  
+    func createRandomWordQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VERandomWordQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VERandomWordQuiz.fileName)
+        
+        fileHandler.createMeta(RandomWordQuizMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(VERandomWordQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRecipesBook(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VERecipesBook.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VERecipesBook.fileName)
+        
+        fileHandler.createMeta(RecipesBookMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VERecipesBook.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
 }
