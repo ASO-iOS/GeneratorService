@@ -33,7 +33,7 @@ extension KLController {
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLMetricsConverter.dimens(uiSettings).content, fileName: KLMetricsConverter.dimens(uiSettings).name)
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: KLMetricsConverter.styles().content, fileName: KLMetricsConverter.styles().name)
         
-        // MARK: - todo meta
+        fileHandler.createMeta(MetricsConverterMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLMetricsConverter.self, packageName: packageName, gradlePaths: gradlePaths, useDeps: false)
     }
     

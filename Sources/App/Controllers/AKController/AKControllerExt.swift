@@ -139,7 +139,7 @@ extension AKController {
         fileHandler.writeFile(filePath: path, contentText: AKRandomCoffee.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKRandomCoffee.fileName)
         fileHandler.writeFile(filePath: resPath, contentText: AKRandomCoffeeRes.errorOutlineContent, fileName: AKRandomCoffeeRes.errorOutlineName)
         fileHandler.writeFile(filePath: resPath, contentText: AKRandomCoffeeRes.imageContent, fileName: AKRandomCoffeeRes.imageName)
-        // MARK: - todo meta
+        fileHandler.createMeta(RandomCoffeeMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(AKRandomCoffee.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
