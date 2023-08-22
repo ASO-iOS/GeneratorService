@@ -71,6 +71,11 @@ class Manifest {
             return """
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 """
+        case AppIDs.VE_SOUND_RECORDER:
+            return """
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+"""
         default:
             return ""
         }

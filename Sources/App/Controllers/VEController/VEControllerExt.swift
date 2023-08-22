@@ -62,7 +62,7 @@ extension VEController {
     
     func createPassGen(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: VEPassGen.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEPassGen.fileName)
-        fileHandler.writeFile(filePath: metaLoc, contentText: MetaHandler.fileContent(appName: appName, short: PassGeneratorMeta.getShortDesc(appName: appName), full: PassGeneratorMeta.getFullDesc(appName: appName), category: AppCategory.app_tools.rawValue), fileName: MetaHandler.fileName)
+        fileHandler.createMeta(PassGeneratorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(VEPassGen.self, packageName: packageName, gradlePaths: gradlePaths)
         
     }
@@ -123,6 +123,21 @@ extension VEController {
         
         fileHandler.createMeta(RecipesBookMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(VERecipesBook.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomDogs(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: VERandomDogs.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VERandomDogs.fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: VERandomDogsRes.petIcon.content, fileName: VERandomDogsRes.petIcon.name)
+        fileHandler.createMeta(RandomDogsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VERandomDogs.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createEnglishDictionaryHelper(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEEnglishDictionaryHelper.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEEnglishDictionaryHelper.fileName)
+        
+        fileHandler.createMeta(EnglishDictionaryHelperMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VEEnglishDictionaryHelper.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
 }
