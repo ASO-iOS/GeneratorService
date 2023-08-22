@@ -89,7 +89,6 @@ import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))

@@ -12,4 +12,5 @@ enum AppCategory: String {
     case game_arcade = "Game / Arcade"
     case app_entertainment = "App / Entertainment"
     case game_race = "Game / Race"
+    case game_puzzle = "Game / Puzzle"
 }

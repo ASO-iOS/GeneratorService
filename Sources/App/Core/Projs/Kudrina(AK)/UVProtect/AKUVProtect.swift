@@ -246,7 +246,7 @@ fun TextRec(viewModel: MainViewModel = hiltViewModel()) {
         modifier = Modifier
             .padding(start = 16.dp, end = 16.dp),
         text = stringResource(id = resForRec.value),
-        color = Color.White,
+        color = surfaceColor,
         fontFamily = MainFontNormal,
         fontSize = 14.sp
     )
@@ -342,7 +342,7 @@ fun Header(viewModel: MainViewModel = hiltViewModel()) {
                     text = stringResource(id = R.string.ok_button),
                     fontSize = 12.sp,
                     fontFamily = MainFont,
-                    color = Color.White
+                    color = surfaceColor
                 )
             }
         }

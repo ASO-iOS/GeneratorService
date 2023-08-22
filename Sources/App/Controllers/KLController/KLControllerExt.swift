@@ -169,7 +169,11 @@ extension KLController {
         
         fileHandler.createMeta(MoodTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLMoodTracker.self, packageName: packageName, gradlePaths: gradlePaths)
-        
-        
+    }
+    
+    func createDotCrossGame(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLDotCrossGame.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLDotCrossGame.fileName)
+        fileHandler.createMeta(DotCrossGameMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(KLDotCrossGame.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }

@@ -124,7 +124,7 @@ fun MainScreenUI() {
                 .alpha(0.95f)
                 .padding(top = 10.dp, start = paddingPrimary, end = paddingPrimary),
             shape = RoundedCornerShape(25.dp),
-            backgroundColor = buttonTextColorPrimary
+            backgroundColor = primaryColor
         ) {
             ChoseMeatUI()
         }
@@ -135,7 +135,7 @@ fun MainScreenUI() {
                 .alpha(0.95f)
                 .padding(top = 10.dp, start = paddingPrimary, end = paddingPrimary),
             shape = RoundedCornerShape(25.dp),
-            backgroundColor = buttonTextColorPrimary
+            backgroundColor = primaryColor
         ) {
             ChosePeopleUI()
         }
@@ -146,7 +146,7 @@ fun MainScreenUI() {
                 .alpha(0.95f)
                 .padding(top = 10.dp, start = paddingPrimary, end = paddingPrimary),
             shape = RoundedCornerShape(25.dp),
-            backgroundColor = buttonTextColorPrimary
+            backgroundColor = primaryColor
         ) {
             ChoseTimeUI()
         }
@@ -157,7 +157,7 @@ fun MainScreenUI() {
                 .alpha(0.95f)
                 .padding(top = 10.dp, start = paddingPrimary, end = paddingPrimary),
             shape = RoundedCornerShape(25.dp),
-            backgroundColor = buttonTextColorPrimary
+            backgroundColor = primaryColor
         ) {
             ChoseHungerUI()
         }
@@ -168,7 +168,7 @@ fun MainScreenUI() {
                 .alpha(0.95f)
                 .padding(top = 10.dp, start = paddingPrimary, end = paddingPrimary),
             shape = RoundedCornerShape(25.dp),
-            backgroundColor = buttonTextColorPrimary
+            backgroundColor = primaryColor
         ) {
             GetResultUI()
         }
@@ -207,9 +207,9 @@ fun ChoseHungerUI() {
 
             },
             colors = SliderDefaults.colors(
-                thumbColor = textColorPrimary,
-                activeTrackColor = backColorPrimary,
-                inactiveTrackColor = primaryColor,
+                thumbColor = buttonColorPrimary,
+                activeTrackColor = buttonColorPrimary,
+                inactiveTrackColor = buttonColorPrimary,
             )
         )
 
@@ -479,11 +479,8 @@ fun ChoseTimeUI() {
                         selected = (text == selectedOption),
                         onClick = {
                             onOptionSelected(text)
-//                            if (text==time_s) chosenTime.value = time_s_type
-//                            else if (text==time_m) chosenTime.value = time_m_type
-//                            else if (text==time_l) chosenTime.value = time_l_type
                         },
-                        colors = RadioButtonDefaults.colors(backColorPrimary)
+                        colors = RadioButtonDefaults.colors(buttonColorPrimary)
                     )
 
                     Text(
@@ -519,7 +516,7 @@ fun GetResultUI() {
                 .padding(start = 20.dp, end = 8.dp)
                 .alpha(0.95f),
             shape = RoundedCornerShape(40),
-            backgroundColor = buttonTextColorPrimary,
+            backgroundColor = primaryColor,
 
             ) {
             Text(

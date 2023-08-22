@@ -64,7 +64,6 @@ import android.graphics.Color.rgb
 
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
-val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 
@@ -414,7 +413,7 @@ fun ConvertButton(viewModel: MainViewModel, textFromInput: String, context: Cont
         Text(
             text = stringResource(id = R.string.button_text),
             fontSize = 16.sp,
-            color = Color.White,
+            color = textColorPrimary,
             fontFamily = MainFont
         )
     }
@@ -457,7 +456,7 @@ fun Header(viewModel: MainViewModel = hiltViewModel()) {
                     },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = buttonColorPrimary,
-                        unselectedColor = buttonColorSecondary
+                        unselectedColor = buttonColorPrimary
                     )
                 )
 

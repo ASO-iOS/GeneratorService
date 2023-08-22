@@ -71,6 +71,10 @@ class Manifest {
             return """
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 """
+        case AppIDs.AK_ALARM:
+            return """
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+"""
         default:
             return ""
         }
