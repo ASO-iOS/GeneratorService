@@ -40,6 +40,10 @@ struct VEController {
             createRandomWordQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.VE_RECIPES_BOOK:
             createRecipesBook(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.VE_RANDOM_DOGS:
+            createRandomDogs(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.VE_ENGLISH_DICTIONARY_HELPER:
+            createEnglishDictionaryHelper(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
             
 
         default:

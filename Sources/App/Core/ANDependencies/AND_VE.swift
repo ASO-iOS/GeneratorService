@@ -38,6 +38,10 @@ extension AndroidNecesseryDependencies {
             return VERandomWordQuiz.dependencies(mainData)
         case AppIDs.VE_RECIPES_BOOK:
             return VERecipesBook.dependencies(mainData)
+        case AppIDs.VE_RANDOM_DOGS:
+            return VERandomDogs.dependencies(mainData)
+        case AppIDs.VE_ENGLISH_DICTIONARY_HELPER:
+            return VEEnglishDictionaryHelper.dependencies(mainData)
         default:
             return ANDData.empty
         }

@@ -12,7 +12,7 @@ struct VELuckySpan: FileProviderProtocol {
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """
-package com.vagavagusdevelop.luckyspan.presentation.fragments.main_fragment
+package \(packageName).presentation.fragments.main_fragment
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -73,7 +73,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.vagavagusdevelop.luckyspan.R
+import \(packageName).R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -81,10 +81,10 @@ import javax.inject.Inject
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-val backColorPrimary = Color(0xFFF44336)
-val surfaceColor = Color(0xFF00FFD8)
-val textColorPrimary = Color(0xFF000000)
-val buttonColorPrimary = Color(0xFF4CAF50)
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 
 val Typography = Typography(
     bodyLarge = TextStyle(
@@ -587,7 +587,7 @@ package dependencies
 
 
 object Application {
-    const val id = "com.vagavagusdevelop.luckyspan"
+    const val id = "\(packageName)"
     const val version_code = 1
     const val version_name = "1.0"
 }

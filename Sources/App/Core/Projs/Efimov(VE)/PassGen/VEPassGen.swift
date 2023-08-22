@@ -129,7 +129,7 @@ fun PassScreenCompose(
     ) { paddings ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize().background(backColorPrimary)
                 .padding(bottom = paddings.calculateBottomPadding()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
