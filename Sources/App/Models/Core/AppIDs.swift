@@ -143,7 +143,6 @@ struct AppIDs {
     static let EG_COCKTAIL_CRAFT =   "eg-0014"
     static let EG_PUZZLE_DIGITS =    "eg-0015"
 
-    
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
         if unsupportedIds.contains(id) {

@@ -411,7 +411,7 @@ fun PotSize(viewModel: MainViewModel = hiltViewModel()) {
                         )
                     },
                     colors = FilterChipDefaults.filterChipColors(
-                        containerColor = buttonColorSecondary,
+                        containerColor = Color.Transparent,
                         selectedContainerColor = buttonColorPrimary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
@@ -482,7 +482,7 @@ fun EggCategory(viewModel: MainViewModel = hiltViewModel()) {
                         )
                     },
                     colors = FilterChipDefaults.filterChipColors(
-                        containerColor = buttonColorSecondary,
+                        containerColor = Color.Transparent,
                         selectedContainerColor = buttonColorPrimary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
@@ -569,7 +569,7 @@ fun BoilingType(viewModel: MainViewModel = hiltViewModel()) {
                         )
                     },
                     colors = FilterChipDefaults.filterChipColors(
-                        containerColor = buttonColorSecondary,
+                        containerColor = Color.Transparent,
                         selectedContainerColor = buttonColorPrimary
                     ),
                     border = FilterChipDefaults.filterChipBorder(

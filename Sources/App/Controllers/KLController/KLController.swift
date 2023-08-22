@@ -40,6 +40,8 @@ struct KLController {
             createBubblePicker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KL_MOOD_TRACKER:
             createMoodTracker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths, resPath: resPath)
+        case AppIDs.KL_DOT_CROSS_GAME:
+            createDotCrossGame(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

@@ -2,356 +2,406 @@
 //  File.swift
 //  
 //
-//  Created by admin on 14.08.2023.
+//  Created by admin on 22.08.2023.
 //
 
 import Foundation
 
-struct AKRGBConverter: FileProviderProtocol {
-    static var fileName: String = "AKRGBConverter.kt"
+struct KLDotCrossGame: FileProviderProtocol {
+    static var fileName: String = "KLDotCrossGame.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
-import android.content.Context
-import android.widget.Toast
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import \(packageName).R
+import \(packageName).presentation.fragments.main_fragment.Constants.MAZE_HEIGHT
+import \(packageName).presentation.fragments.main_fragment.Constants.MAZE_WIDTH
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
-import kotlin.math.absoluteValue
-import kotlin.math.roundToInt
+import androidx.compose.foundation.BorderStroke
 
+//generator
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
+val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 
-fun colorListAsList(rgb: String): List<String> {
-    if (rgb.isEmpty()) return listOf()
-    if (!rgb.contains(',')) return listOf()
-    return rgb.split(',')
-}
+val textSizePrimary = 20.sp
+val textSizeSecondary = 40.sp
 
-fun rgbIsCorrect(input: String): Boolean {
-    val list = colorListAsList(input)
-    return when {
-        list.size != 3 -> false
-        list[0].trim().toIntOrNull() == null -> false
-        list[1].trim().toIntOrNull() == null -> false
-        list[2].trim().toIntOrNull() == null -> false
-        list[0].trim().toInt() !in 0..255 -> false
-        list[1].trim().toInt() !in 0..255 -> false
-        list[2].trim().toInt() !in 0..255 -> false
-        else -> true
-    }
-}
+//other
+val columnPadding = 16.dp
+val textPadding = 24.dp
+val buttonHeight = 60.dp
+val buttonWidth = 220.dp
+val gameBoxHeight = 400.dp
+val dotPadding = 2.dp
+val dotSize = 24.dp
+val buttonPadding = 16.dp
+val fontFamily = FontFamily.Monospace
 
-fun rgbToHex(rgbColor: String): String {
-    val list = colorListAsList(rgbColor)
-    if (list.size == 3) {
-        return Integer.toHexString(
-            android.graphics.Color.rgb(
-                list[0].trim().toInt(), list[1].trim().toInt(), list[2].trim().toInt()
-            )
-        )
-    }
-    return Integer.toHexString(android.graphics.Color.rgb(0, 0, 0))
-}
+val typography = Typography(
+    displayMedium = TextStyle(
+        fontFamily = fontFamily, fontSize = textSizePrimary
+    ),
+    displayLarge = TextStyle(
+        fontFamily = fontFamily, fontSize = textSizeSecondary, fontWeight = FontWeight.Medium
+    )
+)
 
-
-fun rgbToHsl(rgbColor: String, context: Context): String {
-
-    var red = 0
-    var green = 0
-    var blue = 0
-
-    val list = colorListAsList(rgbColor)
-    if (list.size == 3) {
-        red = list[0].trim().toInt()
-        green = list[1].trim().toInt()
-        blue = list[2].trim().toInt()
-    }
-
-
-    var r: Double = red / 255.0
-    var g: Double = green / 255.0
-    var b: Double = blue / 255.0
-
-    var max: Double = maxOf(r, g, b)
-    var min: Double = minOf(r, g, b)
-    var dalet: Double = max - min
-    var hue: Double = 0.0
-    var saturation: Double = 0.0
-
-
-    if (dalet > 0) {
-        if (max == r) {
-            hue = ((g - b) / dalet);
-            if (hue < 0) {
-                hue += 6
-            }
-        } else if (max == g) {
-            hue = ((b - r) / dalet) + 2
-        } else if (max == b) {
-            hue = ((r - g) / dalet) + 4
-        }
-        hue *= 60
-    }
-
-    var luminosity: Double = (max + min) / 2.0
-    if (dalet != 0.0) {
-        saturation = dalet / (1 - 2 * luminosity - 1)
-    }
-
-    saturation *= 100
-    luminosity *= 100
-
-    return context.getString(
-        R.string.hsl,
-        hue.roundToInt().absoluteValue.toString(),
-        saturation.roundToInt().absoluteValue.toString(),
-        luminosity.roundToInt().absoluteValue.toString()
+@Composable
+fun DotCrossTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        typography = typography,
+        content = content
     )
 }
 
+@Composable
+fun MainScreen(
+) {
+    val viewModel = hiltViewModel<MainViewModel>()
+    val gameState = viewModel.gameState.collectAsState().value
+
+    when(gameState) {
+        is GameState.Start -> {
+            StartScreen(
+                R.string.play,
+                onStartClick = viewModel::startGame
+            )
+        }
+        is GameState.Process -> {
+            GameScreen(gameState, viewModel::moveDot)
+        }
+        is GameState.End -> {
+            StartScreen(
+                R.string.play_again,
+                onStartClick = viewModel::startGame
+            )
+        }
+    }
+}
+
+@Composable
+fun StartScreen(
+    textRes: Int,
+    onStartClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .background(backColorPrimary)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.app_name),
+            style = MaterialTheme.typography.displayLarge,
+            modifier = Modifier.padding(textPadding),
+            color = textColorPrimary
+        )
+        Button(
+            onClick = onStartClick,
+            modifier = Modifier
+                .height(buttonHeight)
+                .width(buttonWidth),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = buttonColorPrimary
+            )
+        ) {
+            Text(text = stringResource(id = textRes), style = MaterialTheme.typography.displayMedium, color = buttonTextColorPrimary)
+        }
+    }
+}
+
+@Composable
+fun GameScreen(
+    gameState: GameState.Process,
+    onMoveChange: (Int, Int) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .background(backColorPrimary)
+            .padding(columnPadding)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        BoxWithConstraints(
+            Modifier
+                .weight(1f)
+                .height(gameBoxHeight)
+        ) {
+            val tileWidth = maxWidth / MAZE_WIDTH
+            val tileHeight = maxHeight / MAZE_HEIGHT
+
+            Maze(tileWidth, tileHeight, gameState.maze)
+            DotItem(tileWidth, tileHeight, gameState.dot)
+        }
+        Buttons(
+            onMoveChange = onMoveChange
+        )
+    }
+}
+
+@Composable
+fun DotItem(
+    tileWidth: Dp,
+    tileHeight: Dp,
+    dot: Dot
+) {
+    Box(
+        modifier = Modifier
+            .offset(x = tileWidth * dot.x, y = tileHeight * dot.y)
+            .padding(dotPadding)
+            .clip(CircleShape)
+            .size(dotSize)
+            .background(primaryColor)
+    )
+}
+
+@Composable
+fun Maze(
+    tileWidth: Dp,
+    tileHeight: Dp,
+    maze: List<Cell>
+) {
+    Box(
+        Modifier
+            .fillMaxSize()
+    ) {
+        maze.forEach { cell ->
+            if (cell.isWall) {
+                Box(
+                    Modifier
+                        .offset(x = tileWidth * cell.x, y = tileHeight * cell.y)
+                        .height(tileHeight + 1.dp)
+                        .width(tileWidth + 1.dp)
+                        .background(surfaceColor)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun Buttons(onMoveChange: (Int, Int) -> Unit) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedButton(onClick = { onMoveChange(0, -1) }, shape = RoundedCornerShape(8.dp), border = BorderStroke(width = 4.dp, color = buttonColorSecondary)) {
+            Icon(Icons.Default.KeyboardArrowUp, null, tint = buttonColorSecondary)
+        }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(buttonPadding)
+        ) {
+            OutlinedButton(onClick = { onMoveChange(-1, 0) }, shape = RoundedCornerShape(8.dp), border = BorderStroke(width = 4.dp, color = buttonColorSecondary)) {
+                Icon(Icons.Default.KeyboardArrowLeft, null, tint = buttonColorSecondary)
+            }
+            OutlinedButton(onClick = { onMoveChange(1, 0) }, shape = RoundedCornerShape(8.dp), border = BorderStroke(width = 4.dp, color = buttonColorSecondary)) {
+                Icon(Icons.Default.KeyboardArrowRight, null, tint = buttonColorSecondary)
+            }
+        }
+        OutlinedButton(onClick = { onMoveChange(0, 1) }, shape = RoundedCornerShape(8.dp), border = BorderStroke(width = 4.dp, color = buttonColorSecondary)) {
+            Icon(Icons.Default.KeyboardArrowDown, null, tint = buttonColorSecondary)
+        }
+    }
+}
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
 
+    private val mutex = Mutex()
 
-    private val _textFromInput = MutableStateFlow<String>("")
-    val textFromInput: StateFlow<String> = _textFromInput
-    fun changeTextFromInput(newTextFromInput: String) {
-        _textFromInput.value = newTextFromInput
-    }
+    private val _gameState = MutableStateFlow<GameState>(GameState.Start)
+    val gameState = _gameState.asStateFlow()
 
-
-    private val _rgbColorText = MutableStateFlow<String>("")
-    val rgbColorText: StateFlow<String> = _rgbColorText
-    fun changeRgbColorText(newRgbColorText: String) {
-        _rgbColorText.value = newRgbColorText
-    }
-
-
-    private val _hexColorText = MutableStateFlow<String>("")
-    val hexColorText: StateFlow<String> = _hexColorText
-    fun changeHexColorText(newHexColorText: String) {
-        _hexColorText.value = newHexColorText
-    }
-
-    private val _hslColorText = MutableStateFlow<String>("")
-    val hslColorText: StateFlow<String> = _hslColorText
-    fun changeHslColorText(newHslColorText: String) {
-        _hslColorText.value = newHslColorText
-    }
-
-
-    private val _currentColor = MutableStateFlow(surfaceColor)
-    val currentColor: StateFlow<Color> = _currentColor
-    fun changeCurrentColor(newCurrentColor: Color) {
-        _currentColor.value = newCurrentColor
-    }
-
-    private fun setColorRGB(red: Int = 100, green: Int = 0, blue: Int = 0) {
-        changeCurrentColor(Color(android.graphics.Color.rgb(red, green, blue)))
-    }
-
-    fun convertAndSetColorRGB(textFromForm: String) {
-        val colorArray = textFromForm.split(',')
-        if (colorArray.size == 3) setColorRGB(
-            colorArray[0].trim().toInt(),
-            colorArray[1].trim().toInt(),
-            colorArray[2].trim().toInt()
-        )
-    }
-}
-
-@Composable
-fun Square(viewModel: MainViewModel = hiltViewModel()) {
-
-    val currentColor = viewModel.currentColor.collectAsState().value
-
-    Canvas(
-        modifier = Modifier
-            .padding(top = 20.dp, bottom = 20.dp)
-            .size(170.dp)
-            .background(currentColor)
-    ) {}
-}
-
-@Composable
-fun MainUI(viewModel: MainViewModel = hiltViewModel()) {
-
-    val textFromInput = rememberSaveable {
-        mutableStateOf("")
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(backColorPrimary)
-            .padding(top = 20.dp, bottom = 10.dp, start = 20.dp, end = 20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        OutlinedTextField(
-            maxLines = 1,
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .align(Alignment.CenterHorizontally),
-            value = textFromInput.value,
-            onValueChange = {
-                textFromInput.value = it
-                viewModel.changeTextFromInput(it)
-            },
-            label = {
-                Text(
-                    text = stringResource(id = R.string.label_text),
+    fun startGame() {
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val maze = generateMaze()
+                val startDotPosition = maze.first { !it.isWall }
+                _gameState.value = GameState.Process(
+                    maze = maze,
+                    dot = Dot(
+                        x = startDotPosition.x,
+                        y = startDotPosition.y
+                    )
                 )
-            },
-            textStyle = TextStyle.Default.copy(
-                fontSize = 18.sp,
-            ),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = surfaceColor,
-                unfocusedBorderColor = textColorSecondary,
-                textColor = textColorPrimary,
-                unfocusedLabelColor = textColorSecondary,
-                focusedLabelColor = surfaceColor,
-                cursorColor = surfaceColor
-            ),
-        )
-
-        HelperText()
-
-        ConvertButton()
-
-        Square()
-
-        ConvertedTexts()
-
-    }
-}
-
-@Composable
-fun HelperText() {
-    androidx.compose.material3.Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 10.dp),
-        text = stringResource(id = R.string.format_rgb),
-        textAlign = TextAlign.Center,
-        fontSize = 16.sp,
-        color = textColorSecondary
-    )
-}
-
-@Composable
-fun ConvertedTexts(viewModel: MainViewModel = hiltViewModel()) {
-
-    val rgbText = viewModel.rgbColorText.collectAsState().value
-
-    val hexText = viewModel.hexColorText.collectAsState().value
-
-    val hslText = viewModel.hslColorText.collectAsState().value
-
-    Text(
-        text = rgbText,
-        color = textColorSecondary,
-        fontSize = 14.sp
-    )
-
-    Text(
-        text = hexText,
-        color = textColorSecondary,
-        fontSize = 14.sp
-    )
-
-    Text(
-        text = hslText,
-        color = textColorSecondary,
-        fontSize = 14.sp
-    )
-}
-
-@Composable
-fun ConvertButton(viewModel: MainViewModel = hiltViewModel()) {
-
-    val context = LocalContext.current
-
-    val textFromInput = viewModel.textFromInput.collectAsState().value
-
-    Button(
-        modifier = Modifier.padding(top = 10.dp),
-        onClick = {
-            if (rgbIsCorrect(textFromInput)) {
-                viewModel.changeRgbColorText(context.getString(R.string.rgb_text, textFromInput))
-                viewModel.changeHexColorText(context.getString(R.string.hex_text, rgbToHex(textFromInput)))
-                viewModel.changeHslColorText(context.getString(R.string.hsl_text, rgbToHsl(textFromInput, context)))
-
-                viewModel.convertAndSetColorRGB(textFromInput)
-            } else {
-                Toast.makeText(context, R.string.input_error, Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = surfaceColor
-        )
-    ) {
-        androidx.compose.material3.Text(
-            text = stringResource(id = R.string.button_text),
-            fontSize = 16.sp,
-            color = Color.White,
+
+        }
+    }
+
+    fun moveDot(moveX: Int, moveY: Int) {
+        val gameState = _gameState.value as? GameState.Process
+        gameState?.let {
+            val x = gameState.dot.x + moveX
+            val y = gameState.dot.y + moveY
+            if (checkIfBeyondStart(x) || checkIfWall(x, y, gameState.maze)) return
+            viewModelScope.launch {
+                mutex.withLock {
+                    _gameState.value = gameState.copy(
+                        dot = Dot(
+                            x = gameState.dot.x + moveX,
+                            y = gameState.dot.y + moveY
+                        )
+                    )
+                    if (checkIfEnd(x)) {
+                        delay(50L)
+                        _gameState.value = GameState.End
+                    }
+                }
+            }
+        }
+    }
+
+    private fun checkIfBeyondStart(x: Int): Boolean {
+        return x < 0
+    }
+
+    private fun checkIfEnd(x: Int): Boolean {
+        return x >= MAZE_WIDTH - 1
+    }
+
+    private fun checkIfWall(x: Int, y: Int, maze: List<Cell>): Boolean {
+        return maze.first { it.x == x && it.y == y }.isWall
+    }
+
+    private fun generateMaze(): List<Cell> {
+        val maze = mutableListOf<Cell>()
+
+        for (i in 0 until MAZE_WIDTH) {
+            for (j in 0 until MAZE_HEIGHT) {
+                maze.add(Cell(x = i, y = j))
+            }
+        }
+
+        val start = Pair(0, (1 until MAZE_HEIGHT).random())
+        var current = maze.first { it.x == start.first && it.y == start.second }.apply {
+            isWall = false
+        }
+
+        while (current.x < MAZE_WIDTH - 1) {
+            val neighbours = getNeighbours(current, maze)
+
+            val list = neighbours.filter {
+                it.isWall && (it.x >= current.x) && (it.y < MAZE_HEIGHT) && (allWallNeighbours(
+                    getNeighbours(it, maze)
+                ) || it.x == MAZE_WIDTH - 1)
+            }
+            current = list.random().apply {
+                isWall = false
+            }
+        }
+
+        return maze
+    }
+
+    private fun allWallNeighbours(list: List<Cell>): Boolean {
+        return list.count { it.isWall } == 3
+    }
+
+    private fun getNeighbours(current: Cell, maze: List<Cell>): List<Cell> {
+        return listOfNotNull(
+            maze.firstOrNull { (it.x == current.x - 1) && (it.y == current.y) },
+            maze.firstOrNull { (it.x == current.x + 1) && (it.y == current.y) },
+            maze.firstOrNull { (it.x == current.x) && (it.y == current.y - 1) },
+            maze.firstOrNull { (it.x == current.x) && (it.y == current.y + 1) }
         )
     }
 }
+
+sealed class GameState {
+    object Start: GameState()
+    data class Process(var maze: List<Cell>, var dot: Dot) : GameState()
+    object End: GameState()
+}
+
+data class Cell(
+    var x: Int = 0,
+    var y: Int = 0,
+    var isWall: Boolean = true
+)
+
+object Constants {
+    const val MAZE_HEIGHT = 20
+    const val MAZE_WIDTH = 10
+}
+
+data class Dot(
+    var x: Int = 0,
+    var y: Int = 0
+)
+
 """
     }
     
     static func dependencies(_ mainData: MainData) -> ANDData {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: """
-    MainUI()
+                DotCrossTheme {
+                    MainScreen()
+                }
 """), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
-    <string name="hsl">%1$s, %2$s, %3$s</string>
-    <string name="format_rgb">Format: 38, 63, 27</string>
-    <string name="error">error</string>
-    <string name="rgb_text">RGB: %1$s</string>
-    <string name="hex_text">HEX: %1$s</string>
-    <string name="hsl_text">HSL: %1$s</string>
-    <string name="button_text">Convert</string>
-    <string name="input_error">Wrong input</string>
-    <string name="empty"> </string>
-    <string name="label_text">Enter your rgb color</string>
+    <string name="play">Play</string>
+    <string name="play_again">Play Again</string>
 """), colorsData: ANDColorsData(additional: ""))
     }
     

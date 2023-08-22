@@ -210,7 +210,7 @@ fun ColorDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(windowRoundedCorner),
-            color = surfaceColor.copy(transparencyCoef)
+            color = surfaceColor
         ) {
             Column(
                 modifier = Modifier
@@ -304,7 +304,8 @@ fun ColorDialog(
                             )
                             viewModel.editSwatch(updatedSwatch)
                             viewModel.hideColorDialog()
-                        }
+                        },
+                        border = BorderStroke(0.dp, Color.Transparent)
                     ) {
                         Text(
                             stringResource(R.string.save_button),

@@ -76,6 +76,10 @@ class Manifest {
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 """
+        case AppIDs.AK_ALARM:
+            return """
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+"""
         default:
             return ""
         }

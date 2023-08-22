@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.TextField
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -41,7 +42,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
@@ -88,12 +88,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val backColorPrimary = Color(0xFFFFDDB5)
-val surfaceColor = Color(0xFFEAAC64)
-val textColorPrimary = Color(0xFFFFFFFF)
-val textColorSecondary = Color(0xFFFF8900)
-val primaryColor = Color(0x66000000)
-val onPrimaryColor = Color(0xFF747373)
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
+val primaryColor = Color(0xff\(uiSettings.primaryColor ?? "FFFFFF"))
+val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
 
 val paddingPrimary = 20.dp
 
@@ -160,7 +160,6 @@ class MainViewModel @Inject constructor(
             localRepository.updateItem(item)
         }
     }
-
 }
 
 @Composable
@@ -176,7 +175,6 @@ fun MainUi(viewModel: MainViewModel = hiltViewModel()) {
         item {
             UIHeader(viewModel)
         }
-
         if (listItems.isNotEmpty()) {
 
             listItems.forEach { listItem ->
@@ -184,13 +182,12 @@ fun MainUi(viewModel: MainViewModel = hiltViewModel()) {
                     UIListCard(viewModel, listItem)
                 }
             }
-
         } else {
             item {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(id = R.string.no_data_text),
-                    color = primaryColor,
+                    color = textColorPrimary,
                     fontSize = 16.sp,
                     textAlign = TextAlign.Center
                 )
@@ -213,13 +210,14 @@ fun DialogInnerUi(titleText: MutableState<String>, mainTextText: MutableState<St
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.hint_title),
-                    color = primaryColor,
+                    color = textColorSecondary,
                     fontSize = 14.sp
                 )
             },
             textStyle = TextStyle(
                 fontSize = 18.sp,
-                textDecoration = TextDecoration.None
+                textDecoration = TextDecoration.None,
+                color = textColorSecondary
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -228,21 +226,22 @@ fun DialogInnerUi(titleText: MutableState<String>, mainTextText: MutableState<St
             singleLine = true,
             onValueChange = {
                 titleText.value = it
-            }
+            },
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backgroundColor = onPrimaryColor)
         )
-
 
         TextField(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.hint_text),
-                    color = primaryColor,
+                    color = textColorSecondary,
                     fontSize = 14.sp
                 )
             },
             textStyle = TextStyle(
                 fontSize = 18.sp,
-                textDecoration = TextDecoration.None
+                textDecoration = TextDecoration.None,
+                color = textColorSecondary
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -251,20 +250,22 @@ fun DialogInnerUi(titleText: MutableState<String>, mainTextText: MutableState<St
             singleLine = true,
             onValueChange = {
                 mainTextText.value = it
-            }
+            },
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backgroundColor = onPrimaryColor)
         )
 
         TextField(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.hint_time),
-                    color = primaryColor,
+                    color = textColorSecondary,
                     fontSize = 14.sp
                 )
             },
             textStyle = TextStyle(
                 fontSize = 18.sp,
-                textDecoration = TextDecoration.None
+                textDecoration = TextDecoration.None,
+                color = textColorSecondary
             ),
             modifier = Modifier
                 .clip(RoundedCornerShape(10.dp)),
@@ -272,7 +273,8 @@ fun DialogInnerUi(titleText: MutableState<String>, mainTextText: MutableState<St
             singleLine = true,
             onValueChange = {
                 timeText.value = it
-            }
+            },
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backgroundColor = onPrimaryColor)
         )
 
 
@@ -298,12 +300,11 @@ fun Dialog(
         mutableStateOf("")
     }
 
-
     AlertDialog(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
             .wrapContentHeight(),
-        containerColor = Color.White,
+        containerColor = primaryColor,
         onDismissRequest = {
             dialogState.value = false
         },
@@ -326,13 +327,11 @@ fun Dialog(
                         Toast.makeText(context, R.string.text_input_error, Toast.LENGTH_SHORT)
                             .show()
                     }
-
                 }
-
             }) {
                 Text(
                     text = stringResource(id = R.string.ok_button),
-                    color = textColorSecondary,
+                    color = surfaceColor,
                     fontSize = 16.sp
                 )
             }
@@ -343,7 +342,7 @@ fun Dialog(
             }) {
                 Text(
                     text = stringResource(id = R.string.close_button),
-                    color = textColorSecondary,
+                    color = surfaceColor,
                     fontSize = 16.sp
                 )
             }
@@ -362,7 +361,7 @@ fun DeleteIcon() {
             .size(28.dp),
         painter = painterResource(id = R.drawable.trash),
         contentDescription = stringResource(id = R.string.delete_button_desc),
-        tint = Color.White
+        tint = textColorPrimary
     )
 }
 
@@ -412,11 +411,7 @@ fun CardCheckBox(checkedState: MutableState<Boolean>, viewModel: MainViewModel, 
             viewModel.updateItem(Item(item.id, item.title, item.text, item.time, it))
         },
         modifier = Modifier.padding(5.dp),
-        colors = CheckboxDefaults.colors(
-            checkedColor = backColorPrimary,
-            checkmarkColor = textColorSecondary,
-            uncheckedColor = backColorPrimary
-        )
+        colors = CheckboxDefaults.colors(checkedColor = textColorPrimary, checkmarkColor = textColorSecondary, uncheckedColor = textColorPrimary)
     )
 }
 
@@ -442,7 +437,7 @@ fun UIHeader(viewModel: MainViewModel) {
             color = textColorPrimary,
             style = TextStyle(
                 shadow = Shadow(
-                    color = onPrimaryColor,
+                    color = textColorSecondary,
                     offset = Offset(5f, 5f),
                     blurRadius = 5f
                 )
@@ -625,7 +620,6 @@ class LocalRepositoryImpl @Inject constructor(
 
     override suspend fun updateItem(item: Item) =
         database.dao().updateItem(item)
-
 }
 """
     }

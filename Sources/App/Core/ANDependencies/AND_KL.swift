@@ -42,6 +42,8 @@ extension AndroidNecesseryDependencies {
             return KLBubblePicker.dependencies(mainData)
         case AppIDs.KL_MOOD_TRACKER:
             return KLMoodTracker.dependencies(mainData)
+        case AppIDs.KL_DOT_CROSS_GAME:
+            return KLDotCrossGame.dependencies(mainData)
         default:
             return ANDData.empty
         }

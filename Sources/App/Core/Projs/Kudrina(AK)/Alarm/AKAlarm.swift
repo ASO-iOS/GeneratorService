@@ -252,7 +252,7 @@ fun AddButton(openDialog: MutableState<Boolean>, viewModel: MainViewModel) {
 @Composable
 fun CardForList(item: AlarmItem, viewModel: MainViewModel) {
     Card(
-        backgroundColor = surfaceColor,
+        backgroundColor = onPrimaryColor,
         shape = RoundedCornerShape(50),
         modifier = Modifier
             .fillMaxWidth()
@@ -273,7 +273,7 @@ fun CardForList(item: AlarmItem, viewModel: MainViewModel) {
                     bottom = 6.dp
                 ),
                 fontSize = 20.sp,
-                color = primaryColor
+                color = textColorSecondary
             )
 
             val context = LocalContext.current
@@ -289,7 +289,7 @@ fun CardForList(item: AlarmItem, viewModel: MainViewModel) {
                         .padding(top = 6.dp, bottom = 6.dp, end = 6.dp),
                     painter = painterResource(id = R.drawable.icon_delete),
                     contentDescription = stringResource(id = R.string.delete_icon_desc),
-                    tint = primaryColor
+                    tint = textColorSecondary
                 )
             }
         }
@@ -380,7 +380,7 @@ fun AlarmScreen(viewModel: MainViewModel = hiltViewModel()) {
                     DismissButton()
                 },
                 colors = DatePickerDefaults.colors(
-                    containerColor = primaryColor
+                    containerColor = surfaceColor
                 )
             ) {
                 TimePicker(
@@ -390,12 +390,12 @@ fun AlarmScreen(viewModel: MainViewModel = hiltViewModel()) {
                     state = state,
                     layoutType = TimePickerLayoutType.Vertical,
                     colors = TimePickerDefaults.colors(
-                        timeSelectorUnselectedContentColor = textColorPrimary,
-                        timeSelectorSelectedContainerColor = surfaceColor,
-                        timeSelectorSelectedContentColor = primaryColor,
+                        timeSelectorUnselectedContentColor = textColorSecondary,
+                        timeSelectorSelectedContainerColor = primaryColor,
+                        timeSelectorSelectedContentColor = textColorPrimary,
                         selectorColor = surfaceColor,
                         timeSelectorUnselectedContainerColor = onPrimaryColor,
-                        clockDialColor = onPrimaryColor,
+                        clockDialColor = primaryColor,
                         clockDialUnselectedContentColor = textColorPrimary,
                         clockDialSelectedContentColor = primaryColor
 

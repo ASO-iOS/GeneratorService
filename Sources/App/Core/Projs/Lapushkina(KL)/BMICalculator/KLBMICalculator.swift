@@ -56,6 +56,9 @@ class BmiViewModel @Inject constructor() : ViewModel() {
     }
 
     fun validateInput(value: String): Boolean {
+        if (value.isEmpty()) {
+            return false
+        }
         val pattern = Pattern.compile(REGEX_INPUT)
         val matchesPattern = pattern.matcher(value).matches()
         val notEmpty = value.isNotEmpty()
@@ -381,6 +384,7 @@ class MainFragment : Fragment() {
         android:id="@+id/btn_calculate_bmi"
         style="@style/Button"
         android:text="@string/calculate_bmi"
+        android:textColor="@color/buttonTextColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
