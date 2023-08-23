@@ -120,7 +120,7 @@ struct AppIDs {
     static let KL_TEA_WIKI =            "kl-0010"
     static let KL_WEATHER_APP =         "kl-0011"
     static let KL_DOT_CROSS_GAME =      "kl-0012"
-    static let KL_FLASHCARD_MARKET =    "kl-0013"
+    static let KL_FLASHCARD_MAKER =    "kl-0013"
     static let KL_HIDDEN_PARIS =        "kl-0014"
     static let KL_BUBBLE_PICKER =       "kl-0015"
     static let KL_BODY_TYPE_CACLULATOR = "kl-0016"

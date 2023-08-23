@@ -95,7 +95,7 @@ extension KLController {
     
     func createSupernaturalQuotes(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KLSupernaturalQuotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLSupernaturalQuotes.fileName)
-        fileHandler.createMeta(SupernaturalQuotMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createMeta(SupernaturalQuotesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLSupernaturalQuotes.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

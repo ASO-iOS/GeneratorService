@@ -209,7 +209,7 @@ fun MainScreenContent(
                         topEnd = cornerRadius
                     )
                 )
-                .background(Color.White)
+                .background(surfaceColor)
                 .padding(
                     top = 150.dp,
                     bottom = 32.dp,
@@ -551,7 +551,7 @@ fun ResultScreenContent(
                     )
                 )
                 .verticalScroll(rememberScrollState())
-                .background(Color.White)
+                .background(surfaceColor)
                 .padding(
                     start = 24.dp,
                     end = 24.dp,
@@ -642,7 +642,7 @@ fun ColumnScope.IconRow(
                             .size(iconSize * icon.size)
                             .drawBehind {
                                 drawRoundRect(
-                                    color = Color.White,
+                                    color = surfaceColor,
                                     cornerRadius = CornerRadius(50f),
                                     size = Size(this.size.width, this.size.height * 2.5f)
                                 )
@@ -655,14 +655,14 @@ fun ColumnScope.IconRow(
                     IconItem(
                         modifier = Modifier.size(iconSize * icon.size),
                         imageVector = icon.icon,
-                        tint = MaterialTheme.colorScheme.surface
+                        tint = Color.White
                     )
                 }
             } else {
                 IconItem(
                     modifier = Modifier.size(iconSize * icon.size),
                     imageVector = icon.icon,
-                    tint = MaterialTheme.colorScheme.surface
+                    tint = Color.White
                 )
             }
         }

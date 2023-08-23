@@ -397,7 +397,8 @@ fun GameButton(
             .height(buttonHeight),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = buttonTextColorPrimary
         )
     ) {
         Text(text = stringResource(textRes))

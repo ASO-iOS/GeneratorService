@@ -16,6 +16,7 @@ package \(packageName).presentation.fragments.main_fragment
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,8 +39,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -297,11 +298,16 @@ fun MoodDialog(
                 onValueChange = {
                     comment.value = it
                 },
-                label = { Text(stringResource(id = R.string.comments_about_day)) },
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-                    focusedContainerColor = MaterialTheme.colorScheme.surface
-                )
+                label = { Text(stringResource(id = R.string.comments_about_day), color = textColorPrimary) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = textColorPrimary,
+                unfocusedBorderColor = textColorPrimary,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedTextColor = textColorPrimary,
+                unfocusedTextColor = textColorPrimary,
+                disabledTextColor = textColorPrimary
+            )
             )
 
             OutlinedButton(
@@ -314,7 +320,8 @@ fun MoodDialog(
                         onEvent(MainEvent.AddMood(mood = moodIcon.value, comment = comment.value))
                     }
                     onDismiss()
-                }
+                },
+                border = BorderStroke(1.dp, textColorPrimary)
             ) {
                 Text(
                     text = stringResource(id = R.string.save),
