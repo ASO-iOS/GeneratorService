@@ -1,17 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by admin on 31.07.2023.
-//
-
 import Foundation
 
 struct ITQuickWriter: FileProviderProtocol {
-    static var fileName: String = "ITQuickWriter.kt"
+    static var fileName: String = "QuickWriter.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
-        return """
+        """
 package \(packageName).presentation.fragments.main_fragment
 
 import android.app.Application
@@ -125,10 +118,10 @@ val LightRed = Color(0xffff4b5b)
 val YellowGreen = Color(0xffa2cb7a)
 
 
-val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
-val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
-val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val backColorPrimary = Color(0xff\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val textColorPrimary = Color(0xff\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xff\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonTextColorPrimary = Color(0xff\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 
 @Composable
 fun DefaultRadioButton(
@@ -188,7 +181,7 @@ fun NoteItem(
     Card(
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp,
-        backgroundColor = Color(ColorUtils.blendARGB(note.color, 0x000000,0.2f))
+        backgroundColor = Color(note.color)
     ){
         Box(modifier = modifier.background(Color(ColorUtils.blendARGB(note.color, 0x000000,0.2f)))){
             Column(modifier = Modifier
@@ -302,11 +295,12 @@ fun ListNotesScreen(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        containerColor = backColorPrimary
     ) { padding ->
         Box(modifier = Modifier.padding(padding)) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize().background(backColorPrimary)
+                    .fillMaxSize()
                     .padding(16.dp)
             ) {
                 Row(
@@ -316,7 +310,6 @@ fun ListNotesScreen(
                 ) {
                     Text(
                         text = stringResource(id = R.string.list),
-                        color = textColorPrimary,
                         style = MaterialTheme.typography.headlineMedium
                     )
                     IconButton(onClick = {
@@ -878,7 +871,8 @@ object AppModule {
     }
     
     static func dependencies(_ mainData: MainData) -> ANDData {
-        return ANDData(mainFragmentData: ANDMainFragment(imports: """
+        return ANDData(
+            mainFragmentData: ANDMainFragment(imports: """
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
@@ -890,19 +884,23 @@ import androidx.compose.ui.Modifier
     ) {
         NavGraph()
     }
-"""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
-                    <string name="list">List</string>
-                    <string name="title">Title</string>
-                    <string name="date">Date</string>
-                    <string name="color">Color</string>
-                    <string name="descending">Descending</string>
-                    <string name="ascending">Ascending</string>
-                    <string name="save_error">Note not saved </string>
-                    <string name="message_delete">Note deleted</string>
-                    <string name="undo">Undo</string>
-                    <string name="title_hint">Title …</string>
-                    <string name="content_hint">Content …</string>
-        """), colorsData: ANDColorsData(additional: ""))
+"""),
+            mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""),
+            themesData: ANDThemesData(isDefault: true, content: ""),
+            stringsData: ANDStringsData(additional: """
+    <string name="list">List</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="color">Color</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
+    <string name="save_error">Note not saved </string>
+    <string name="message_delete">Note deleted</string>
+    <string name="undo">Undo</string>
+    <string name="title_hint">Title …</string>
+    <string name="content_hint">Content …</string>
+"""),
+            colorsData: ANDColorsData(additional: ""))
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {
@@ -1038,7 +1036,7 @@ object Build {
 }
 
 object Versions {
-    const val gradle = "8.0.0"
+    const val gradle = "8.0.2"
     const val compilesdk = 33
     const val minsdk = 24
     const val targetsdk = 33
@@ -1055,18 +1053,18 @@ object Versions {
     const val accompanist = "0.31.1-alpha"
 
     const val compose = "1.4.3"
-    const val compose_navigation = "2.5.0-beta01"
+    const val compose_navigation = "2.5.3"
     const val activity_compose = "1.7.1"
     const val compose_hilt_nav = "1.0.0"
 
     const val oneSignal = "4.6.7"
-    const val glide = "4.14.2"
+    const val glide = "4.12.0"
     const val swipe = "0.19.0"
     const val glide_skydoves = "1.3.9"
     const val retrofit = "2.9.0"
     const val okhttp = "4.10.0"
     const val room = "2.5.0"
-    const val coil = "2.2.2"
+    const val coil = "2.3.0"
     const val exp = "0.4.8"
     const val calend = "0.5.1"
     const val paging_version = "3.1.1"
@@ -1083,38 +1081,28 @@ object Dependencies {
     const val compose_preview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
     const val compose_activity = "androidx.activity:activity-compose:${Versions.activity_compose}"
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    const val compose_navigation =
-        "androidx.navigation:navigation-compose:${Versions.compose_navigation}"
-    const val compose_hilt_nav =
-        "androidx.hilt:hilt-navigation-compose:${Versions.compose_hilt_nav}"
+    const val compose_navigation = "androidx.navigation:navigation-compose:${Versions.compose_navigation}"
+    const val compose_hilt_nav = "androidx.hilt:hilt-navigation-compose:${Versions.compose_hilt_nav}"
     const val compose_foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
     const val compose_runtime = "androidx.compose.runtime:runtime:${Versions.compose}"
     const val compose_material3 = "androidx.compose.material3:material3:1.1.0-rc01"
-    const val compose_runtime_livedata =
-        "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
-    const val compose_mat_icons_core =
-        "androidx.compose.material:material-icons-core:${Versions.compose}"
-    const val compose_mat_icons_core_extended =
-        "androidx.compose.material:material-icons-extended:${Versions.compose}"
-
-    const val coroutines =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlin_coroutines}"
-    const val fragment_ktx = "androidx.fragment:fragment-ktx:${Versions.fragment_ktx}"
-    const val compose_system_ui_controller =
-        "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
-    const val compose_permissions =
-        "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+    const val compose_runtime_livedata = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+    const val compose_mat_icons_core = "androidx.compose.material:material-icons-core:${Versions.compose}"
+    const val compose_mat_icons_core_extended = "androidx.compose.material:material-icons-extended:${Versions.compose}"
     const val compose_splash = "androidx.core:core-splashscreen:${Versions.splash}"
 
-    const val lifecycle_viewmodel =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlin_coroutines}"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:${Versions.fragment_ktx}"
+    const val compose_system_ui_controller = "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
+    const val compose_permissions = "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+
+    const val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val converter_gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
-    const val okhttp_login_interceptor =
-        "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+    const val okhttp_login_interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
 
     const val room_runtime = "androidx.room:room-runtime:${Versions.room}"
     const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
@@ -1122,25 +1110,24 @@ object Dependencies {
     const val roomPaging = "androidx.room:room-paging:${Versions.room}"
 
     const val onesignal = "com.onesignal:OneSignal:${Versions.oneSignal}"
-
+    
     const val swipe_to_refresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.swipe}"
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glide_skydoves = "com.github.skydoves:landscapist-glide:${Versions.glide_skydoves}"
+    const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
     const val dagger_hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val dagger_hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
-    const val hilt_viewmodel_compiler =
-        "androidx.hilt:hilt-compiler:${Versions.hilt_viewmodel_compiler}"
+    const val hilt_viewmodel_compiler = "androidx.hilt:hilt-compiler:${Versions.hilt_viewmodel_compiler}"
     const val coil_compose = "io.coil-kt:coil-compose:${Versions.coil}"
     const val coil_svg = "io.coil-kt:coil-svg:${Versions.coil}"
     const val expression = "net.objecthunter:exp4j:${Versions.exp}"
-    const val calendar =
-        "io.github.boguszpawlowski.composecalendar:composecalendar:${Versions.calend}"
-    const val calendar_date =
-        "io.github.boguszpawlowski.composecalendar:kotlinx-datetime:${Versions.calend}"
+    const val calendar = "io.github.boguszpawlowski.composecalendar:composecalendar:${Versions.calend}"
+    const val calendar_date = "io.github.boguszpawlowski.composecalendar:kotlinx-datetime:${Versions.calend}"
     const val paging = "androidx.paging:paging-runtime:${Versions.paging_version}"
     const val pagingCommon = "androidx.paging:paging-common:${Versions.paging_version}"
+    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha18"
 }
 """
         let dependenciesName = "Dependencies.kt"

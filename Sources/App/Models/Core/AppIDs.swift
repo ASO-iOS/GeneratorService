@@ -69,6 +69,8 @@ struct AppIDs {
     static let IT_QUICK_WRITER =     "it-0001"
     static let IT_STOPWATCH =        "it-0002"
     static let IT_DEVICE_INFO =      "it-0003"
+    static let IT_QUICK_CALK =       "it-0004"
+    static let IT_NUMBER_GENERATOR = "it-0005"
     
     static let VE_PREFIX =           "ve"
     static let VE_QUIZ_BOOKS =                "ve-0001"
