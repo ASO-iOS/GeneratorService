@@ -637,7 +637,13 @@ import \(mainData.packageName).presentation.fragments.main_fragment.TeaFragment
     <string name="taste_description">Taste:</string>
     <string name="main_ingredients">Main Ingredients:</string>
 """),
-            colorsData: ANDColorsData(additional: "")
+            colorsData: ANDColorsData(additional: ""), stateViewModelData: """
+            fun setTeaState(id: String) {
+                _state.value = FragmentState.TeaState(id)
+            }
+        """, fragmentStateData: """
+            class TeaState(val teaId: String) : FragmentState()
+        """
         )
     }
     

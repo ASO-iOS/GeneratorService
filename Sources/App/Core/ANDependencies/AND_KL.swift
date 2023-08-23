@@ -21,7 +21,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KL_RECORDER:
             return KLRecorder.dependencies(mainData)
         case AppIDs.KL_CLICK_FASTER:
-            return KLClicker.dependencies(mainData)
+            return KLClickFaster.dependencies(mainData)
         case AppIDs.KL_COLOR_SWATCHER:
             return KLColorSwatcher.dependencies(mainData)
         case AppIDs.KL_DS_WEAPON:
@@ -44,6 +44,8 @@ extension AndroidNecesseryDependencies {
             return KLMoodTracker.dependencies(mainData)
         case AppIDs.KL_DOT_CROSS_GAME:
             return KLDotCrossGame.dependencies(mainData)
+        case AppIDs.KL_FLASHCARD_MAKER:
+            return KLFlashcardMaker.dependencies(mainData)
         default:
             return ANDData.empty
         }

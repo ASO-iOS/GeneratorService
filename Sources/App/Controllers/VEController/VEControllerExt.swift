@@ -145,4 +145,11 @@ extension VEController {
         fileHandler.createMeta(BirdGameMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(VENightBird.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createChargeMe(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: VEChargeMe.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEChargeMe.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: VEChargeMeRes.content, fileName: VEChargeMeRes.name)
+        fileHandler.createMeta(ChargeMeMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(VEChargeMe.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

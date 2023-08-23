@@ -42,6 +42,10 @@ struct KLController {
             createMoodTracker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, xmlPaths: xmlPaths, resPath: resPath)
         case AppIDs.KL_DOT_CROSS_GAME:
             createDotCrossGame(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_SUPERNATURAL_QUOTES:
+            createSupernaturalQuotes(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KL_FLASHCARD_MAKER:
+            createFlashcardMaker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

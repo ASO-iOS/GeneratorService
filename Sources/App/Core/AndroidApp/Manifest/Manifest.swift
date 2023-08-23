@@ -58,7 +58,7 @@ class Manifest {
     
     static func permsById(_ id: String) -> String {
         switch id {
-        case AppIDs.MB_ALARM, AppIDs.VE_ALARM_MATERIAL:
+        case AppIDs.MB_ALARM, AppIDs.VE_ALARM_MATERIAL, AppIDs.VE_CHARGE_ME:
             return """
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 """
@@ -79,6 +79,15 @@ class Manifest {
         case AppIDs.AK_ALARM:
             return """
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+"""
+        case AppIDs.KL_SPEED_TEST:
+            return """
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+"""
+        case AppIDs.KL_RECORDER:
+            return """
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 """
         default:
             return ""

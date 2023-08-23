@@ -56,7 +56,6 @@ val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 
 val textSizePrimary = 24.sp
 val paddingPrimary = 24.dp
@@ -91,7 +90,7 @@ fun ReactionTest(
         is MainUiState.Testing -> {
             ScreenContent(
                 color = backColorSecondary,
-                textColor = textColorSecondary,
+                textColor = textColorPrimary,
                 message = "",
                 clickMessage = "",
                 clickAction = { viewModel.stop() }
@@ -100,7 +99,7 @@ fun ReactionTest(
         is MainUiState.Finish -> {
             ScreenContent(
                 color = surfaceColor,
-                textColor = textColorSecondary,
+                textColor = textColorPrimary,
                 message = stringResource(R.string.finish_text, uiState.result),
                 clickMessage = stringResource(R.string.click_to_start_over),
                 clickAction = { viewModel.start() }
@@ -232,7 +231,7 @@ class Timer(val onTimerTick: (Long) -> Unit) {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: """
     ReactionTest()
 """), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
-    <string name="start_text">When screen becomes green, click as fast as you can.</string>
+    <string name="start_text">When the inscription disappears, click as fast as you can.</string>
     <string name="click_to_start">Click to start.</string>
     <string name="click_to_start_over">Click to start over.</string>
     <string name="finish_text">%d ms</string>

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct KLClicker: FileProviderProtocol {
-    static var fileName: String = "KLClicker.kt"
+struct KLClickFaster: FileProviderProtocol {
+    static var fileName: String = "KLClickFaster.kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
@@ -214,7 +214,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: """
         Clicker()
 """), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
-    <string name="start_text">When screen becomes green, click as fast as you can.</string>
+    <string name="start_text">When the screen changes color, click as fast as you can.</string>
     <string name="click_to_start">Click to start.</string>
     <string name="click_to_start_over">Click to start over.</string>
     <string name="finish_text">%d clicks</string>

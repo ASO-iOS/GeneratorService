@@ -289,6 +289,7 @@ class MainFragment : Fragment() {
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backColorPrimary"
     android:padding="@dimen/fragment_padding">
 
     <TextView

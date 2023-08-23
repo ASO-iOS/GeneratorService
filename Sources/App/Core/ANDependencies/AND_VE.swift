@@ -44,6 +44,8 @@ extension AndroidNecesseryDependencies {
             return VEEnglishDictionaryHelper.dependencies(mainData)
         case AppIDs.VE_NIGHT_BIRD:
             return VENightBird.dependencies(mainData)
+        case AppIDs.VE_CHARGE_ME:
+            return VEChargeMe.dependencies(mainData)
         default:
             return ANDData.empty
         }

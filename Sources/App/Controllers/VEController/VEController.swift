@@ -46,6 +46,8 @@ struct VEController {
             createEnglishDictionaryHelper(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.VE_NIGHT_BIRD:
             createNightBird(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.VE_CHARGE_ME:
+            createChargeMe(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         default:
             return
         }

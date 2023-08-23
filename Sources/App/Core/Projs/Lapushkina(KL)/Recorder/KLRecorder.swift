@@ -515,7 +515,14 @@ import \(mainData.packageName).presentation.fragments.main_fragment.RecordsFragm
 
     <color name="disabled_button_color">#9C9C9C</color>
     <color name="enabled_button_color">#5E5E5E</color>
-"""))
+"""), stateViewModelData: """
+        fun setRecordsState() {
+            _state.value = FragmentState.RecordsState
+        }
+        """,
+        fragmentStateData: """
+            object RecordsState : FragmentState()
+        """)
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {
@@ -868,7 +875,7 @@ class MainFragment : Fragment() {
         
         return [
             XMLLayoutData(content: mainFragmentContent, name: mainFragmentName),
-            XMLLayoutData(content: recordsFragmentContent, name: recordsFragmentContent),
+            XMLLayoutData(content: recordsFragmentContent, name: recordsFragmentName),
             XMLLayoutData(content: itemContent, name: itemName)
         ]
     }

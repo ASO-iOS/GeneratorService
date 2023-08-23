@@ -69,9 +69,9 @@ extension KLController {
     }
     
     func createClicker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
-        fileHandler.writeFile(filePath: path, contentText: KLClicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLClicker.fileName)
+        fileHandler.writeFile(filePath: path, contentText: KLClickFaster.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLClickFaster.fileName)
         fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
-        fileHandler.createGradle(KLClicker.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createGradle(KLClickFaster.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
     func createColorSwatcher(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
@@ -175,5 +175,11 @@ extension KLController {
         fileHandler.writeFile(filePath: path, contentText: KLDotCrossGame.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLDotCrossGame.fileName)
         fileHandler.createMeta(DotCrossGameMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
         fileHandler.createGradle(KLDotCrossGame.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createFlashcardMaker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLFlashcardMaker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLFlashcardMaker.fileName)
+        fileHandler.createMeta(FlashcardMakerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KLFlashcardMaker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
