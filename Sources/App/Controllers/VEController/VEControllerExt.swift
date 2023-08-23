@@ -140,4 +140,9 @@ extension VEController {
         fileHandler.createGradle(VEEnglishDictionaryHelper.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
+    func createNightBird(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: VENightBird.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VENightBird.fileName)
+        fileHandler.createMeta(BirdGameMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(VENightBird.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

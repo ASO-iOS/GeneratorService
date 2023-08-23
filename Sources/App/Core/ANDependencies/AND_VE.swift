@@ -42,6 +42,8 @@ extension AndroidNecesseryDependencies {
             return VERandomDogs.dependencies(mainData)
         case AppIDs.VE_ENGLISH_DICTIONARY_HELPER:
             return VEEnglishDictionaryHelper.dependencies(mainData)
+        case AppIDs.VE_NIGHT_BIRD:
+            return VENightBird.dependencies(mainData)
         default:
             return ANDData.empty
         }

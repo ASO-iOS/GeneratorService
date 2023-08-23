@@ -643,7 +643,7 @@ private fun TimePickerWithButtons(
                 containerColor = backColorSecondary,
                 selectorColor = buttonColorPrimary,
                 clockDialSelectedContentColor = textColorPrimary,
-                clockDialColor = backColorSecondary,
+                clockDialColor = surfaceColor,
                 timeSelectorSelectedContainerColor = surfaceColor,
                 timeSelectorUnselectedContainerColor = buttonColorPrimary,
                 clockDialUnselectedContentColor = textColorPrimary,
@@ -663,7 +663,7 @@ private fun TimePickerWithButtons(
                 )
             },
             singleLine = true,
-            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backColorPrimary)
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(backgroundColor = buttonColorPrimary)
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -673,7 +673,8 @@ private fun TimePickerWithButtons(
             Button(
                 onClick = onCancelClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = backColorSecondary
+                    containerColor = backColorSecondary,
+                    contentColor = textColorPrimary
                 )
             ) {
                 Text(text = stringResource(id = R.string.cancel))
@@ -681,7 +682,8 @@ private fun TimePickerWithButtons(
             Button(
                 onClick = { onSaveClick(title, timeState.hour, timeState.minute) },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = backColorSecondary
+                    containerColor = backColorSecondary,
+                    contentColor = textColorPrimary
                 )
             ) {
                 Text(text = stringResource(id = R.string.save))
@@ -783,8 +785,6 @@ fun SplashScreen(
         }
     }
 }
-
-
 
 """
     }
