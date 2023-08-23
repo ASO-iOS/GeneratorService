@@ -16,6 +16,10 @@ extension AndroidNecesseryDependencies {
             return ITDeviceInfo.dependencies(mainData)
         case AppIDs.IT_QUICK_WRITER:
             return ITQuickWriter.dependencies(mainData)
+        case AppIDs.IT_QUICK_CALK:
+            return ITQuickCacl.dependencies(mainData)
+        case AppIDs.IT_NUMBER_GENERATOR:
+            return ITNumberGen.dependencies(mainData)
         default:
             return ANDData.empty
         }
