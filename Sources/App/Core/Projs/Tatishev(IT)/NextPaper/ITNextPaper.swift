@@ -1,4 +1,4 @@
-//
+
 //  File.swift
 //  
 //
@@ -80,6 +80,8 @@ import retrofit2.http.GET
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.res.painterResource
 
 val backColorPrimary = Color(0xff\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xff\(uiSettings.textColorPrimary ?? "FFFFFF"))
@@ -184,7 +186,8 @@ fun LoadingScreen() {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        Icon(painter = painterResource(id = R.drawable.icon_news), contentDescription = null, modifier = Modifier.size(300.dp).align(
+                    Alignment.Center), tint = Color.White)
     }
 }
 
