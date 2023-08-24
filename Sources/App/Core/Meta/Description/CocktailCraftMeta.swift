@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PuzzleDigitsMeta: MetaProviderProtocol {
+struct CocktailCraftMeta: MetaProviderProtocol {
     static var appName: String = ""
     
-    static let fullDesc21 = "This is a classic puzzle game where you need to move the numbers to restore order. You can try to complete the game on different difficulty levels by choosing a different size of the playing field. Train your brain with the \(appName) app."
-    static let shortDesc21 = "Train your brain with the \(appName) app."
+    static let fullDesc21 = "Find a cocktail by ingredients."
+    static let shortDesc21 = "If you are tired of drinking simple drinks or you have various ingredients at home, but you do not know which cocktail you can make from them, then the cocktail craft application will help you. Enter the available ingredients and select the appropriate cocktail. You can also read the cooking instructions."
     
     static func getFullDesc(appName: String) -> String {
         self.appName = appName

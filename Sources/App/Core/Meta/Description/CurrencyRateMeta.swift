@@ -105,6 +105,4 @@ struct CurrencyRateMeta: MetaProviderProtocol {
 
         return shortDesc.randomElement() ?? shortDesc1
     }
-    
-    
 }

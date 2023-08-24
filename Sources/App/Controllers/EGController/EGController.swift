@@ -37,6 +37,8 @@ struct EGController {
             createGetLyrics(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.EG_PUZZLE_DIGITS:
             createPuzzleDigits(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.EG_COCKTAIL_CRAFT:
+            createCocktailCraft(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }
