@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GradleSettings {
+struct GradleSettings {
     static func gradleSettings(appName: String) -> String {
         return """
 pluginManagement {

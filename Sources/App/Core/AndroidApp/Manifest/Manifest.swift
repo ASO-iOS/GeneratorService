@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Manifest {
+struct Manifest {
     static let fileName = "AndroidManifest.xml"
     static func fileContent(
         appId: String,

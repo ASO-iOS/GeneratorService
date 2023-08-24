@@ -152,4 +152,10 @@ extension EGController {
         fileHandler.createMeta(GetLyricsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(EGGetLyrics.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createPuzzleDigits(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGPuzzleDigits.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGPuzzleDigits.fileName)
+        fileHandler.createMeta(PuzzleDigitsMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(EGPuzzleDigits.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

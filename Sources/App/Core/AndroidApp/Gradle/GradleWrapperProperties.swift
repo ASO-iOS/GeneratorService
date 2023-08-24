@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GradleWrapperProperties {
+struct GradleWrapperProperties {
     static let fileName = "gradle-wrapper.properties"
     static func fileContent(gradleWrapper: String) -> String {
         return """
