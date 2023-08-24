@@ -82,7 +82,6 @@ import com.google.gson.annotations.SerializedName
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import \(packageName).BuildConfig
 import \(packageName).R
 import \(packageName).presentation.fragments.main_fragment.destinations.DishDetailsScreenDestination
 import \(packageName).presentation.fragments.main_fragment.destinations.DishesListScreenDestination
@@ -152,13 +151,13 @@ interface RecipesApi {
     @GET(Endpoints.recipesEndpoint)
     suspend fun getRecipesByQuery(
         @Query("query") query: String,
-        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
+        @Query("apiKey") apiKey: String = "ce6faa1074ad42a4a4af3df53fe750a4"
     ): QueryResults
 
     @GET(Endpoints.recipesInformationEndpoint)
     suspend fun getRecipeInformationById(
         @Path("id") id: Long,
-        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
+        @Query("apiKey") apiKey: String = "ce6faa1074ad42a4a4af3df53fe750a4"
     ): DishDetailsDto
 
 }
@@ -1012,10 +1011,6 @@ import com.ramcosta.composedestinations.DestinationsNavHost
             vectorDrawables {
                 useSupportLibrary true
             }
-
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('keys.properties').newDataInputStream())
-            buildConfigField "String", "API_KEY", "\"${properties.getProperty('API.KEY')}\""
         }
 
         buildTypes {

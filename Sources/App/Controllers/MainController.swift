@@ -70,7 +70,7 @@ struct MainController {
     
     func createApp(path: String, packageName: String, applicationName: String, appId: String,  mainData: MainData, customMainFragment: Bool = false) {
         let mainPath = path + "java/\(packageName.replacing(".", with: "/"))/"
-        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName, useContext: appId == AppIDs.BC_NAME_GENERATOR), fileName: applicationName + ".kt")
+        fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName, appId: appId), fileName: applicationName + ".kt")
         if !cmfList().contains(appId) {
             fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainFragment.kt")
         }
