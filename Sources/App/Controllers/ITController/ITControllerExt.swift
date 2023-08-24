@@ -51,5 +51,29 @@ extension ITController {
         fileHandler.createGradle(ITNumberGen.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
+    func createNextPaper(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITNextPaper.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITNextPaper.fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: ITNextPaperRes.icon.content, fileName: ITNextPaperRes.icon.name)
+        fileHandler.createMeta(NextpaperMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITNextPaper.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCinemaScope(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITCinemaScope.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITCinemaScope.fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: ITCinemaScopeRes.icon.content, fileName: ITCinemaScopeRes.icon.name)
+        fileHandler.createMeta(CinemaScopeMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITCinemaScope.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createTrySecret(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITTRySecret.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITTRySecret.fileName)
+        fileHandler.writeFile(filePath: path, contentText: ITTRySecret.cmfHandler(packageName).content, fileName: ITTRySecret.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: ITTrySecretRes.icon.content, fileName: ITTrySecretRes.icon.name)
+        fileHandler.createMeta(TrySecretMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITTRySecret.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
     
 }

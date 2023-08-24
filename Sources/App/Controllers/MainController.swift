@@ -104,7 +104,8 @@ struct MainController {
             AppIDs.KL_CONVERTER,
             AppIDs.KL_RECORDER,
             AppIDs.KL_SPEED_TEST,
-            AppIDs.KL_WEATHER_APP
+            AppIDs.KL_WEATHER_APP,
+            AppIDs.IT_TRY_SECRET
         ]
     }
 }
