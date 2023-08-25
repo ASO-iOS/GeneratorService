@@ -75,5 +75,45 @@ extension ITController {
         fileHandler.createGradle(ITTRySecret.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
+    func createHeroQuest(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITHeroQuest.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITHeroQuest.fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: ITHeroQuestRes.icon.content, fileName: ITHeroQuestRes.icon.name)
+        fileHandler.createMeta(HeroQuestMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITHeroQuest.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createWifiRate(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITWifiRate.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITWifiRate.fileName)
+        fileHandler.writeFile(filePath: path, contentText: ITWifiRate.cmfHandler(packageName).content, fileName: ITWifiRate.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: ITWifiRateRes.icon.content, fileName: ITWifiRateRes.icon.name)
+        fileHandler.createMeta(WifiRateMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITWifiRate.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createLearningCats(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITLearningCats.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITLearningCats.fileName)
+        
+        fileHandler.writeFile(filePath: resPath, contentText: ITLearningCatsRes.icon.content, fileName: ITLearningCatsRes.icon.name)
+        fileHandler.createMeta(LearningCatsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITLearningCats.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createOneMinTimer(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITOneMinTimer.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITOneMinTimer.fileName)
+        fileHandler.writeFile(filePath: path, contentText: ITOneMinTimer.cmfHandler(packageName).content, fileName: ITOneMinTimer.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: ITOneMinTimerRes.icon.content, fileName: ITOneMinTimerRes.icon.name)
+        fileHandler.createMeta(OneMinTimerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITOneMinTimer.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createQrGenerator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITQrGenerator.fileName)
+        fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.cmfHandler(packageName).content, fileName: ITQrGenerator.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: ITQrGeneratorRes.icon.content, fileName: ITQrGeneratorRes.icon.name)
+        fileHandler.createMeta(QrGeneratorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(ITQrGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
     
 }

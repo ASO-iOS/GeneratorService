@@ -79,7 +79,6 @@ struct AppIDs {
     static let IT_LEARNING_CATS =    "it-0011"
     static let IT_ONE_MIN_TIMER =    "it-0012"
     static let IT_QR_GENERATOR =     "it-0013"
-
     
     static let VE_PREFIX =           "ve"
     static let VE_QUIZ_BOOKS =                "ve-0001"

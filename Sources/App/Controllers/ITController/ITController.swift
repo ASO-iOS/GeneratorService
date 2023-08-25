@@ -28,6 +28,16 @@ struct ITController {
             createCinemaScope(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         case AppIDs.IT_TRY_SECRET:
             createTrySecret(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_HERO_QUEST:
+            createHeroQuest(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_WIFI_RATE:
+            createWifiRate(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_LEARNING_CATS:
+            createLearningCats(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_ONE_MIN_TIMER:
+            createOneMinTimer(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_QR_GENERATOR:
+            createQrGenerator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         default:
             return
         }
