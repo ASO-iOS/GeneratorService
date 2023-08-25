@@ -89,6 +89,10 @@ class Manifest {
             return """
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 """
+        case AppIDs.IT_WIFI_RATE:
+            return """
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+"""
         default:
             return ""
         }

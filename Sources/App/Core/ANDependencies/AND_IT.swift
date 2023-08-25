@@ -26,6 +26,16 @@ extension AndroidNecesseryDependencies {
             return ITCinemaScope.dependencies(mainData)
         case AppIDs.IT_TRY_SECRET:
             return ITTRySecret.dependencies(mainData)
+        case AppIDs.IT_HERO_QUEST:
+            return ITHeroQuest.dependencies(mainData)
+        case AppIDs.IT_WIFI_RATE:
+            return ITWifiRate.dependencies(mainData)
+        case AppIDs.IT_LEARNING_CATS:
+            return ITLearningCats.dependencies(mainData)
+        case AppIDs.IT_ONE_MIN_TIMER:
+            return ITOneMinTimer.dependencies(mainData)
+        case AppIDs.IT_QR_GENERATOR:
+            return ITQrGenerator.dependencies(mainData)
         default:
             return ANDData.empty
         }
