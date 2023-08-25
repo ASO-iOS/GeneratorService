@@ -152,4 +152,17 @@ extension EGController {
         fileHandler.createMeta(GetLyricsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(EGGetLyrics.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createPuzzleDigits(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGPuzzleDigits.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGPuzzleDigits.fileName)
+        fileHandler.createMeta(PuzzleDigitsMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(EGPuzzleDigits.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCocktailCraft(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGCocktailCraft.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGCocktailCraft.fileName)
+        fileHandler.writeFile(filePath: path, contentText: EGCocktailCraft.cmfHandler(packageName).content, fileName: EGCocktailCraft.cmfHandler(packageName).fileName)
+        fileHandler.createMeta(CocktailCraftMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(EGCocktailCraft.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

@@ -105,6 +105,4 @@ struct PokerChansesMeta: MetaProviderProtocol {
 
         return shortDesc.randomElement() ?? shortDesc1
     }
-    
-
 }

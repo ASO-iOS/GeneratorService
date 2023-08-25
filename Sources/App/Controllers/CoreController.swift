@@ -26,6 +26,8 @@ struct CoreController: RouteCollection {
             try await log.save(on: req.db)
             return log
         }
+        routes.post("launch_client", use: launchClient)
+        
         
 //        routes.post("has_meta") { req async throws in
 //
@@ -33,9 +35,10 @@ struct CoreController: RouteCollection {
     }
     
     /// -  главный метод создания проекта
+    func launchClient(_ request: Request) async throws -> String {
+        return "Server Ready"
+    }
     func launch(_ request: Request) async throws -> Response {
-        
-        
         
         // MARK: - инициализация локации файла, изнвчально пустой проект
         var fileLoc = "\(LocalConst.homeDir)GeneratorProjects/resources/empty.zip"

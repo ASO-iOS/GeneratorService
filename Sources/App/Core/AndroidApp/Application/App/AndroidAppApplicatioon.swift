@@ -23,15 +23,13 @@ class \(applicationName) : Application()
 """
     }
     
-    
-    
     static func transferById(_ appId: String, packageName: String) -> ApplicationDataTransfer {
         switch appId {
         case AppIDs.VE_RECIPES_BOOK:
             return .init(imports: """
-import com.vagavagusdevelop.recipesbookpro.presentation.fragments.main_fragment.dataModule
-import com.vagavagusdevelop.recipesbookpro.presentation.fragments.main_fragment.useCaseModule
-import com.vagavagusdevelop.recipesbookpro.presentation.fragments.main_fragment.viewModelModule
+import \(packageName).presentation.fragments.main_fragment.dataModule
+import \(packageName).presentation.fragments.main_fragment.useCaseModule
+import \(packageName).presentation.fragments.main_fragment.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

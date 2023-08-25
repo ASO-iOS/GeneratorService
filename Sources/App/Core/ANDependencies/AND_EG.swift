@@ -36,6 +36,10 @@ extension AndroidNecesseryDependencies {
             return EGLoveCalculator.dependencies(mainData)
         case AppIDs.EG_GET_LYRICS_GEN:
             return EGGetLyrics.dependencies(mainData)
+        case AppIDs.EG_PUZZLE_DIGITS:
+            return EGPuzzleDigits.dependencies(mainData)
+        case AppIDs.EG_COCKTAIL_CRAFT:
+            return EGCocktailCraft.dependencies(mainData)
         default:
             return ANDData.empty
         }

@@ -461,7 +461,6 @@ fun AllExpenseScreen (){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 10.dp)
             .background(color = backColorPrimary)
     ){
         LazyColumnWithSwipe()
@@ -851,8 +850,8 @@ fun InputRow(
                 BorderStroke(
                     width = 2.dp,
                     color = if (txtFieldError.isEmpty())
-                        MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.error
+                        buttonColorPrimary
+                    else errorColor
                 ),
                 shape = RoundedCornerShape(50.dp)
             ),
