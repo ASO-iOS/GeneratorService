@@ -644,7 +644,7 @@ import androidx.compose.ui.Modifier
 """), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
     <string name="search">Search…</string>
     <string name="error_unauthorizied">Error 401. You should authenticate before making requests</string>
-    <string name="error_forbidden">Error:403. Doesn\'t have permission to access the resource.</string>
+    <string name="error_forbidden">Error:403. Doesn\\'t have permission to access the resource.</string>
     <string name="error_notfound">Error: 404. The requested URL is not valid.</string>
     <string name="error_unknown">Something went wrong</string>
     <string name="error_no_internet_connection">No internet connection</string>

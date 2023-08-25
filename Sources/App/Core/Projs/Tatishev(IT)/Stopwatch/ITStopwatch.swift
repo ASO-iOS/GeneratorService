@@ -172,6 +172,8 @@ import kotlin.time.Duration.Companion.seconds
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
 val backColorPrimary = Color(0xff\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val buttonColorTextPrimary = Color(0xff\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -208,8 +210,8 @@ fun StopWatchScreen(hours: String, minutes: String, seconds: String, timeState: 
                         else Constants.ACTION_SERVICE_START
                     )
                 }, colors = ButtonDefaults.buttonColors(
-                    containerColor = if (timeState == StopwatchState.Started) Color.Red
-                    else textColorPrimary,
+                    containerColor = if (timeState == StopwatchState.Started) buttonColorSecondary
+                    else buttonColorPrimary,
                     contentColor = buttonColorTextPrimary
                 )
             ) {
@@ -218,7 +220,7 @@ fun StopWatchScreen(hours: String, minutes: String, seconds: String, timeState: 
                         stringResource(id = R.string.stop)
                     else if ((timeState == StopwatchState.Stopped))
                         stringResource(id = R.string.resume)
-                    else stringResource(id = R.string.start)
+                    else stringResource(id = R.string.start), color = buttonColorTextPrimary
                 )
             }
             Spacer(modifier = Modifier.width(30.dp))
@@ -233,11 +235,11 @@ fun StopWatchScreen(hours: String, minutes: String, seconds: String, timeState: 
                 },
                 enabled = seconds != "00" && timeState != StopwatchState.Started,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = textColorPrimary,
+                    containerColor = buttonColorSecondary,
                     contentColor = buttonColorTextPrimary,
-                    disabledContainerColor = Color.Gray)
+                    disabledContainerColor = buttonColorPrimary)
             ) {
-                Text(text = stringResource(id = R.string.cancel))
+                Text(text = stringResource(id = R.string.cancel), color = buttonColorTextPrimary)
             }
         }
     }
@@ -519,7 +521,6 @@ object Constants {
     const val STOP_REQUEST_CODE = 102
     const val RESUME_REQUEST_CODE = 103
 }
-
 """
     }
     

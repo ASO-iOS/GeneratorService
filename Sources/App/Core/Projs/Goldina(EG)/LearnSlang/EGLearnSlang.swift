@@ -512,7 +512,7 @@ fun ShowWordOfDay(viewModel: MainViewModel = hiltViewModel()) {
             .padding(vertical = 20.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.elevatedCardColors(),
+        colors = CardDefaults.elevatedCardColors(primaryColor),
         elevation = CardDefaults.cardElevation(5.dp)
     ) {
         Column(
