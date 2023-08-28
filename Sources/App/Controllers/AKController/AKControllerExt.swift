@@ -142,4 +142,10 @@ extension AKController {
         fileHandler.createMeta(RandomCoffeeMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(AKRandomCoffee.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createClicker(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKClicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKClicker.fileName)
+        fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(AKClicker.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
