@@ -12,7 +12,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITQuickWriter.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITQuickWriter.fileName)
         
         fileHandler.writeFile(filePath: resPath, contentText: ITQuickWriterRes.icon.content, fileName: ITQuickWriterRes.icon.name)
-        fileHandler.createMeta(QuickWriteerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createMeta(NotesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(ITQuickWriter.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -39,7 +39,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITQuickCacl.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITQuickCacl.fileName)
         
         fileHandler.writeFile(filePath: resPath, contentText: ITQuickCalcRes.icon.content, fileName: ITQuickCalcRes.icon.name)
-        fileHandler.createMeta(QuickCalcMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createMeta(CalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(ITQuickCacl.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -56,6 +56,7 @@ extension ITController {
         
         fileHandler.writeFile(filePath: resPath, contentText: ITNextPaperRes.icon.content, fileName: ITNextPaperRes.icon.name)
         fileHandler.createMeta(NextpaperMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITNextPaper.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -72,6 +73,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITTRySecret.cmfHandler(packageName).content, fileName: ITTRySecret.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: resPath, contentText: ITTrySecretRes.icon.content, fileName: ITTrySecretRes.icon.name)
         fileHandler.createMeta(TrySecretMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITTRySecret.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -80,6 +82,7 @@ extension ITController {
         
         fileHandler.writeFile(filePath: resPath, contentText: ITHeroQuestRes.icon.content, fileName: ITHeroQuestRes.icon.name)
         fileHandler.createMeta(HeroQuestMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITHeroQuest.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -88,6 +91,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITWifiRate.cmfHandler(packageName).content, fileName: ITWifiRate.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: resPath, contentText: ITWifiRateRes.icon.content, fileName: ITWifiRateRes.icon.name)
         fileHandler.createMeta(WifiRateMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITWifiRate.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -96,6 +100,7 @@ extension ITController {
         
         fileHandler.writeFile(filePath: resPath, contentText: ITLearningCatsRes.icon.content, fileName: ITLearningCatsRes.icon.name)
         fileHandler.createMeta(LearningCatsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITLearningCats.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -104,6 +109,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITOneMinTimer.cmfHandler(packageName).content, fileName: ITOneMinTimer.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: resPath, contentText: ITOneMinTimerRes.icon.content, fileName: ITOneMinTimerRes.icon.name)
         fileHandler.createMeta(OneMinTimerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITOneMinTimer.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -112,6 +118,7 @@ extension ITController {
         fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.cmfHandler(packageName).content, fileName: ITQrGenerator.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: resPath, contentText: ITQrGeneratorRes.icon.content, fileName: ITQrGeneratorRes.icon.name)
         fileHandler.createMeta(QrGeneratorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(ITQrGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

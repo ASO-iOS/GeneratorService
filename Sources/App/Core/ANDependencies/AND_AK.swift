@@ -42,6 +42,8 @@ extension AndroidNecesseryDependencies {
             return AKRandomCoffee.dependencies(mainData)
         case AppIDs.AK_CLICKER:
             return AKClicker.dependencies(mainData)
+        case AppIDs.AK_DARTS:
+            return AKDarts.dependencies(mainData)
         default:
             return ANDData.empty
         }

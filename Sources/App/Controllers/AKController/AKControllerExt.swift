@@ -148,4 +148,10 @@ extension AKController {
         fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(AKClicker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createDarts(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKDarts.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKDarts.fileName)
+        fileHandler.createMeta(DartsMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(AKDarts.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

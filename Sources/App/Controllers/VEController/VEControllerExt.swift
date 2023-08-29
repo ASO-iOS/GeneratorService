@@ -67,18 +67,20 @@ extension VEController {
         
     }
     
-        func createQuizVideoGames(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
-            fileHandler.writeFile(filePath: path, contentText: VEQuizVideoGames.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEQuizVideoGames.fileName)
-    
-    
-            fileHandler.createMeta(QuizVideoGamesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
-            fileHandler.createGradle(VEQuizVideoGames.self, packageName: packageName, gradlePaths: gradlePaths)
-        }
+    func createQuizVideoGames(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: VEQuizVideoGames.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEQuizVideoGames.fileName)
+        
+        
+        fileHandler.createMeta(QuizVideoGamesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
+        fileHandler.createGradle(VEQuizVideoGames.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
     
     func createFactsAboutDogs(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: VEFactsAboutDogs.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEFactsAboutDogs.fileName)
         
         fileHandler.createMeta(FactsAboutDogsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VEFactsAboutDogs.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -86,6 +88,7 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VELuckySpan.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VELuckySpan.fileName)
         
         fileHandler.createMeta(LuckySpanMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VELuckySpan.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -93,6 +96,7 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VESoundRecorder.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VESoundRecorder.fileName)
         
         fileHandler.createMeta(SoundRecorderMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VESoundRecorder.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -100,6 +104,7 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VECalendarEvents.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VECalendarEvents.fileName)
         
         fileHandler.createMeta(CalendarEventsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VECalendarEvents.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -107,14 +112,16 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VEVigenereCipher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEVigenereCipher.fileName)
         
         fileHandler.createMeta(VigenereCipherMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VEVigenereCipher.self, packageName: packageName, gradlePaths: gradlePaths)
         
     }
-  
+    
     func createRandomWordQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: VERandomWordQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VERandomWordQuiz.fileName)
         
         fileHandler.createMeta(RandomWordQuizMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VERandomWordQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -122,6 +129,7 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VERecipesBook.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VERecipesBook.fileName)
         
         fileHandler.createMeta(RecipesBookMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VERecipesBook.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -130,6 +138,7 @@ extension VEController {
         
         fileHandler.writeFile(filePath: resPath, contentText: VERandomDogsRes.petIcon.content, fileName: VERandomDogsRes.petIcon.name)
         fileHandler.createMeta(RandomDogsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VERandomDogs.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -137,6 +146,7 @@ extension VEController {
         fileHandler.writeFile(filePath: path, contentText: VEEnglishDictionaryHelper.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: VEEnglishDictionaryHelper.fileName)
         
         fileHandler.createMeta(EnglishDictionaryHelperMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(VEEnglishDictionaryHelper.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

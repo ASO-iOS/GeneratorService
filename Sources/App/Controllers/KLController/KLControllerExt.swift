@@ -130,6 +130,7 @@ extension KLController {
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
         
         fileHandler.createMeta(BodyTypeCalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(KLBodyTypeCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -142,6 +143,7 @@ extension KLController {
         fileHandler.copyPaste(from: "\(LocalConst.homeDir)GeneratorProjects/resources/font/montserrat_semibold.ttf", to: xmlPaths.fontPath + "montserrat_semibold.ttf")
         
         fileHandler.createMeta(HiddenParisMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(KLHiddenParis.self, packageName: packageName, gradlePaths: gradlePaths)
         
         
@@ -151,6 +153,7 @@ extension KLController {
         fileHandler.writeFile(filePath: path, contentText: KLBubblePicker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLBubblePicker.fileName)
         
         fileHandler.createMeta(BubblePickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(KLBubblePicker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -168,6 +171,7 @@ extension KLController {
         fileHandler.writeFile(filePath: resPath, contentText: KLMoodTrackerRes.smileFace.content, fileName: KLMoodTrackerRes.smileFace.name)
         
         fileHandler.createMeta(MoodTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        // MARK: - todo meta
         fileHandler.createGradle(KLMoodTracker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
