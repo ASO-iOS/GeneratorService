@@ -115,7 +115,7 @@ extension ITController {
     
     func createQrGenerator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
         fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITQrGenerator.fileName)
-        fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.cmfHandler(packageName).content, fileName: ITQrGenerator.cmfHandler(packageName).fileName)
+        fileHandler.writeFile(filePath: path, contentText: ITQrGenerator.cmfHandler(path).content, fileName: ITQrGenerator.cmfHandler(packageName).fileName)
         fileHandler.writeFile(filePath: resPath, contentText: ITQrGeneratorRes.icon.content, fileName: ITQrGeneratorRes.icon.name)
         fileHandler.createMeta(QrGeneratorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         // MARK: - todo meta
