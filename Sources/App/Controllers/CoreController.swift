@@ -266,6 +266,20 @@ extension CoreController {
                 gradlePaths: gradlePaths,
                 xmlPaths: xmlPaths
             )
+        case AppIDs.DT_PREFIX:
+            let dtController = DTController(fileHandler: fileHandler)
+            dtController.boot(
+                id: body.mainData.appId ?? "error",
+                appName: body.mainData.appName,
+                path: appPath,
+                resPath: resPath,
+                packageName: body.mainData.packageName,
+                uiSettings: uiSettings,
+                metaLoc: metaLoc,
+                gradlePaths: gradlePaths,
+                xmlPaths: xmlPaths,
+                mainData: mainData
+            )
         default:
             return
         }

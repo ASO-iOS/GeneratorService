@@ -108,7 +108,8 @@ struct MainController {
             AppIDs.IT_TRY_SECRET,
             AppIDs.IT_WIFI_RATE,
             AppIDs.IT_ONE_MIN_TIMER,
-            AppIDs.IT_QR_GENERATOR
+            AppIDs.IT_QR_GENERATOR,
+            AppIDs.DT_NUMBER_FACTS,
         ]
     }
 }
