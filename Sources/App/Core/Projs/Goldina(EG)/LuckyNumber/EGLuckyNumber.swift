@@ -38,7 +38,6 @@ class NumberViewModel @Inject constructor(): ViewModel() {
     private fun parseNumber(number: String?): Int {
         return number?.trim()?.toInt() ?: -1
     }
-
 }
 """
     }
@@ -57,7 +56,7 @@ class NumberViewModel @Inject constructor(): ViewModel() {
     <color name="backColorPrimary">#\(mainData.uiSettings.backColorPrimary ?? "FFFFFF")</color>
     <color name="backColorSecondary">#\(mainData.uiSettings.backColorSecondary ?? "FFFFFF")</color>
     <color name="buttonTextColorPrimary">#\(mainData.uiSettings.buttonTextColorPrimary ?? "FFFFFF")</color>
-    <color name="surfaceColor">#4D\(mainData.uiSettings.surfaceColor ?? "FFFFFF")</color>
+    <color name="surfaceColor">#\(mainData.uiSettings.surfaceColor ?? "FFFFFF")</color>
     <color name="textColorPrimary">#\(mainData.uiSettings.textColorPrimary ?? "FFFFFF")</color>
     <color name="buttonColorPrimary">#\(mainData.uiSettings.buttonColorPrimary ?? "FFFFFF")</color>
     <color name="errorColor">#\(mainData.uiSettings.errorColor ?? "FFFFFF")</color>

@@ -120,11 +120,15 @@ fun workCamera(
     state: Boolean,
     context: Context
 ) {
-    val hasFlashLight =  context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
-    if(hasFlashLight) {
-        val cameraID = cameraManager.cameraIdList[0]
-        cameraManager.setTorchMode(cameraID, state)
-    } else{
+    try {
+        val hasFlashLight =  context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
+        if(hasFlashLight) {
+            val cameraID = cameraManager.cameraIdList[0]
+            cameraManager.setTorchMode(cameraID, state)
+        } else{
+            Toast.makeText(context, context.getString(R.string.error_info), Toast.LENGTH_LONG).show()
+        }
+    } catch (_: Exception) {
         Toast.makeText(context, context.getString(R.string.error_info), Toast.LENGTH_LONG).show()
     }
 
@@ -140,11 +144,6 @@ fun ShowImage(imageID: Int) {
         contentDescription = "lamp"
     )
 }
-
-
-
-
-
 """
     }
     
