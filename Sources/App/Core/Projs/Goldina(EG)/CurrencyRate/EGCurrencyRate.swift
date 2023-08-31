@@ -373,7 +373,7 @@ fun CardItemRate(item: Pair<String, Double>) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize().background(primaryColor),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

@@ -456,6 +456,17 @@ import \(mainData.packageName).presentation.fragments.main_fragment.GameFragment
 """), themesData: ANDThemesData(isDefault: true, content: """
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/buttonColorPrimary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.ButtonTryAgain.PositiveButton</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Widget.ButtonTryAgain.PositiveButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.EGRace.PositiveButton</item>
+    </style>
+
+    <style name="ThemeOverlay.EGRace.PositiveButton" parent="">
+        <item name="colorPrimary">@color/buttonTextColorPrimary</item>
     </style>
 """), stringsData: ANDStringsData(additional: """
             <string name="new_game">start</string>
@@ -474,7 +485,8 @@ import \(mainData.packageName).presentation.fragments.main_fragment.GameFragment
             }
         """, fragmentStateData: """
             object GameState : FragmentState()
-        """)
+        """
+        )
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {

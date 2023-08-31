@@ -692,7 +692,7 @@ fun DrinkItem(drink: DrinkModel) {
                     .fillMaxWidth()
                     .padding(vertical = 20.dp, horizontal = 2.dp)
                     .width(1.dp),
-                color = onSurfaceColor
+                color = textColorPrimary
             )
             Text(
                 text = stringResource(id = R.string.amount, drink.amount),
@@ -708,7 +708,9 @@ fun DrinkItem(drink: DrinkModel) {
     }
     
     static func dependencies(_ mainData: MainData) -> ANDData {
-        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
+        return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: """
+    EGWaterTracker()
+"""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
             <string name="btn_done">Done</string>
             <string name="dialog_error">Field can not be empty</string>
             <string name="current_goal">Your goal: %1$d ml</string>

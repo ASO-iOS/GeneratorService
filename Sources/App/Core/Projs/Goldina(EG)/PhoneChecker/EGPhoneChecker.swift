@@ -86,18 +86,12 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//generate
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 val buttonTextColorPrimary = Color(0xFF\(uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
-val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF")) // errorColor
-val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF")) // colorSuccess
-
-////const
-//val errorColor = Color(0xFFFFB3B3)
-//val colorSuccess = Color(0xFF99E699)
-//val colorTransparent = Color(0x00FFFFFF)
+val onPrimaryColor = Color(0xFF\(uiSettings.onPrimaryColor ?? "FFFFFF"))
+val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
 
 sealed class ResultState<out R> {
     data class Success<out T>(val data: T) : ResultState<T>()
@@ -417,7 +411,7 @@ class MainFragmentViewModel @Inject constructor(
     static func dependencies(_ mainData: MainData) -> ANDData {
         return ANDData(mainFragmentData: ANDMainFragment(imports: "", content: ""), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
     <string name="phone_number">Phone Number</string>
-    <string name="main_info">Location: %1$s\nNational: %2$s\nInternational: %3$s</string>
+    <string name="main_info">Location: %1$s\\nNational: %2$s\\nInternational: %3$s</string>
     <string name="error_internet">No internet connection</string>
     <string name="default_info">Check the validity of phone number</string>
     <string name="error_invalid">This number is invalid</string>

@@ -40,6 +40,8 @@ extension AndroidNecesseryDependencies {
             return EGPuzzleDigits.dependencies(mainData)
         case AppIDs.EG_COCKTAIL_CRAFT:
             return EGCocktailCraft.dependencies(mainData)
+        case AppIDs.EG_PHONE_CHECKER:
+            return EGPhoneChecker.dependencies(mainData)
         default:
             return ANDData.empty
         }

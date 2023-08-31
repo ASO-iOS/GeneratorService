@@ -267,6 +267,7 @@ fun MainCard(viewModel: MainViewModel = hiltViewModel()) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(primaryColor)
                 .wrapContentHeight()
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
