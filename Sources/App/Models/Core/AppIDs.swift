@@ -155,8 +155,12 @@ struct AppIDs {
     static let EG_COCKTAIL_CRAFT =   "eg-0014"
     static let EG_PUZZLE_DIGITS =    "eg-0015"
     
-    static let DT_PREFIX =           "dt"
-    static let DT_NUMBER_FACTS =   "dt-0001"
+    static let DT_PREFIX =            "dt"
+    static let DT_NUMBER_FACTS =      "dt-0001"
+    static let DT_PROGRAMMING_JOKES = "dt-0002"
+    static let DT_QR_GEN_SHARE =      "dt-0003"
+    static let DT_ROT13_ENCRYPT =     "dt-0004"
+    static let DT_TEXT_SIMILARITY =   "dt-0005"
 
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
