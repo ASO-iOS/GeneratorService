@@ -15,6 +15,7 @@ struct ITCinemaScope: FileProviderProtocol {
 package \(packageName).presentation.fragments.main_fragment
 
 import androidx.annotation.Keep
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,15 +26,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -42,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -54,8 +55,8 @@ import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import \(packageName).R
-import com.google.gson.annotations.SerializedName
 import \(packageName).presentation.fragments.main_fragment.destinations.ReviewsScreenDestination
+import com.google.gson.annotations.SerializedName
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -112,9 +113,10 @@ fun LoadingScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(backColorPrimary)
     ) {
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center), color = buttonColorPrimary)
+        Image(painter = painterResource(id = R.drawable.icon_cinema), contentDescription = null, modifier = Modifier.size(250.dp).align(
+            Alignment.Center))
     }
 }
 
@@ -450,7 +452,7 @@ object ApiModule {
         val request = chain
             .request()
             .newBuilder()
-            .addHeader("X-API-KEY", "SEXAPE3-DNH47AJ-GK9BR9Z-SQKXQCX")
+            .addHeader("X-API-KEY", "DDBD9DG-SS7MPA3-HQ27WC7-AF51HKH")
             .build()
         chain.proceed(request)
     }

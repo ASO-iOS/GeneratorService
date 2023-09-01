@@ -2,10 +2,11 @@
 //  File.swift
 //  
 //
-//  Created by admin on 8/31/23.
+//  Created by admin on 01.09.2023.
 //
 
 import Foundation
+
 extension AndroidNecesseryDependencies {
     static func dependenciesDT(_ mainData: MainData) -> ANDData {
         switch mainData.appId {

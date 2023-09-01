@@ -252,9 +252,7 @@ struct MBLuckyNumber: FileProviderProtocol {
             mainFragmentData: ANDMainFragment(
                 imports: "",
                 content: """
-            MyappTheme {
-                MBLuckyNumber()
-            }
+            MBLuckyNumber()
         """
             ),
             mainActivityData: ANDMainActivity(
