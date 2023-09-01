@@ -10,10 +10,8 @@ import Foundation
 extension AndroidNecesseryDependencies {
     static func dependenciesBC(_ mainData: MainData) -> ANDData {
         switch mainData.appId {
-        case AppIDs.BC_NAME_GENERATOR:
-            return BCNameGenerator.dependencies(mainData)
-        default:
-            return ANDData.empty
+        case AppIDs.BC_NAME_GENERATOR: return BCNameGenerator.dependencies(mainData)
+        default: return ANDData.empty
         }
     }
 }
