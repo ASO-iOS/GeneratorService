@@ -110,6 +110,10 @@ struct MainController {
             AppIDs.IT_ONE_MIN_TIMER,
             AppIDs.IT_QR_GENERATOR,
             AppIDs.DT_NUMBER_FACTS,
+            AppIDs.DT_PROGRAMMING_JOKES,
+            AppIDs.DT_QR_GEN_SHARE,
+            AppIDs.DT_TEXT_SIMILARITY,
+            
         ]
     }
 }
