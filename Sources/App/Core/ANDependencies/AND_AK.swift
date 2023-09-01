@@ -44,8 +44,7 @@ extension AndroidNecesseryDependencies {
             return AKClicker.dependencies(mainData)
         case AppIDs.AK_DARTS:
             return AKDarts.dependencies(mainData)
-        default:
-            return ANDData.empty
+        default: return ANDData.empty
         }
     }
 }
