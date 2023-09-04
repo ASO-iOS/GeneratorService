@@ -399,14 +399,12 @@ fun MySnackbar(snackbarHostState: SnackbarHostState) {
                         modifier = Modifier
                             .fillMaxWidth(),
                         text = snackbarData.message,
-                        color = backColorPrimary,
+                        color = textColorPrimary,
                         fontSize = 20.sp,
                         textAlign = TextAlign.Center
                     )
                 }
-
             }
-
         }
     )
 }
