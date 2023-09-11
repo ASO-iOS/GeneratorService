@@ -273,7 +273,7 @@ import androidx.compose.ui.platform.LocalContext
         )
     }
     
-    static var fileName = "MBSpeedTest.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     static func fileContent(
         packageName: String,
         uiSettings: UISettings

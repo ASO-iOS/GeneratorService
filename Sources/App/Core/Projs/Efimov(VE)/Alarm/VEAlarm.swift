@@ -8,7 +8,7 @@
 import Foundation
 
 struct VEAlarm: FileProviderProtocol {
-    static var fileName: String = "VEAlarm.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

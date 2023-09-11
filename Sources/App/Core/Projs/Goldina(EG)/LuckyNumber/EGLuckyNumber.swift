@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGLuckyNumber: XMLFileProviderProtocol {
-    static var fileName: String = "EGLuckyNumber.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     
     

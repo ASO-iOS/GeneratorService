@@ -265,7 +265,7 @@ struct MBTorch: FileProviderProtocol {
         )
     }
     
-    static var fileName = "MBTorch.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(
         packageName: String,

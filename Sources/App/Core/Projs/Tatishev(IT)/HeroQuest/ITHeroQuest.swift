@@ -8,7 +8,7 @@
 import Foundation
 
 struct ITHeroQuest: FileProviderProtocol {
-    static var fileName: String = "HeroQuest.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

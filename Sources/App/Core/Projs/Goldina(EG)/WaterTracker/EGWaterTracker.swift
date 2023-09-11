@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGWaterTracker: FileProviderProtocol {
-    static var fileName: String = "EGWaterTracker.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

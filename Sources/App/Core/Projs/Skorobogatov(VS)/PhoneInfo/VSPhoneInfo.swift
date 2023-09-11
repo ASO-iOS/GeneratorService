@@ -307,7 +307,8 @@ import androidx.compose.material3.MaterialTheme
         )
     }
     
-    static var fileName = "VSPhoneInfo.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
+    
     static func fileContent(
         packageName: String,
         uiSettings: UISettings

@@ -8,7 +8,7 @@
 import Foundation
 
 struct VEChargeMe: FileProviderProtocol {
-    static var fileName: String = "VEChargeMe.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

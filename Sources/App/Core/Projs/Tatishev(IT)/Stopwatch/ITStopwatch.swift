@@ -112,8 +112,7 @@ struct ITStopwatch: CMFFileProviderProtocol {
         """, fileName: "MainFragment.kt")
     }
     
-    
-    static var fileName: String = "ITStopwatch.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

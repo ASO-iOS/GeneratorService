@@ -265,7 +265,7 @@ struct MBPassGen: FileProviderProtocol {
         )
     }
     
-    static var fileName: String = "MBPassGen.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

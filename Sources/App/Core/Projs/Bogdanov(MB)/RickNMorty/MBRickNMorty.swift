@@ -273,7 +273,7 @@ struct MBRickNMorty: FileProviderProtocol {
         )
     }
     
-    static var fileName = "MBRickNMorty.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

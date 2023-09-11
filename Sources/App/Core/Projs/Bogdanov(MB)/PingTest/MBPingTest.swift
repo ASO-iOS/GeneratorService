@@ -267,7 +267,7 @@ struct MBPingTest: FileProviderProtocol {
         )
     }
     
-    static var fileName = "MBPingTest.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     static func fileContent(
         packageName: String,
         uiSettings: UISettings

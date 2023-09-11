@@ -267,7 +267,7 @@ struct MBFacts: FileProviderProtocol {
         )
     }
     
-    static var fileName = "MBFacts.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(
         packageName: String,

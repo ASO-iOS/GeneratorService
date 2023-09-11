@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGCocktailCraft: CMFFileProviderProtocol {
-    static var fileName: String = "EGCocktailCraft.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

@@ -8,7 +8,7 @@
 import Foundation
 
 struct VEVigenereCipher: FileProviderProtocol {
-    static var fileName: String  = "SimpleVigenereCipher.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

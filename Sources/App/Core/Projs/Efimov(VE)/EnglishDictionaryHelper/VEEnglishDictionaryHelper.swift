@@ -8,7 +8,7 @@
 import Foundation
 
 struct VEEnglishDictionaryHelper: FileProviderProtocol {
-    static var fileName: String = "EnglishDictionaryHelper.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

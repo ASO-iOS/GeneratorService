@@ -8,7 +8,7 @@
 import Foundation
 
 struct KLBMICalculator: XMLFileProviderProtocol {
-    static var fileName: String = "KLBMICalculator.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

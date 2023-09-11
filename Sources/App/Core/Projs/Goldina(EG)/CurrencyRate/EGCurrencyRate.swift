@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGCurrencyRate: FileProviderProtocol {
-    static var fileName: String = "EGCurrencyRate.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

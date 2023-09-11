@@ -8,7 +8,7 @@
 import Foundation
 
 struct BCNameGenerator: FileProviderProtocol {
-    static var fileName: String = "BCNameGenerator.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings, applicationName: String) -> String {
         return """

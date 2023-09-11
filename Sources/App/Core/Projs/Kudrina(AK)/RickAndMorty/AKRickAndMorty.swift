@@ -8,7 +8,7 @@
 import Foundation
 
 struct AKRickAndMorty: CMFFileProviderProtocol {
-    static var fileName: String = "AKRickAndMorty.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

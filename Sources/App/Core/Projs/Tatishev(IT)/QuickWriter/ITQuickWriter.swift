@@ -1,7 +1,7 @@
 import Foundation
 
 struct ITQuickWriter: FileProviderProtocol {
-    static var fileName: String = "QuickWriter.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

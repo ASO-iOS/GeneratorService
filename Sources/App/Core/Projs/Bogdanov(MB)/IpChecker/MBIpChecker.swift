@@ -277,7 +277,7 @@ struct MBIpChecker: FileProviderProtocol {
         )
     }
     
-    static var fileName = "MBIpChecker.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(
         packageName: String,

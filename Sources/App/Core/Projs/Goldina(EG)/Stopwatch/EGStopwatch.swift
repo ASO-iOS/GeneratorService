@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGStopwatch: XMLFileProviderProtocol {
-    static var fileName: String = "EGStopwatch.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

@@ -142,6 +142,7 @@ extension CoreController {
             applicationName: body.mainData.applicationName,
             appId: body.mainData.appId ?? "", mainData: mainData
         )
+        mainController.createFakeFiles(path:  tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/", packageName: body.mainData.packageName)
         
         let appPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
         let resPath = tempLoc + "app/src/main/res/drawable/"
@@ -149,13 +150,14 @@ extension CoreController {
         
         let layoutPath = tempLoc + "app/src/main/res/layout/"
         let valuesPath = tempLoc + "app/src/main/res/values/"
+        let drawablePath = tempLoc + "app/src/main/res/drawable/"
         let animPath = tempLoc + "app/src/main/res/anim/"
         let rawPath = tempLoc + "app/src/main/res/raw/"
         let fontPath = tempLoc + "app/src/main/res/font/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
         let libPath = tempLoc + "app/libs/"
-        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath, libsPath: libPath)
+        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath, libsPath: libPath, drawablePath: drawablePath)
         switch body.mainData.prefix {
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
@@ -316,4 +318,5 @@ struct XMLLayoutPaths {
     let rawPath: String
     let fontPath: String
     let libsPath: String
+    let drawablePath: String
 }

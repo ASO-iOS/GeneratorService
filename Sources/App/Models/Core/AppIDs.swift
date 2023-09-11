@@ -162,6 +162,15 @@ struct AppIDs {
     static let DT_QR_GEN_SHARE =      "dt-0003"
     static let DT_ROT13_ENCRYPT =     "dt-0004"
     static let DT_TEXT_SIMILARITY =   "dt-0005"
+    static let DT_RIDDLE_REALM =       "dt-0006"
+    static let DT_NUTRITION_FINDER =   "dt-0008"
+    static let DT_EMOJI_FINDER =       "dt-0009"
+    static let DT_EASY_NOTES =         "dt-0010"
+    static let DT_EXERCISE_FINDER =    "dt-0011"
+    static let DT_PHONE_VALIDATOR =    "dt-0012"
+    static let DT_HISTORICAL_EVENTS =  "dt-0013"
+    static let DT_GASTRONOMY_GURU =    "dt-0014"
+    static let DT_WORD_WISE =          "dt-0015"
 
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

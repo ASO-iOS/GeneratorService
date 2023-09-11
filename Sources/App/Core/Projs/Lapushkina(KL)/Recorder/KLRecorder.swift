@@ -8,7 +8,7 @@
 import Foundation
 
 struct KLRecorder: XMLFileProviderProtocol {
-    static var fileName: String = "KLRecorder.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

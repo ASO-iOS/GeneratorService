@@ -31,7 +31,7 @@ struct MBAlarm: FileProviderProtocol {
     }
     
     
-    static var fileName = "MBAlarm.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     static func fileContent(
         packageName: String,
         uiSettings: UISettings
@@ -363,7 +363,7 @@ fun ColumnScope.AlarmsList(viewModel: MainViewModel = viewModel()) {
                 }
             ) { alarmItem ->
                 AlarmView(alarmItem = alarmItem)
-                Divider()
+                Divider(color = mainTextColor)
             }
         }
 

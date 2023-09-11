@@ -8,7 +8,7 @@
 import Foundation
 
 struct VETypesOfAircraft: FileProviderProtocol {
-    static var fileName: String = "VGTypesOfAircraft.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

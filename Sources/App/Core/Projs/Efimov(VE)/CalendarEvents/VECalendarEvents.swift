@@ -8,7 +8,7 @@
 import Foundation
 
 struct VECalendarEvents: FileProviderProtocol {
-    static var fileName: String = "CalendarEvents.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

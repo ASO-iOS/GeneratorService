@@ -8,7 +8,7 @@
 import Foundation
 
 struct VEFindUniversity: FileProviderProtocol {
-    static var fileName: String = "VEFindUniversity.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

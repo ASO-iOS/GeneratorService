@@ -509,5 +509,5 @@ class MainFragment : Fragment() {
 """, fileName: "MainFragment.kt")
     }
     
-    static var fileName: String = "EGDiceRoller.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
 }

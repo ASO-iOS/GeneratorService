@@ -8,7 +8,7 @@
 import Foundation
 
 struct KLBubblePicker: FileProviderProtocol {
-    static var fileName: String = "BubblePicker.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

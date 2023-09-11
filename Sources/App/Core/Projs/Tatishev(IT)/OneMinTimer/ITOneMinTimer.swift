@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ITOneMinTimer: CMFFileProviderProtocol {
     
-    static var fileName: String = "Timer.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

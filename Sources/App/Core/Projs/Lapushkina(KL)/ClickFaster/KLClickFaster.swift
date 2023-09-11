@@ -8,7 +8,7 @@
 import Foundation
 
 struct KLClickFaster: FileProviderProtocol {
-    static var fileName: String = "KLClickFaster.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

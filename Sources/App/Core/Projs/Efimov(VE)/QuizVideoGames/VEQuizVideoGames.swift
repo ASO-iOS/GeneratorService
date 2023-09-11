@@ -7,7 +7,7 @@
 
 import Foundation
 struct VEQuizVideoGames: FileProviderProtocol {
-    static var fileName: String = "QuizVideoGames.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

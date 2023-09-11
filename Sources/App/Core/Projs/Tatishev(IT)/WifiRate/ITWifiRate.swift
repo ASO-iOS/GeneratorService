@@ -61,7 +61,7 @@ fun MainScreen(wifiInfo: WifiInfo) {
 """, fileName: "MainFragment.kt")
     }
     
-    static var fileName: String = "WifiRate.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """

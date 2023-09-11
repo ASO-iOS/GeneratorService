@@ -9,7 +9,7 @@ import Foundation
 
 struct ITTRySecret: CMFFileProviderProtocol {
     
-    static var fileName: String = "PasswordGenerator.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

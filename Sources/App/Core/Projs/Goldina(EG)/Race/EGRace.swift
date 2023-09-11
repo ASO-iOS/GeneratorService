@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGRace: XMLFileProviderProtocol {
-    static var fileName: String = "EGRace.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

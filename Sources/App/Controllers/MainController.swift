@@ -80,6 +80,18 @@ struct MainController {
         fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(mainData: mainData), fileName: "StateViewModel.kt")
     }
     
+    func createFakeFiles(path: String, packageName: String) {
+        let paths = FakeFilesManager.shared.createDirectories()
+        paths.forEach { p in
+            let files = Int.random(in: 1...20)
+            for _ in 0..<files {
+                let fileName = NamesManager.shared.fileName
+                fileHandler.writeFile(filePath: path + p + "/", contentText: FakeFilesManager.shared.fakeFileContent(packageName: packageName, endPoint: p, name: fileName), fileName: fileName + ".kt")
+            }
+        }
+
+    }
+    
     func createLogFile(path: String, token: String) {
         let content = """
 \(Date().getStamp())
@@ -113,7 +125,15 @@ struct MainController {
             AppIDs.DT_PROGRAMMING_JOKES,
             AppIDs.DT_QR_GEN_SHARE,
             AppIDs.DT_TEXT_SIMILARITY,
-            
+            AppIDs.DT_RIDDLE_REALM,
+            AppIDs.DT_NUTRITION_FINDER,
+            AppIDs.DT_EMOJI_FINDER,
+            AppIDs.DT_EASY_NOTES,
+            AppIDs.DT_EXERCISE_FINDER,
+            AppIDs.DT_PHONE_VALIDATOR,
+            AppIDs.DT_HISTORICAL_EVENTS,
+            AppIDs.DT_GASTRONOMY_GURU,
+            AppIDs.DT_WORD_WISE
         ]
     }
 }

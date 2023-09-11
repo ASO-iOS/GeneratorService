@@ -8,7 +8,7 @@
 import Foundation
 
 struct AKToDo: FileProviderProtocol {
-    static var fileName: String = "AKToDo.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

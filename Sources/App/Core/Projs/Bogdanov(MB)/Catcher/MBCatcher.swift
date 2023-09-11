@@ -322,7 +322,7 @@ private fun initInset() {
         )
     }
     
-    static var fileName = "MBCatcher.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(
         packageName: String,

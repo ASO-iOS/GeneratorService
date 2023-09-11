@@ -25,6 +25,32 @@ extension AndroidNecesseryDependencies {
         case AppIDs.DT_TEXT_SIMILARITY:
             return DTTextSimilarity.dependencies(mainData)
             
+        case AppIDs.DT_RIDDLE_REALM:
+            return DTRiddleRealm.dependencies(mainData)
+            
+        case AppIDs.DT_NUTRITION_FINDER:
+            return DTNutritionFinder.dependencies(mainData)
+            
+        case AppIDs.DT_EMOJI_FINDER:
+            return DTEmojiFinder.dependencies(mainData)
+            
+        case AppIDs.DT_EASY_NOTES:
+            return DTEasyNotes.dependencies(mainData)
+            
+        case AppIDs.DT_EXERCISE_FINDER:
+            return DTExerciseFinder.dependencies(mainData)
+            
+        case AppIDs.DT_PHONE_VALIDATOR:
+            return DTPhoneValidator.dependencies(mainData)
+            
+        case AppIDs.DT_HISTORICAL_EVENTS:
+            return DTHistoricalEvents.dependencies(mainData)
+            
+        case AppIDs.DT_GASTRONOMY_GURU:
+            return DTGastronomyGuru.dependencies(mainData)
+            
+        case AppIDs.DT_WORD_WISE:
+            return DTWordWise.dependencies(mainData)
         default:
             return ANDData.empty
         }

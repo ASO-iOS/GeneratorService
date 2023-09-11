@@ -8,7 +8,7 @@
 import Foundation
 
 struct EGFlashlight: CMFFileProviderProtocol {
-    static var fileName: String = "EGFlashlight.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
 package \(packageName).presentation.fragments.main_fragment

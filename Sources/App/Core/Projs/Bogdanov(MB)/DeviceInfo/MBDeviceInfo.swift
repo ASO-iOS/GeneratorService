@@ -265,7 +265,7 @@ struct MBDeviceInfo: FileProviderProtocol {
         )
     }
     
-    static var fileName: String = "MBDeviceInfo.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

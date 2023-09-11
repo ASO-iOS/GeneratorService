@@ -8,7 +8,7 @@
 import Foundation
 
 struct KLDSWeapon: FileProviderProtocol {
-    static var fileName: String = "KLDSWeapon.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """

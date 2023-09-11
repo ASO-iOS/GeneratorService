@@ -27,6 +27,32 @@ struct DTController {
         case AppIDs.DT_TEXT_SIMILARITY:
             createTextSimilarity(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
             
+        case AppIDs.DT_RIDDLE_REALM:
+            createRiddleRealm(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_NUTRITION_FINDER:
+            createNutritionFinder(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_EMOJI_FINDER:
+            createEmojiFinder(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_EASY_NOTES:
+            createEasyNotes(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_EXERCISE_FINDER:
+            createExerciseFinder(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_PHONE_VALIDATOR:
+            createPhoneValidator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_HISTORICAL_EVENTS:
+            createHistoricalEvents(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_GASTRONOMY_GURU:
+            createGastronomyGuru(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_WORD_WISE:
+            createWordWise(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
         default:
             return
         }

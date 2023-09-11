@@ -296,7 +296,7 @@ private fun initInset() {
         )
     }
     
-    static var fileName = "MBSpaceFighter.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(
         packageName: String,

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ITQrGenerator: CMFFileProviderProtocol {
     
-    static var fileName: String = "QrGenerator.kt"
+    static var fileName = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         """
