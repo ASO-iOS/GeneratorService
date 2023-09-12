@@ -2,25 +2,22 @@
 //  File.swift
 //  
 //
-//  Created by admin on 9/4/23.
+//  Created by admin on 9/12/23.
 //
 
 import SwiftUI
 
-struct DTRiddleRealm: SFFileProviderProtocol {
-    
+struct DTLanguageIdentifire: SFFileProviderProtocol {
     static func mainFragmentCMF(_ mainData: MainData) -> ANDMainFragmentCMF {
         ANDMainFragmentCMF(content: """
 package \(mainData.packageName).presentation.fragments.main_fragment
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,27 +25,39 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -75,8 +84,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 import javax.inject.Singleton
+import javax.net.ssl.SSLHandshakeException
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -97,68 +110,101 @@ class MainFragment : Fragment() {
 @Composable
 fun MainScreen() {
     MaterialTheme {
-        RiddleScreen()
+        LanguageDetectScreen()
+    }
+}
+
+fun Throwable.toResponseError(): ResponseError {
+    return when (this) {
+        is ConnectException -> ResponseError.CONNECTION
+        is UnknownHostException -> ResponseError.UNKNOWN_HOST
+        is SocketTimeoutException -> ResponseError.SOCKET_TIMEOUT
+        is SSLHandshakeException -> ResponseError.SSL
+        else -> ResponseError.UNEXPECTED
+    }
+}
+
+fun Int.toResponseError(): ResponseError {
+    return when (this) {
+        400 -> ResponseError.BAD_REQUEST
+        401 -> ResponseError.UNAUTHORIZED
+        403 -> ResponseError.FORBIDDEN
+        404 -> ResponseError.NOT_FOUND
+        in 500..599 -> ResponseError.INTERNAL_SERVER
+        else -> ResponseError.UNEXPECTED
     }
 }
 
 sealed class Resource<T> {
     class Success<T>(val data: T) : Resource<T>()
-    class Error<T>(val message: String) : Resource<T>()
+    class Error<T>(val error: ResponseError) : Resource<T>()
     class Loading<T> : Resource<T>()
 }
 
-fun RiddleDto.toDomain(): Riddle {
-    return Riddle(
-        answer = this.answer,
-        question = this.question,
-        title = this.title
+enum class ResponseError {
+    BAD_REQUEST,
+    UNAUTHORIZED,
+    FORBIDDEN,
+    NOT_FOUND,
+    INTERNAL_SERVER,
+    CONNECTION,
+    UNKNOWN_HOST,
+    SOCKET_TIMEOUT,
+    SSL,
+    UNEXPECTED
+}
+
+fun LanguageDto.toDomain(): Language {
+    return Language(
+        language = this.language
     )
 }
 
-class AuthInterceptor(private val apiKey: String) : Interceptor {
+data class LanguageDto(
+    @SerializedName("iso")
+    val iso: String,
+    @SerializedName("language")
+    val language: String
+)
+
+class AuthInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder().addHeader("X-Api-Key", apiKey).build()
+        val request = chain.request().newBuilder()
+            .addHeader("X-Api-Key", "zOevlY5qtngRacRnWBdJSA==8YDMqZkhD4IS9sxC")
+            .build()
         return chain.proceed(request)
+
     }
 }
 
-data class RiddleDto(
-    @SerializedName("answer")
-    val answer: String,
-    @SerializedName("question")
-    val question: String,
-    @SerializedName("title")
-    val title: String
-)
+interface LanguageService {
 
-interface RiddleService {
-
-    @GET("v1/riddles")
-    suspend fun getRiddles(@Query("limit") limit: Int = 1): retrofit2.Response<List<RiddleDto>>
+    @GET("v1/textlanguage")
+    suspend fun detectLanguage(@Query("text") text: String): retrofit2.Response<LanguageDto>
 }
 
-class RiddleRepositoryImpl(
-    private val riddleService: RiddleService,
-    private val context: Context
-) : RiddleRepository {
+class LanguageRepositoryImpl(
+    private val languageService: LanguageService
+) : LanguageRepository {
 
-    override suspend fun getRiddles(limit: Int): Flow<Resource<List<Riddle>>> = flow {
+    override suspend fun detectLanguage(text: String): Flow<Resource<Language>> = flow {
+        emit(Resource.Loading())
         try {
-            emit(Resource.Loading())
-            val response = riddleService.getRiddles()
+            val response = languageService.detectLanguage(text)
             val body = response.body()
-            if (response.isSuccessful && !body.isNullOrEmpty()) {
-                emit(Resource.Success(body.map { it.toDomain() }))
+            if (response.isSuccessful && body != null) {
+                emit(Resource.Success(body.toDomain()))
             } else {
-                emit(Resource.Error(context.getString(R.string.unexpected_error)))
+                emit(Resource.Error(response.code().toResponseError()))
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             when (e) {
-                is HttpException -> emit(Resource.Error(context.getString(R.string.server_error)))
-                is IOException -> emit(Resource.Error(context.getString(R.string.connection_lost)))
-                else -> emit(Resource.Error(context.getString(R.string.unexpected_error)))
+                is IOException -> emit(Resource.Error(e.toResponseError()))
+                is HttpException -> emit(Resource.Error(e.code().toResponseError()))
+                else -> emit(Resource.Error(e.toResponseError()))
             }
+            e.printStackTrace()
         }
     }
 }
@@ -167,286 +213,262 @@ class RiddleRepositoryImpl(
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
-    @Provides
     @Singleton
-    fun provideRiddleService(): RiddleService {
+    @Provides
+    fun provideLanguageService(): LanguageService {
         val httpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor("zOevlY5qtngRacRnWBdJSA==8YDMqZkhD4IS9sxC"))
+            .addInterceptor(AuthInterceptor())
             .build()
 
         val retrofit = Retrofit.Builder()
-            .client(httpClient)
             .baseUrl("https://api.api-ninjas.com/")
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(RiddleService::class.java)
+        return retrofit.create(LanguageService::class.java)
     }
 
-    @Provides
     @Singleton
-    fun provideRiddleRepository(riddleService: RiddleService, app: Application): RiddleRepository {
-        return RiddleRepositoryImpl(riddleService, app)
+    @Provides
+    fun provideLanguageRepository(languageService: LanguageService): LanguageRepository {
+        return LanguageRepositoryImpl(languageService)
     }
 }
 
-data class Riddle(
-    val answer: String,
-    val question: String,
-    val title: String
+data class Language(
+    val language: String
 )
 
-interface RiddleRepository {
+interface LanguageRepository {
 
-    suspend fun getRiddles(limit: Int = 1): Flow<Resource<List<Riddle>>>
+    suspend fun detectLanguage(text: String): Flow<Resource<Language>>
 }
-
-@HiltViewModel
-class RiddleViewModel @Inject constructor(
-    private val riddleRepository: RiddleRepository
-) : ViewModel() {
-
-    private val _state = MutableStateFlow(RiddleState())
-    val state = _state.asStateFlow()
-
-    init {
-        getRiddle()
-    }
-
-    fun getRiddle(limit: Int = 1) {
-        viewModelScope.launch {
-            riddleRepository.getRiddles(limit).collect {
-                when (it) {
-                    is Resource.Success -> _state.value = RiddleState(riddles = it.data)
-                    is Resource.Loading -> _state.value = RiddleState(isLoading = true)
-                    is Resource.Error -> _state.value = RiddleState(error = it.message)
-                }
-            }
-        }
-    }
-}
-
-data class RiddleState(
-    val riddles: List<Riddle> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String = ""
-)
 
 val backColorPrimary = Color(0xFF\(mainData.uiSettings.backColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(mainData.uiSettings.textColorPrimary ?? "FFFFFF"))
 val buttonTextColorPrimary = Color(0xFF\(mainData.uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(mainData.uiSettings.buttonColorPrimary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(mainData.uiSettings.surfaceColor ?? "FFFFFF"))
-val paddingPrimary = 16
 
 @Composable
-fun RiddleScreen(viewModel: RiddleViewModel = hiltViewModel()) {
-    val state = viewModel.state.collectAsState()
-    val riddleState = state.value
+fun DetectLanguageBackImage(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier,
+        imageVector = Icons.Default.Language,
+        contentDescription = null,
+        colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.surfaceVariant)
+    )
+}
+
+@Composable
+fun ErrorText(modifier: Modifier = Modifier, error: ResponseError) {
+    val text = when (error) {
+        ResponseError.BAD_REQUEST -> stringResource(id = R.string.http_bad_request)
+        ResponseError.UNAUTHORIZED -> stringResource(id = R.string.http_unauthorized)
+        ResponseError.FORBIDDEN -> stringResource(id = R.string.http_forbidden)
+        ResponseError.NOT_FOUND -> stringResource(id = R.string.http_not_found)
+        ResponseError.INTERNAL_SERVER -> stringResource(id = R.string.http_internal_server_error)
+        ResponseError.CONNECTION -> stringResource(id = R.string.connection_exception)
+        ResponseError.UNKNOWN_HOST -> stringResource(id = R.string.host_exception)
+        ResponseError.SOCKET_TIMEOUT -> stringResource(id = R.string.socket_exception)
+        ResponseError.SSL -> stringResource(id = R.string.ssl_exception)
+        ResponseError.UNEXPECTED -> stringResource(id = R.string.unexpected_error)
+    }
+    Text(modifier = modifier, text = text, textAlign = TextAlign.Center, color = textColorPrimary)
+}
+
+@Composable
+fun DetectLanguageItem(modifier: Modifier = Modifier, item: Language) {
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.card_elevation)),
+        colors = CardDefaults.cardColors(containerColor = surfaceColor),
+    ) {
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(dimensionResource(id = R.dimen.main_padding)),
+            text = item.language,
+            style = MaterialTheme.typography.titleMedium,
+            color = textColorPrimary
+        )
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LanguageDetectTextField(
+    modifier: Modifier = Modifier,
+    textState: MutableState<String>,
+    onDoneClick: (String) -> Unit
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    OutlinedTextField(
+        modifier = modifier,
+        value = textState.value,
+        onValueChange = { textState.value = it },
+        placeholder = { Text(text = stringResource(R.string.input_a_text)) },
+        maxLines = 5,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(onDone = {
+            if (textState.value.isNotBlank()) {
+                keyboardController?.hide()
+                focusManager.clearFocus(true)
+                onDoneClick(textState.value)
+            }
+        }),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = textColorPrimary,
+            unfocusedTextColor = textColorPrimary,
+            cursorColor = buttonColorPrimary,
+            focusedBorderColor = buttonColorPrimary,
+            unfocusedBorderColor = textColorPrimary,
+            focusedContainerColor = backColorPrimary,
+            unfocusedContainerColor = backColorPrimary
+        ),
+    )
+}
+
+@Composable
+fun LanguageDetectScreen(viewModel: LanguageViewModel = hiltViewModel()) {
+    val state = viewModel.state.collectAsState().value
     Scaffold(
         modifier = Modifier.background(backColorPrimary),
-        topBar = {
-            Text(
-                text = stringResource(R.string.riddle_realm),
-                modifier = Modifier.padding(paddingPrimary.dp),
-                style = MaterialTheme.typography.titleLarge,
-                color = textColorPrimary
-            )
-        },
-        containerColor = backColorPrimary
+        topBar = { LanguageDetectTopBar(modifier = Modifier.fillMaxWidth().background(color = backColorPrimary)) }
     ) { paddingValues ->
         Box(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(paddingValues)
-                .padding(paddingPrimary.dp)
-                .background(backColorPrimary)
-                .fillMaxSize()
-        ) {
-            when {
-                riddleState.riddles.isNotEmpty() -> {
-                    RiddleContent(
-                        riddles = riddleState.riddles,
-                        modifier = Modifier.fillMaxSize(),
-                        onNextClick = { viewModel.getRiddle() }
-                    )
-                }
-
-                riddleState.isLoading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                        color = buttonColorPrimary
-                    )
-                }
-
-                riddleState.error.isNotEmpty() -> {
-                    ErrorState(
-                        modifier = Modifier.align(Alignment.Center),
-                        error = riddleState.error,
-                        onRetryClick = { viewModel.getRiddle() })
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleContent(riddles: List<Riddle>, modifier: Modifier = Modifier, onNextClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
                 .background(backColorPrimary)
         ) {
-            RiddleQuestionCard(riddles = riddles, modifier = Modifier.align(Alignment.Center))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(backColorPrimary)
-        ) {
-            RiddleAnswerState(
-                riddles = riddles,
-                modifier = Modifier.align(Alignment.Center),
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleQuestionCard(riddles: List<Riddle>, modifier: Modifier = Modifier) {
-    val scroll = rememberScrollState(0)
-    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingPrimary.dp)
-                .background(surfaceColor),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            riddles.forEach { riddle ->
-                Text(
-                    text = riddle.title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.align(Alignment.Start),
-                    color = textColorPrimary
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = riddle.question,
-                    modifier = Modifier.verticalScroll(scroll),
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                    color = textColorPrimary
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerState(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
-) {
-    val showAnswerState = remember { mutableStateOf(false) }
-    when (showAnswerState.value) {
-        false -> {
-            Button(
-                modifier = modifier,
-                onClick = { showAnswerState.value = true },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonColorPrimary,
-                    contentColor = buttonTextColorPrimary
-                )
-            ) {
-                Text(text = stringResource(R.string.show_answer), color = buttonTextColorPrimary)
-            }
-        }
-
-        true -> {
-            RiddleAnswerCard(
-                riddles = riddles,
-                modifier = modifier,
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerCard(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        val scroll = rememberScrollState(0)
-        Card(colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-            Box(
+            LanguageDetectContent(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(paddingPrimary.dp)
-                    .background(surfaceColor)
-            ) {
-                riddles.forEach { riddle ->
-                    Text(
-                        text = riddle.answer,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .verticalScroll(scroll),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = textColorPrimary
-                    )
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onNextClick() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColorPrimary,
-                contentColor = buttonTextColorPrimary
+                    .padding(dimensionResource(id = R.dimen.main_padding))
+                    .background(backColorPrimary),
+                state = state,
+                detectLanguageClick = { viewModel.detectLanguage(it) }
             )
-        ) {
-            Text(text = stringResource(R.string.next_riddle), color = buttonTextColorPrimary)
+            when {
+                state.isLoading -> CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = buttonColorPrimary
+                )
+
+                state.data == null -> DetectLanguageBackImage(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(dimensionResource(id = R.dimen.back_image_size))
+                )
+            }
         }
     }
 }
 
 @Composable
-fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = error, style = MaterialTheme.typography.bodyLarge, color = textColorPrimary)
-        Spacer(modifier = Modifier.height(16.dp))
+fun LanguageDetectTopBar(modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(id = R.string.app_name),
+        modifier = modifier.padding(
+            start = dimensionResource(id = R.dimen.main_padding),
+            top = dimensionResource(id = R.dimen.main_padding)
+        ),
+        style = MaterialTheme.typography.titleLarge,
+        color = textColorPrimary
+    )
+}
+
+@Composable
+fun LanguageDetectContent(
+    modifier: Modifier = Modifier,
+    state: LanguageState,
+    detectLanguageClick: (String) -> Unit
+) {
+    Column(modifier = modifier) {
+        LanguageDetectHeader(
+            modifier = Modifier.background(backColorPrimary),
+            onClick = { detectLanguageClick(it) })
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.main_spacer_size)))
+        when {
+            state.data != null -> DetectLanguageItem(
+                modifier = Modifier.fillMaxWidth(),
+                item = state.data
+            )
+
+            state.error != null -> ErrorText(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                error = state.error
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun LanguageDetectHeader(modifier: Modifier = Modifier, onClick: (String) -> Unit) {
+    Column(modifier = modifier) {
+        val keyboardController = LocalSoftwareKeyboardController.current
+        val focusManager = LocalFocusManager.current
+        val textState = rememberSaveable { mutableStateOf("") }
+        LanguageDetectTextField(
+            modifier = Modifier.fillMaxWidth(),
+            textState = textState,
+            onDoneClick = { onClick(textState.value) }
+        )
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.main_spacer_size)))
         Button(
-            onClick = { onRetryClick() },
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                if (textState.value.isNotBlank()) {
+                    keyboardController?.hide()
+                    focusManager.clearFocus(true)
+                    onClick(textState.value)
+                }
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = buttonColorPrimary,
                 contentColor = buttonTextColorPrimary
             )
         ) {
-            Text(text = stringResource(R.string.retry), color = buttonTextColorPrimary)
+            Text(text = stringResource(R.string.detect_language), color = buttonTextColorPrimary)
+        }
+    }
+}
+
+data class LanguageState(
+    val data: Language? = null,
+    val isLoading: Boolean = false,
+    val error: ResponseError? = null
+)
+
+@HiltViewModel
+class LanguageViewModel @Inject constructor(
+    private val languageRepository: LanguageRepository
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(LanguageState())
+    val state = _state.asStateFlow()
+
+    fun detectLanguage(text: String) {
+        viewModelScope.launch {
+            languageRepository.detectLanguage(text).collect {
+                when (it) {
+                    is Resource.Loading -> _state.value =
+                        _state.value.copy(isLoading = true)
+
+                    is Resource.Success -> _state.value =
+                        _state.value.copy(isLoading = false, data = it.data)
+
+                    is Resource.Error -> _state.value =
+                        _state.value.copy(isLoading = false, data = null, error = it.error)
+                }
+            }
         }
     }
 }
@@ -459,13 +481,19 @@ fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () ->
             mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""),
             themesData: ANDThemesData(isDefault: true, content: ""),
             stringsData: ANDStringsData(additional: """
-    <string name="connection_lost">Connection lost</string>
-    <string name="server_error">Server error</string>
+    <string name="input_a_text">Input a text</string>
+    <string name="detect_language">Detect Language</string>
     <string name="unexpected_error">Unexpected error</string>
-    <string name="riddle_realm">\(mainData.appName)</string>
-    <string name="retry">Retry</string>
-    <string name="next_riddle">Next Riddle</string>
-    <string name="show_answer">Show Answer</string>
+    <string name="connection_exception">Connection lost</string>
+    <string name="socket_exception">We\\'re sorry, but it seems that the connection is taking longer than expected to establish</string>
+    <string name="host_exception">We\\'re having trouble reaching the server at the moment</string>
+    <string name="ssl_exception">We\\'re having trouble connecting securely to the server right now</string>
+    <string name="http_bad_request">Cannot parse the input phone number.</string>
+    <string name="http_unauthorized">401 Unauthorized</string>
+    <string name="http_forbidden">403 Forbidden</string>
+    <string name="http_not_found">404 Not Found</string>
+    <string name="http_internal_server_error">Internal Server Error</string>
+    <string name="bad_connection">Slow internet connection</string>
 """),
             colorsData: ANDColorsData(additional: ""))
     }
@@ -505,8 +533,8 @@ import dependencies.Dependencies
 
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     namespace Application.id
@@ -523,7 +551,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
     }
 
     buildTypes {
@@ -603,7 +630,7 @@ object Build {
 }
 
 object Versions {
-    const val gradle = "8.1.0"
+    const val gradle = "8.0.0"
     const val compilesdk = 33
     const val minsdk = 24
     const val targetsdk = 33
@@ -636,7 +663,6 @@ object Versions {
     const val calend = "0.5.1"
     const val paging_version = "3.1.1"
 }
-
 
 object Dependencies {
     const val core_ktx = "androidx.core:core-ktx:${Versions.ktx}"
@@ -712,6 +738,9 @@ object Dependencies {
                 name: dependenciesName
             ))
     }
+
+    
+    
     
     static var fileName: String = ""
     

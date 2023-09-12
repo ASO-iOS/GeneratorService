@@ -133,7 +133,12 @@ struct MainController {
             AppIDs.DT_PHONE_VALIDATOR,
             AppIDs.DT_HISTORICAL_EVENTS,
             AppIDs.DT_GASTRONOMY_GURU,
-            AppIDs.DT_WORD_WISE
+            AppIDs.DT_WORD_WISE,
+            AppIDs.DT_PASSWORD_GENERATOR,
+            AppIDs.DT_COCTAIL_FINDER,
+            AppIDs.DT_POPULAR_MOVIES,
+            AppIDs.DT_MUSIC_QUIZ,
+            AppIDs.DT_LANGUAGE_IDENTIFIRE,
         ]
     }
 }

@@ -2,12 +2,12 @@
 //  File.swift
 //  
 //
-//  Created by admin on 9/4/23.
+//  Created by admin on 9/11/23.
 //
 
 import SwiftUI
 
-struct DTRiddleRealm: SFFileProviderProtocol {
+struct DTCoctailFinder: SFFileProviderProtocol {
     
     static func mainFragmentCMF(_ mainData: MainData) -> ANDMainFragmentCMF {
         ANDMainFragmentCMF(content: """
@@ -23,19 +23,24 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,11 +48,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,15 +70,20 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.HttpException
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -97,7 +111,7 @@ class MainFragment : Fragment() {
 @Composable
 fun MainScreen() {
     MaterialTheme {
-        RiddleScreen()
+        CocktailScreen()
     }
 }
 
@@ -107,51 +121,57 @@ sealed class Resource<T> {
     class Loading<T> : Resource<T>()
 }
 
-fun RiddleDto.toDomain(): Riddle {
-    return Riddle(
-        answer = this.answer,
-        question = this.question,
-        title = this.title
+fun CocktailDto.toDomain(): Cocktail {
+    return Cocktail(
+        name = this.name.replaceFirstChar { it.uppercase() },
+        instructions = this.instructions,
+        ingredients = this.ingredients
     )
 }
 
 class AuthInterceptor(private val apiKey: String) : Interceptor {
 
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder().addHeader("X-Api-Key", apiKey).build()
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        val request = chain.request().newBuilder()
+            .addHeader("X-Api-Key", apiKey)
+            .build()
         return chain.proceed(request)
     }
 }
 
-data class RiddleDto(
-    @SerializedName("answer")
-    val answer: String,
-    @SerializedName("question")
-    val question: String,
-    @SerializedName("title")
-    val title: String
+data class CocktailDto(
+    @SerializedName("ingredients")
+    val ingredients: List<String>,
+    @SerializedName("instructions")
+    val instructions: String,
+    @SerializedName("name")
+    val name: String
 )
 
-interface RiddleService {
+interface CocktailService {
 
-    @GET("v1/riddles")
-    suspend fun getRiddles(@Query("limit") limit: Int = 1): retrofit2.Response<List<RiddleDto>>
+    @GET("v1/cocktail")
+    suspend fun getCocktailsByName(
+        @Query("name") name: String
+    ): Response<List<CocktailDto>>
 }
 
-class RiddleRepositoryImpl(
-    private val riddleService: RiddleService,
+class CocktailRepositoryImpl(
+    private val cocktailService: CocktailService,
     private val context: Context
-) : RiddleRepository {
+) : CocktailRepository {
 
-    override suspend fun getRiddles(limit: Int): Flow<Resource<List<Riddle>>> = flow {
+    override suspend fun getCocktailsByName(name: String): Flow<Resource<List<Cocktail>>> = flow {
+        emit(Resource.Loading())
         try {
-            emit(Resource.Loading())
-            val response = riddleService.getRiddles()
+            val response = cocktailService.getCocktailsByName(name)
             val body = response.body()
-            if (response.isSuccessful && !body.isNullOrEmpty()) {
-                emit(Resource.Success(body.map { it.toDomain() }))
-            } else {
-                emit(Resource.Error(context.getString(R.string.unexpected_error)))
+            if (response.isSuccessful && body != null) {
+                if (body.isNotEmpty()) {
+                    emit(Resource.Success(body.map { it.toDomain() }))
+                } else {
+                    emit(Resource.Error(context.getString(R.string.no_cocktail_with_that_name)))
+                }
             }
         } catch (e: Exception) {
             when (e) {
@@ -169,284 +189,242 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideRiddleService(): RiddleService {
+    fun provideCocktailService(): CocktailService {
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor("zOevlY5qtngRacRnWBdJSA==8YDMqZkhD4IS9sxC"))
             .build()
 
         val retrofit = Retrofit.Builder()
-            .client(httpClient)
             .baseUrl("https://api.api-ninjas.com/")
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(RiddleService::class.java)
+        return retrofit.create(CocktailService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRiddleRepository(riddleService: RiddleService, app: Application): RiddleRepository {
-        return RiddleRepositoryImpl(riddleService, app)
+    fun provideCocktailRepository(
+        cocktailService: CocktailService,
+        app: Application
+    ): CocktailRepository {
+        return CocktailRepositoryImpl(cocktailService, app)
     }
 }
 
-data class Riddle(
-    val answer: String,
-    val question: String,
-    val title: String
+data class Cocktail(
+    val ingredients: List<String>,
+    val instructions: String,
+    val name: String
 )
 
-interface RiddleRepository {
+interface CocktailRepository {
 
-    suspend fun getRiddles(limit: Int = 1): Flow<Resource<List<Riddle>>>
+    suspend fun getCocktailsByName(name: String): Flow<Resource<List<Cocktail>>>
 }
 
 @HiltViewModel
-class RiddleViewModel @Inject constructor(
-    private val riddleRepository: RiddleRepository
+class CocktailViewModel @Inject constructor(
+    private val repository: CocktailRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(RiddleState())
+    private val _state = MutableStateFlow(CocktailState())
     val state = _state.asStateFlow()
 
+    private val userInput = MutableStateFlow("")
+
     init {
-        getRiddle()
+        observeUserInput()
     }
 
-    fun getRiddle(limit: Int = 1) {
+    fun onUserInputChanged(input: String) {
+        userInput.value = input
+    }
+
+    @OptIn(FlowPreview::class)
+    private fun observeUserInput() {
         viewModelScope.launch {
-            riddleRepository.getRiddles(limit).collect {
-                when (it) {
-                    is Resource.Success -> _state.value = RiddleState(riddles = it.data)
-                    is Resource.Loading -> _state.value = RiddleState(isLoading = true)
-                    is Resource.Error -> _state.value = RiddleState(error = it.message)
+            userInput
+                .filter { it.isNotBlank() }
+                .map { it.trim() }
+                .debounce(1500)
+                .distinctUntilChanged()
+                .collect {
+                    getCocktailsByName(it)
                 }
+        }
+    }
+
+    private suspend fun getCocktailsByName(name: String) {
+        repository.getCocktailsByName(name).collect {
+            when (it) {
+                is Resource.Success -> _state.value = CocktailState(cocktails = it.data)
+                is Resource.Loading -> _state.value = CocktailState(isLoading = true)
+                is Resource.Error -> _state.value = CocktailState(error = it.message)
             }
         }
     }
 }
 
-data class RiddleState(
-    val riddles: List<Riddle> = emptyList(),
+data class CocktailState(
+    val cocktails: List<Cocktail> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = ""
 )
 
 val backColorPrimary = Color(0xFF\(mainData.uiSettings.backColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(mainData.uiSettings.textColorPrimary ?? "FFFFFF"))
-val buttonTextColorPrimary = Color(0xFF\(mainData.uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(mainData.uiSettings.buttonColorPrimary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(mainData.uiSettings.surfaceColor ?? "FFFFFF"))
 val paddingPrimary = 16
 
 @Composable
-fun RiddleScreen(viewModel: RiddleViewModel = hiltViewModel()) {
+fun CocktailScreen(viewModel: CocktailViewModel = hiltViewModel()) {
     val state = viewModel.state.collectAsState()
-    val riddleState = state.value
     Scaffold(
-        modifier = Modifier.background(backColorPrimary),
-        topBar = {
-            Text(
-                text = stringResource(R.string.riddle_realm),
-                modifier = Modifier.padding(paddingPrimary.dp),
-                style = MaterialTheme.typography.titleLarge,
-                color = textColorPrimary
-            )
-        },
-        containerColor = backColorPrimary
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backColorPrimary)
     ) { paddingValues ->
         Box(
             modifier = Modifier
-                .padding(paddingValues)
-                .padding(paddingPrimary.dp)
-                .background(backColorPrimary)
                 .fillMaxSize()
+                .background(backColorPrimary)
+                .padding(paddingValues)
+                .padding(
+                    start = paddingPrimary.dp,
+                    end = paddingPrimary.dp
+                )
         ) {
-            when {
-                riddleState.riddles.isNotEmpty() -> {
-                    RiddleContent(
-                        riddles = riddleState.riddles,
-                        modifier = Modifier.fillMaxSize(),
-                        onNextClick = { viewModel.getRiddle() }
-                    )
+            LazyColumn(
+                modifier = Modifier.background(color = backColorPrimary),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(
+                    top = paddingPrimary.dp,
+                    bottom = paddingPrimary.dp
+                )
+            ) {
+                item {
+                    Header(viewModel = viewModel, modifier = Modifier.fillMaxWidth())
                 }
-
-                riddleState.isLoading -> {
+                items(state.value.cocktails) {
+                    CocktailItem(cocktail = it)
+                }
+            }
+            when {
+                state.value.isLoading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
                         color = buttonColorPrimary
                     )
                 }
 
-                riddleState.error.isNotEmpty() -> {
-                    ErrorState(
-                        modifier = Modifier.align(Alignment.Center),
-                        error = riddleState.error,
-                        onRetryClick = { viewModel.getRiddle() })
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleContent(riddles: List<Riddle>, modifier: Modifier = Modifier, onNextClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(backColorPrimary)
-        ) {
-            RiddleQuestionCard(riddles = riddles, modifier = Modifier.align(Alignment.Center))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(backColorPrimary)
-        ) {
-            RiddleAnswerState(
-                riddles = riddles,
-                modifier = Modifier.align(Alignment.Center),
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleQuestionCard(riddles: List<Riddle>, modifier: Modifier = Modifier) {
-    val scroll = rememberScrollState(0)
-    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingPrimary.dp)
-                .background(surfaceColor),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            riddles.forEach { riddle ->
-                Text(
-                    text = riddle.title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.align(Alignment.Start),
-                    color = textColorPrimary
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = riddle.question,
-                    modifier = Modifier.verticalScroll(scroll),
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                    color = textColorPrimary
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerState(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
-) {
-    val showAnswerState = remember { mutableStateOf(false) }
-    when (showAnswerState.value) {
-        false -> {
-            Button(
-                modifier = modifier,
-                onClick = { showAnswerState.value = true },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonColorPrimary,
-                    contentColor = buttonTextColorPrimary
-                )
-            ) {
-                Text(text = stringResource(R.string.show_answer), color = buttonTextColorPrimary)
-            }
-        }
-
-        true -> {
-            RiddleAnswerCard(
-                riddles = riddles,
-                modifier = modifier,
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerCard(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        val scroll = rememberScrollState(0)
-        Card(colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(paddingPrimary.dp)
-                    .background(surfaceColor)
-            ) {
-                riddles.forEach { riddle ->
+                state.value.error.isNotEmpty() -> {
                     Text(
-                        text = riddle.answer,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .verticalScroll(scroll),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyLarge,
+                        text = state.value.error,
+                        modifier = Modifier.align(Alignment.Center),
                         color = textColorPrimary
                     )
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun Header(viewModel: CocktailViewModel, modifier: Modifier = Modifier) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    Column(
+        modifier = modifier.background(backColorPrimary),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val textFieldState = remember { mutableStateOf("") }
+        Text(
+            text = stringResource(R.string.cocktail_recipes),
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.align(Alignment.Start),
+            color = textColorPrimary
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onNextClick() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColorPrimary,
-                contentColor = buttonTextColorPrimary
-            )
-        ) {
-            Text(text = stringResource(R.string.next_riddle), color = buttonTextColorPrimary)
-        }
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = textFieldState.value,
+            placeholder = { Text(text = stringResource(R.string.input_a_cocktail_name)) },
+            singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = textColorPrimary,
+                unfocusedTextColor = textColorPrimary,
+                cursorColor = buttonColorPrimary,
+                focusedBorderColor = buttonColorPrimary,
+                unfocusedBorderColor = textColorPrimary,
+                focusedContainerColor = backColorPrimary,
+                unfocusedContainerColor = backColorPrimary
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = {
+                keyboardController?.hide()
+                focusManager.clearFocus(true)
+            }),
+            onValueChange = {
+                textFieldState.value = it
+                if (it.isNotBlank()) viewModel.onUserInputChanged(it)
+            }
+        )
     }
 }
 
 @Composable
-fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+fun CocktailItem(cocktail: Cocktail, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(containerColor = surfaceColor),
     ) {
-        Text(text = error, style = MaterialTheme.typography.bodyLarge, color = textColorPrimary)
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onRetryClick() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColorPrimary,
-                contentColor = buttonTextColorPrimary
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingPrimary.dp)
+                .background(color = surfaceColor)
         ) {
-            Text(text = stringResource(R.string.retry), color = buttonTextColorPrimary)
+            Text(
+                text = cocktail.name,
+                style = MaterialTheme.typography.headlineMedium,
+                color = textColorPrimary
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(R.string.ingredients),
+                style = MaterialTheme.typography.headlineSmall,
+                color = textColorPrimary
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.background(color = surfaceColor)) {
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(modifier = Modifier.background(color = surfaceColor)) {
+                    cocktail.ingredients.forEach {
+                        Text(
+                            text = String.format(
+                                stringResource(id = R.string.bulleted_string),
+                                it
+                            ),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = textColorPrimary
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = cocktail.instructions,
+                style = MaterialTheme.typography.bodyLarge,
+                color = textColorPrimary
+            )
         }
     }
 }
@@ -462,10 +440,11 @@ fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () ->
     <string name="connection_lost">Connection lost</string>
     <string name="server_error">Server error</string>
     <string name="unexpected_error">Unexpected error</string>
-    <string name="riddle_realm">\(mainData.appName)</string>
-    <string name="retry">Retry</string>
-    <string name="next_riddle">Next Riddle</string>
-    <string name="show_answer">Show Answer</string>
+    <string name="bulleted_string">\\u2022 %1$s</string>
+    <string name="no_cocktail_with_that_name">Couldn\\'t find a cocktail with that name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="cocktail_recipes">\(mainData.appName)</string>
+    <string name="input_a_cocktail_name">Input a cocktail name</string>
 """),
             colorsData: ANDColorsData(additional: ""))
     }
@@ -589,7 +568,6 @@ dependencies {
 
         let dependencies = """
 package dependencies
-
 object Application {
     const val id = "\(packageName)"
     const val version_code = 1

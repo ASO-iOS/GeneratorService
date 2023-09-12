@@ -51,7 +51,7 @@ extension DTController {
         fileHandler.writeFile(filePath: path, contentText: DTRiddleRealm.mainFragmentCMF(mainData).content, fileName: DTRiddleRealm.mainFragmentCMF(mainData).fileName)
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTRiddleRealmRes.icon.content, fileName: DTRiddleRealmRes.icon.name)
         
-        ///MARK: TodoMeta
+        fileHandler.createMeta(RiddleRealmMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(DTRiddleRealm.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -64,6 +64,8 @@ extension DTController {
         fileHandler.createGradle(DTNutritionFinder.self, packageName: packageName, gradlePaths: gradlePaths)
         
     }
+    
+
     
     func createEmojiFinder(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
         fileHandler.writeFile(filePath: path, contentText: DTEmojiFinder.mainFragmentCMF(mainData).content, fileName: DTEmojiFinder.mainFragmentCMF(mainData).fileName)
@@ -119,6 +121,56 @@ extension DTController {
         
         fileHandler.createMeta(WordWiseMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(DTWordWise.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createPasswordGenerator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: DTPasswordGenerator.mainFragmentCMF(mainData).content, fileName: DTPasswordGenerator.mainFragmentCMF(mainData).fileName)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTPasswordGeneratorRes.icon.content, fileName: DTPasswordGeneratorRes.icon.name)
+        fileHandler.checkDirectory(atPath: xmlPaths.layoutPath)
+        fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTPasswordGeneratorRes.lay.content, fileName: DTPasswordGeneratorRes.lay.name)
+        //TODO: Meta
+        fileHandler.createGradle(DTPasswordGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCoctailFinder(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: DTCoctailFinder.mainFragmentCMF(mainData).content, fileName: DTCoctailFinder.mainFragmentCMF(mainData).fileName)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTCoctailFinderRes.icon.content, fileName: DTCoctailFinderRes.icon.name)
+        
+        
+        fileHandler.createMeta(CocktailCraftMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(DTCoctailFinder.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createPopularMovies(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: DTPopularMovies.mainFragmentCMF(mainData).content, fileName: DTPopularMovies.mainFragmentCMF(mainData).fileName)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTPopularMoviesRes.icon.content, fileName: DTPopularMoviesRes.icon.name)
+        
+        fileHandler.createMeta(CinemaScopeMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(DTPopularMovies.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createMusicQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: DTMusicQuiz.mainFragmentCMF(mainData).content, fileName: DTMusicQuiz.mainFragmentCMF(mainData).fileName)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTMusicQuizRes.dimens.content, fileName: DTMusicQuizRes.dimens.name)
+        fileHandler.checkDirectory(atPath: xmlPaths.layoutPath)
+        fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layActiv.content, fileName: DTMusicQuizRes.layActiv.name)
+        fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layFrag.content, fileName: DTMusicQuizRes.layFrag.name)
+        fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layQuiz.content, fileName: DTMusicQuizRes.layQuiz.name)
+        fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layRes.content, fileName: DTMusicQuizRes.layRes.name)
+        fileHandler.writeFile(filePath: xmlPaths.navigationPath, contentText: DTMusicQuizRes.nav.content, fileName: DTMusicQuizRes.nav.name)
+        
+        //TODO: Meta
+        fileHandler.createGradle(DTMusicQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    
+    func createLanguageIdentifire(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+        fileHandler.writeFile(filePath: path, contentText: DTLanguageIdentifire.mainFragmentCMF(mainData).content, fileName: DTLanguageIdentifire.mainFragmentCMF(mainData).fileName)
+        fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTLanguageIdentifireRes.icon.content, fileName: DTLanguageIdentifireRes.icon.name)
+        
+        fileHandler.createMeta(LanguageIdentifireMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(DTLanguageIdentifire.self, packageName: packageName, gradlePaths: gradlePaths)
+        
     }
     
 }

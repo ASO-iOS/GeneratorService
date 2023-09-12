@@ -151,13 +151,14 @@ extension CoreController {
         let layoutPath = tempLoc + "app/src/main/res/layout/"
         let valuesPath = tempLoc + "app/src/main/res/values/"
         let drawablePath = tempLoc + "app/src/main/res/drawable/"
+        let navigationPath = tempLoc + "app/src/main/res/navigation/"
         let animPath = tempLoc + "app/src/main/res/anim/"
         let rawPath = tempLoc + "app/src/main/res/raw/"
         let fontPath = tempLoc + "app/src/main/res/font/"
         let gradlePaths = GradlePaths(projectGradlePath: tempLoc, moduleGradlePath: tempLoc + "app/", dependenciesPath: tempLoc + "buildSrc/src/main/java/dependencies/")
         let assetsLocation = tempLoc + "app/src/main/assets/"
         let libPath = tempLoc + "app/libs/"
-        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath, libsPath: libPath, drawablePath: drawablePath)
+        let xmlPaths = XMLLayoutPaths(valuesPath: valuesPath, animPath: animPath, layoutPath: layoutPath, rawPath: rawPath, fontPath: fontPath, libsPath: libPath, drawablePath: drawablePath, navigationPath: navigationPath)
         switch body.mainData.prefix {
         case AppIDs.VS_PREFIX:
             let vsController = VSController(fileHandler: fileHandler)
@@ -319,4 +320,6 @@ struct XMLLayoutPaths {
     let fontPath: String
     let libsPath: String
     let drawablePath: String
+    
+    let navigationPath: String
 }

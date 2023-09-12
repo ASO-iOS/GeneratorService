@@ -2,19 +2,17 @@
 //  File.swift
 //  
 //
-//  Created by admin on 9/4/23.
+//  Created by admin on 9/11/23.
 //
 
 import SwiftUI
 
-struct DTRiddleRealm: SFFileProviderProtocol {
+struct DTPopularMovies: SFFileProviderProtocol {
     
     static func mainFragmentCMF(_ mainData: MainData) -> ANDMainFragmentCMF {
         ANDMainFragmentCMF(content: """
 package \(mainData.packageName).presentation.fragments.main_fragment
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,36 +21,60 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LoadState
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import androidx.paging.cachedIn
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.map
+import coil.compose.AsyncImage
 import \(mainData.packageName).R
 import com.google.gson.annotations.SerializedName
 import dagger.Module
@@ -62,10 +84,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -77,6 +96,7 @@ import retrofit2.http.Query
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -97,68 +117,126 @@ class MainFragment : Fragment() {
 @Composable
 fun MainScreen() {
     MaterialTheme {
-        RiddleScreen()
+        MovieScreen()
     }
 }
 
-sealed class Resource<T> {
-    class Success<T>(val data: T) : Resource<T>()
-    class Error<T>(val message: String) : Resource<T>()
-    class Loading<T> : Resource<T>()
-}
-
-fun RiddleDto.toDomain(): Riddle {
-    return Riddle(
-        answer = this.answer,
-        question = this.question,
-        title = this.title
+fun MovieDto.toDomain(): Movie {
+    return Movie(
+        name = nameRu ?: nameEn ?: "N / A",
+        genre = genres.getOrNull(0)?.genre ?: "N / A",
+        year = year ?: "N / A",
+        posterPreviewUrl = posterUrlPreview
     )
 }
+
+data class Country(
+    @SerializedName("country")
+    val country: String
+)
+
+data class Genre(
+    @SerializedName("genre")
+    val genre: String
+)
+
+data class MovieDto(
+    @SerializedName("countries")
+    val countries: List<Country>,
+    @SerializedName("filmId")
+    val filmId: Int,
+    @SerializedName("filmLength")
+    val filmLength: String?,
+    @SerializedName("genres")
+    val genres: List<Genre>,
+    @SerializedName("nameEn")
+    val nameEn: String?,
+    @SerializedName("nameRu")
+    val nameRu: String?,
+    @SerializedName("posterUrl")
+    val posterUrl: String,
+    @SerializedName("posterUrlPreview")
+    val posterUrlPreview: String,
+    @SerializedName("rating")
+    val rating: String?,
+    @SerializedName("ratingVoteCount")
+    val ratingVoteCount: Int?,
+    @SerializedName("year")
+    val year: String?
+)
+
+data class MoviesDto(
+    @SerializedName("films")
+    val movies: List<MovieDto>,
+    @SerializedName("pagesCount")
+    val pagesCount: Int
+)
 
 class AuthInterceptor(private val apiKey: String) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request().newBuilder().addHeader("X-Api-Key", apiKey).build()
+        val request = chain.request().newBuilder()
+            .addHeader("X-API-KEY", apiKey)
+            .build()
         return chain.proceed(request)
     }
 }
 
-data class RiddleDto(
-    @SerializedName("answer")
-    val answer: String,
-    @SerializedName("question")
-    val question: String,
-    @SerializedName("title")
-    val title: String
-)
+class MoviePagingSource @Inject constructor(
+    private val movieService: MovieService
+) : PagingSource<Int, MovieDto>() {
 
-interface RiddleService {
+    override fun getRefreshKey(state: PagingState<Int, MovieDto>): Int? {
+        return null
+    }
 
-    @GET("v1/riddles")
-    suspend fun getRiddles(@Query("limit") limit: Int = 1): retrofit2.Response<List<RiddleDto>>
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
+        return try {
+            val pageIndex = params.key ?: FIRST_PAGE
+            val response = movieService.getMovies(page = pageIndex)
+            LoadResult.Page(
+                data = response.movies,
+                prevKey = if (pageIndex == FIRST_PAGE) null else pageIndex - 1,
+                nextKey = if (pageIndex == LAST_PAGE) null else pageIndex + 1
+            )
+        } catch (e: Throwable) {
+            when (e) {
+                is IOException -> LoadResult.Error(e)
+                is HttpException -> LoadResult.Error(e)
+                else -> LoadResult.Error(e)
+            }
+        }
+    }
+
+    companion object {
+        private const val FIRST_PAGE = 1
+        private const val LAST_PAGE = 20
+    }
 }
 
-class RiddleRepositoryImpl(
-    private val riddleService: RiddleService,
-    private val context: Context
-) : RiddleRepository {
+interface MovieService {
 
-    override suspend fun getRiddles(limit: Int): Flow<Resource<List<Riddle>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val response = riddleService.getRiddles()
-            val body = response.body()
-            if (response.isSuccessful && !body.isNullOrEmpty()) {
-                emit(Resource.Success(body.map { it.toDomain() }))
-            } else {
-                emit(Resource.Error(context.getString(R.string.unexpected_error)))
-            }
-        } catch (e: Exception) {
-            when (e) {
-                is HttpException -> emit(Resource.Error(context.getString(R.string.server_error)))
-                is IOException -> emit(Resource.Error(context.getString(R.string.connection_lost)))
-                else -> emit(Resource.Error(context.getString(R.string.unexpected_error)))
-            }
+    @GET("api/v2.2/films/top")
+    suspend fun getMovies(
+        @Query("page") page: Int = 1,
+        @Query("type") type: String = "TOP_100_POPULAR_FILMS"
+    ): MoviesDto
+}
+
+class MovieRepositoryImpl @Inject constructor(
+    private val movieService: MovieService
+) : MovieRepository {
+
+    override fun getMovies(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 1,
+                prefetchDistance = 5,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { MoviePagingSource(movieService) }
+        ).flow.map { pagingData ->
+            pagingData.map { movieDto -> movieDto.toDomain() }
         }
     }
 }
@@ -169,286 +247,226 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideRiddleService(): RiddleService {
+    fun provideMovieService(): MovieService {
+
         val httpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor("zOevlY5qtngRacRnWBdJSA==8YDMqZkhD4IS9sxC"))
+            .addInterceptor(AuthInterceptor("2736b641-58ab-4b6a-a01f-917d5e1662ab"))
             .build()
 
         val retrofit = Retrofit.Builder()
+            .baseUrl("https://kinopoiskapiunofficial.tech/")
             .client(httpClient)
-            .baseUrl("https://api.api-ninjas.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(RiddleService::class.java)
+        return retrofit.create(MovieService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRiddleRepository(riddleService: RiddleService, app: Application): RiddleRepository {
-        return RiddleRepositoryImpl(riddleService, app)
+    fun provideMovieRepository(
+        movieService: MovieService
+    ): MovieRepository {
+        return MovieRepositoryImpl(movieService)
     }
 }
 
-data class Riddle(
-    val answer: String,
-    val question: String,
-    val title: String
+data class Movie(
+    val name: String,
+    val year: String,
+    val genre: String,
+    val posterPreviewUrl: String
 )
 
-interface RiddleRepository {
+interface MovieRepository {
 
-    suspend fun getRiddles(limit: Int = 1): Flow<Resource<List<Riddle>>>
+    fun getMovies(): Flow<PagingData<Movie>>
 }
-
-@HiltViewModel
-class RiddleViewModel @Inject constructor(
-    private val riddleRepository: RiddleRepository
-) : ViewModel() {
-
-    private val _state = MutableStateFlow(RiddleState())
-    val state = _state.asStateFlow()
-
-    init {
-        getRiddle()
-    }
-
-    fun getRiddle(limit: Int = 1) {
-        viewModelScope.launch {
-            riddleRepository.getRiddles(limit).collect {
-                when (it) {
-                    is Resource.Success -> _state.value = RiddleState(riddles = it.data)
-                    is Resource.Loading -> _state.value = RiddleState(isLoading = true)
-                    is Resource.Error -> _state.value = RiddleState(error = it.message)
-                }
-            }
-        }
-    }
-}
-
-data class RiddleState(
-    val riddles: List<Riddle> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String = ""
-)
 
 val backColorPrimary = Color(0xFF\(mainData.uiSettings.backColorPrimary ?? "FFFFFF"))
 val textColorPrimary = Color(0xFF\(mainData.uiSettings.textColorPrimary ?? "FFFFFF"))
-val buttonTextColorPrimary = Color(0xFF\(mainData.uiSettings.buttonTextColorPrimary ?? "FFFFFF"))
-val buttonColorPrimary = Color(0xFF\(mainData.uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF6750A4)
+val buttonTextColorPrimary = Color(0xFFEE0000)
+val textColorSecondary = Color(0xFF\(mainData.uiSettings.textColorSecondary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(mainData.uiSettings.surfaceColor ?? "FFFFFF"))
 val paddingPrimary = 16
 
 @Composable
-fun RiddleScreen(viewModel: RiddleViewModel = hiltViewModel()) {
-    val state = viewModel.state.collectAsState()
-    val riddleState = state.value
-    Scaffold(
-        modifier = Modifier.background(backColorPrimary),
-        topBar = {
-            Text(
-                text = stringResource(R.string.riddle_realm),
-                modifier = Modifier.padding(paddingPrimary.dp),
-                style = MaterialTheme.typography.titleLarge,
-                color = textColorPrimary
-            )
-        },
-        containerColor = backColorPrimary
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .padding(paddingValues)
-                .padding(paddingPrimary.dp)
-                .background(backColorPrimary)
-                .fillMaxSize()
-        ) {
-            when {
-                riddleState.riddles.isNotEmpty() -> {
-                    RiddleContent(
-                        riddles = riddleState.riddles,
-                        modifier = Modifier.fillMaxSize(),
-                        onNextClick = { viewModel.getRiddle() }
-                    )
-                }
-
-                riddleState.isLoading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                        color = buttonColorPrimary
-                    )
-                }
-
-                riddleState.error.isNotEmpty() -> {
-                    ErrorState(
-                        modifier = Modifier.align(Alignment.Center),
-                        error = riddleState.error,
-                        onRetryClick = { viewModel.getRiddle() })
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleContent(riddles: List<Riddle>, modifier: Modifier = Modifier, onNextClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(backColorPrimary)
-        ) {
-            RiddleQuestionCard(riddles = riddles, modifier = Modifier.align(Alignment.Center))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)
-                .background(backColorPrimary)
-        ) {
-            RiddleAnswerState(
-                riddles = riddles,
-                modifier = Modifier.align(Alignment.Center),
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleQuestionCard(riddles: List<Riddle>, modifier: Modifier = Modifier) {
-    val scroll = rememberScrollState(0)
-    Card(modifier = modifier, colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(paddingPrimary.dp)
-                .background(surfaceColor),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            riddles.forEach { riddle ->
-                Text(
-                    text = riddle.title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.align(Alignment.Start),
-                    color = textColorPrimary
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = riddle.question,
-                    modifier = Modifier.verticalScroll(scroll),
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                    color = textColorPrimary
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerState(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
+fun MovieItem(
+    movie: Movie
 ) {
-    val showAnswerState = remember { mutableStateOf(false) }
-    when (showAnswerState.value) {
-        false -> {
-            Button(
-                modifier = modifier,
-                onClick = { showAnswerState.value = true },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonColorPrimary,
-                    contentColor = buttonTextColorPrimary
-                )
-            ) {
-                Text(text = stringResource(R.string.show_answer), color = buttonTextColorPrimary)
-            }
-        }
-
-        true -> {
-            RiddleAnswerCard(
-                riddles = riddles,
-                modifier = modifier,
-                onNextClick = onNextClick
-            )
-        }
-    }
-}
-
-@Composable
-fun RiddleAnswerCard(
-    riddles: List<Riddle>,
-    modifier: Modifier = Modifier,
-    onNextClick: () -> Unit
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backColorPrimary),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    Card(
+        elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.card_elevation)),
+        colors = CardDefaults.cardColors(containerColor = surfaceColor)
     ) {
-        val scroll = rememberScrollState(0)
-        Card(colors = CardDefaults.cardColors(containerColor = surfaceColor)) {
-            Box(
+        Row(
+            modifier = Modifier
+                .padding(paddingPrimary.dp)
+                .fillMaxSize()
+                .background(surfaceColor)
+                .height(IntrinsicSize.Max),
+        ) {
+            AsyncImage(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(paddingPrimary.dp)
-                    .background(surfaceColor)
+                    .weight(1f)
+                    .height(dimensionResource(id = R.dimen.poster_height))
+                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.poster_round_corner))),
+                model = movie.posterPreviewUrl,
+                contentScale = ContentScale.Crop,
+                contentDescription = stringResource(R.string.movie_poster),
+            )
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.primary_margin)))
+            Column(
+                modifier = Modifier
+                    .weight(3f)
+                    .fillMaxHeight()
+                    .background(surfaceColor),
+                verticalArrangement = Arrangement.Center,
             ) {
-                riddles.forEach { riddle ->
-                    Text(
-                        text = riddle.answer,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .verticalScroll(scroll),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = textColorPrimary
-                    )
-                }
+                Text(
+                    text = movie.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = textColorPrimary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.text_margin)))
+                Text(
+                    text = String.format(
+                        stringResource(id = R.string.genre_and_year),
+                        movie.genre,
+                        movie.year
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontStyle = FontStyle.Italic,
+                    color = textColorSecondary,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onNextClick() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColorPrimary,
-                contentColor = buttonTextColorPrimary
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun MovieScreen(
+    viewModel: MovieViewModel = hiltViewModel()
+) {
+    val movies = viewModel.movies.collectAsLazyPagingItems()
+
+    val refreshing = remember { mutableStateOf(false) }
+    LaunchedEffect(refreshing.value) {
+        movies.refresh()
+        refreshing.value = false
+    }
+
+    val state = rememberPullRefreshState(refreshing.value, onRefresh = { refreshing.value = true })
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backColorPrimary)
+            .pullRefresh(state)
+    ) {
+        RefreshState(movies = movies, modifier = Modifier.align(Alignment.Center))
+        if (!refreshing.value) {
+            MovieList(movies = movies)
+            PullRefreshIndicator(
+                refreshing.value,
+                state,
+                Modifier.align(Alignment.TopCenter),
+                backgroundColor = backColorPrimary,
+                contentColor = buttonColorPrimary
             )
-        ) {
-            Text(text = stringResource(R.string.next_riddle), color = buttonTextColorPrimary)
         }
     }
 }
 
 @Composable
-fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () -> Unit) {
-    Column(
-        modifier = modifier.background(backColorPrimary),
+fun RefreshState(movies: LazyPagingItems<Movie>, modifier: Modifier = Modifier) {
+    when (movies.loadState.refresh) {
+        is LoadState.Loading -> {
+            CircularProgressIndicator(modifier = modifier, color = buttonColorPrimary)
+        }
+
+        is LoadState.Error -> {
+            if (movies.itemCount == 0) {
+                Text(
+                    text = stringResource(R.string.connection_lost_pull_to_refresh),
+                    modifier = modifier,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = textColorPrimary
+                )
+            }
+        }
+
+        is LoadState.NotLoading -> Unit
+    }
+}
+
+@Composable
+fun MovieList(movies: LazyPagingItems<Movie>, modifier: Modifier = Modifier) {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize().background(backColorPrimary),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.primary_margin)),
+        contentPadding = PaddingValues(paddingPrimary.dp)
     ) {
-        Text(text = error, style = MaterialTheme.typography.bodyLarge, color = textColorPrimary)
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = { onRetryClick() },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColorPrimary,
-                contentColor = buttonTextColorPrimary
-            )
-        ) {
-            Text(text = stringResource(R.string.retry), color = buttonTextColorPrimary)
+        items(count = movies.itemCount) { index ->
+            val movie = movies[index]
+            if (movie != null) {
+                MovieItem(movie = movie)
+            }
+        }
+        item {
+            AppendState(movies = movies)
         }
     }
+}
+
+@Composable
+fun AppendState(movies: LazyPagingItems<Movie>, modifier: Modifier = Modifier) {
+    when (movies.loadState.append) {
+        is LoadState.Loading -> {
+            CircularProgressIndicator(color = buttonColorPrimary)
+        }
+
+        is LoadState.Error -> {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier.background(color = backColorPrimary)
+            ) {
+                Text(
+                    text = stringResource(R.string.connection_lost),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = textColorPrimary
+                )
+                Button(
+                    onClick = { movies.retry() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = buttonColorPrimary,
+                        contentColor = buttonTextColorPrimary
+                    )
+                ) {
+                    Text(text = stringResource(R.string.retry), color = buttonTextColorPrimary)
+                }
+            }
+        }
+
+        is LoadState.NotLoading -> Unit
+    }
+}
+
+@HiltViewModel
+class MovieViewModel @Inject constructor(
+    movieRepository: MovieRepository
+) : ViewModel() {
+
+    val movies = movieRepository.getMovies().cachedIn(viewModelScope)
 }
 """, fileName: "MainFragment.kt")
     }
@@ -459,15 +477,15 @@ fun ErrorState(modifier: Modifier = Modifier, error: String, onRetryClick: () ->
             mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""),
             themesData: ANDThemesData(isDefault: true, content: ""),
             stringsData: ANDStringsData(additional: """
+    <string name="movie_poster">Movie poster</string>
+    <string name="genre_and_year">%1$s (%2$s)</string>
+    <string name="connection_lost_pull_to_refresh">Connection lost\\nPull to refresh</string>
     <string name="connection_lost">Connection lost</string>
-    <string name="server_error">Server error</string>
-    <string name="unexpected_error">Unexpected error</string>
-    <string name="riddle_realm">\(mainData.appName)</string>
     <string name="retry">Retry</string>
-    <string name="next_riddle">Next Riddle</string>
-    <string name="show_answer">Show Answer</string>
 """),
-            colorsData: ANDColorsData(additional: ""))
+            colorsData: ANDColorsData(additional: """
+    <color name="grey">#6A000000</color>
+"""))
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {
@@ -523,7 +541,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
     }
 
     buildTypes {
@@ -543,7 +560,6 @@ android {
     }
     buildFeatures {
         compose true
-        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
@@ -580,6 +596,9 @@ dependencies {
     implementation Dependencies.dagger_hilt
     implementation Dependencies.retrofit
     implementation Dependencies.converter_gson
+    implementation Dependencies.paging
+    implementation Dependencies.pagingCompose
+    implementation Dependencies.coil_compose
     kapt Dependencies.dagger_hilt_compiler
     kapt Dependencies.hilt_viewmodel_compiler
     
@@ -589,7 +608,6 @@ dependencies {
 
         let dependencies = """
 package dependencies
-
 object Application {
     const val id = "\(packageName)"
     const val version_code = 1
@@ -631,7 +649,7 @@ object Versions {
     const val retrofit = "2.9.0"
     const val okhttp = "4.10.0"
     const val room = "2.5.0"
-    const val coil = "1.3.2"
+    const val coil = "2.4.0"
     const val exp = "0.4.8"
     const val calend = "0.5.1"
     const val paging_version = "3.1.1"
@@ -693,7 +711,7 @@ object Dependencies {
     const val calendar_date = "io.github.boguszpawlowski.composecalendar:kotlinx-datetime:${Versions.calend}"
     const val paging = "androidx.paging:paging-runtime:${Versions.paging_version}"
     const val pagingCommon = "androidx.paging:paging-common:${Versions.paging_version}"
-    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha18"
+    const val pagingCompose = "androidx.paging:paging-compose:3.2.0-rc01"
 }
 """
         let dependenciesName = "Dependencies.kt"
@@ -721,3 +739,4 @@ object Dependencies {
     
     
 }
+
