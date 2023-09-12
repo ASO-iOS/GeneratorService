@@ -53,6 +53,22 @@ struct DTController {
             
         case AppIDs.DT_WORD_WISE:
             createWordWise(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_PASSWORD_GENERATOR:
+            createPasswordGenerator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_COCTAIL_FINDER:
+            createCoctailFinder(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_POPULAR_MOVIES:
+            createPopularMovies(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_MUSIC_QUIZ:
+            createMusicQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
+        case AppIDs.DT_LANGUAGE_IDENTIFIRE:
+            createLanguageIdentifire(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            
         default:
             return
         }

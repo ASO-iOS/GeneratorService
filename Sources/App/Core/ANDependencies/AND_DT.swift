@@ -51,6 +51,22 @@ extension AndroidNecesseryDependencies {
             
         case AppIDs.DT_WORD_WISE:
             return DTWordWise.dependencies(mainData)
+            
+        case AppIDs.DT_PASSWORD_GENERATOR:
+            return DTPasswordGenerator.dependencies(mainData)
+            
+        case AppIDs.DT_COCTAIL_FINDER:
+            return DTCoctailFinder.dependencies(mainData)
+            
+        case AppIDs.DT_POPULAR_MOVIES:
+            return DTPopularMovies.dependencies(mainData)
+            
+        case AppIDs.DT_MUSIC_QUIZ:
+            return DTMusicQuiz.dependencies(mainData)
+            
+        case AppIDs.DT_LANGUAGE_IDENTIFIRE:
+            return DTLanguageIdentifire.dependencies(mainData)
+            
         default:
             return ANDData.empty
         }
