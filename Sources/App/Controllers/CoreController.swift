@@ -145,6 +145,7 @@ extension CoreController {
         mainController.createFakeFiles(path:  tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/", packageName: body.mainData.packageName)
         
         let appPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/fragments/main_fragment/"
+        let maPath = tempLoc + "app/src/main/java/\(body.mainData.packageName.replacing(".", with: "/"))/presentation/main_activity/"
         let resPath = tempLoc + "app/src/main/res/drawable/"
 
         
@@ -281,7 +282,8 @@ extension CoreController {
                 metaLoc: metaLoc,
                 gradlePaths: gradlePaths,
                 xmlPaths: xmlPaths,
-                mainData: mainData
+                mainData: mainData,
+                maPath: maPath
             )
         default:
             return

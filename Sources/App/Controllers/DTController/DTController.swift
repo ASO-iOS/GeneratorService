@@ -10,7 +10,7 @@ import SwiftUI
 struct DTController {
     @ObservedObject var fileHandler: FileHandler
     
-    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths, mainData: MainData) {
+    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths, mainData: MainData, maPath: String) {
         switch id {
         case AppIDs.DT_NUMBER_FACTS:
             createNumbersFacts(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData)
@@ -64,7 +64,7 @@ struct DTController {
             createPopularMovies(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
             
         case AppIDs.DT_MUSIC_QUIZ:
-            createMusicQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
+            createMusicQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths, maPath: maPath)
             
         case AppIDs.DT_LANGUAGE_IDENTIFIRE:
             createLanguageIdentifire(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)

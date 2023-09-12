@@ -117,7 +117,7 @@ class PasswordGenerator {
 
     private val lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
     private val uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    private val symbols =  "!@#$%^&*()-_=+[{]};:\'\"\\|<,>.?/"
+    private val symbols =  "!@#$%^&*()-_=+[{]};:'\("\\")\("\"")\("\\")\("\\")|<,>.?/"
     private val numbers = "0123456789"
 
     fun generatePassword(

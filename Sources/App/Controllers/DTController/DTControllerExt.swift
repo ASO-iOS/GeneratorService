@@ -128,7 +128,7 @@ extension DTController {
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTPasswordGeneratorRes.icon.content, fileName: DTPasswordGeneratorRes.icon.name)
         fileHandler.checkDirectory(atPath: xmlPaths.layoutPath)
         fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTPasswordGeneratorRes.lay.content, fileName: DTPasswordGeneratorRes.lay.name)
-        //TODO: Meta
+        fileHandler.createMeta(PassGeneratorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(DTPasswordGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
@@ -149,7 +149,8 @@ extension DTController {
         fileHandler.createGradle(DTPopularMovies.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
-    func createMusicQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths) {
+    func createMusicQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String, mainData: MainData, xmlPaths: XMLLayoutPaths, maPath: String) {
+        fileHandler.writeFile(filePath: maPath, contentText: DTMusicQuiz.cmaHandler(mainData).content, fileName: DTMusicQuiz.cmaHandler(mainData).fileName)
         fileHandler.writeFile(filePath: path, contentText: DTMusicQuiz.mainFragmentCMF(mainData).content, fileName: DTMusicQuiz.mainFragmentCMF(mainData).fileName)
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTMusicQuizRes.dimens.content, fileName: DTMusicQuizRes.dimens.name)
         fileHandler.checkDirectory(atPath: xmlPaths.layoutPath)
@@ -157,9 +158,9 @@ extension DTController {
         fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layFrag.content, fileName: DTMusicQuizRes.layFrag.name)
         fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layQuiz.content, fileName: DTMusicQuizRes.layQuiz.name)
         fileHandler.writeFile(filePath: xmlPaths.layoutPath, contentText: DTMusicQuizRes.layRes.content, fileName: DTMusicQuizRes.layRes.name)
-        fileHandler.writeFile(filePath: xmlPaths.navigationPath, contentText: DTMusicQuizRes.nav.content, fileName: DTMusicQuizRes.nav.name)
+        fileHandler.writeFile(filePath: xmlPaths.navigationPath, contentText: DTMusicQuizRes.nav(mainData).content, fileName: DTMusicQuizRes.nav(mainData).name)
         
-        //TODO: Meta
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
         fileHandler.createGradle(DTMusicQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

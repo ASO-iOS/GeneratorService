@@ -68,16 +68,20 @@ struct MainController {
         fileHandler.writeFile(filePath: path, contentText: ProguardRules.fileContent(), fileName: "proguard-rules.pro")
     }
     
-    func createApp(path: String, packageName: String, applicationName: String, appId: String,  mainData: MainData, customMainFragment: Bool = false) {
+    func createApp(path: String, packageName: String, applicationName: String, appId: String, mainData: MainData) {
         let mainPath = path + "java/\(packageName.replacing(".", with: "/"))/"
         fileHandler.writeFile(filePath: mainPath + "application/", contentText: AndroidAppApplication.fileContent(packageName: packageName, applicationName: applicationName, appId: appId), fileName: applicationName + ".kt")
         if !cmfList().contains(appId) {
             fileHandler.writeFile(filePath: mainPath + "presentation/fragments/main_fragment/", contentText: AndroidAppMainFragment.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainFragment.kt")
         }
-        fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
         
-        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(mainData: mainData), fileName: "FragmentState.kt")
-        fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(mainData: mainData), fileName: "StateViewModel.kt")
+        if !cmaList().contains(appId) {
+            fileHandler.writeFile(filePath: mainPath + "presentation/main_activity/", contentText: AndroidAppMainActivity.fileContent(packageName: packageName, appId: appId, mainData: mainData), fileName: "MainActivity.kt")
+            
+            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppFragmentState.fileContent(mainData: mainData), fileName: "FragmentState.kt")
+            fileHandler.writeFile(filePath: mainPath + "repository/state/", contentText: AndroidAppStateViewModel.fileContent(mainData: mainData), fileName: "StateViewModel.kt")
+        }
+
     }
     
     func createFakeFiles(path: String, packageName: String) {
@@ -99,6 +103,10 @@ struct MainController {
 \(getIfConfigOutput())
 """
         fileHandler.writeFile(filePath: path, contentText: content, fileName: "Log.txt")
+    }
+    
+    func cmaList() -> [String] {
+        return [AppIDs.DT_MUSIC_QUIZ]
     }
     
     func cmfList() -> [String] {

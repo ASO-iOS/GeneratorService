@@ -7,6 +7,27 @@
 import SwiftUI
 
 struct DTMusicQuiz: SFFileProviderProtocol {
+    
+    static func cmaHandler(_ mainData: MainData) -> ANDMainFragmentCMF {
+        return ANDMainFragmentCMF(content: """
+        package \(mainData.packageName).presentation.main_activity
+
+        import android.os.Bundle
+        import androidx.appcompat.app.AppCompatActivity
+        import \(mainData.packageName).R
+        import dagger.hilt.android.AndroidEntryPoint
+
+
+        @AndroidEntryPoint
+        class MainActivity : AppCompatActivity() {
+            override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                setContentView(R.layout.activity_main)
+            }
+        }
+
+        """, fileName: "MainActivity.kt")
+    }
     static func mainFragmentCMF(_ mainData: MainData) -> ANDMainFragmentCMF {
         ANDMainFragmentCMF(content: """
 package \(mainData.packageName).presentation.fragments.main_fragment
@@ -390,7 +411,7 @@ class ResultFragment : Fragment() {
     <string name="submit">Submit</string>
     <string name="you_are_right">You are right!</string>
     <string name="you_made_a_mistake">You made a mistake!</string>
-    <string name="progress">%1$d // 10</string>
+    <string name="progress">%1$d / 10</string>
     <string name="connection_is_lost">Connection is lost</string>
     <string name="your_score_is">Your score is</string>
     <string name="one_more_quiz">One more quiz?</string>

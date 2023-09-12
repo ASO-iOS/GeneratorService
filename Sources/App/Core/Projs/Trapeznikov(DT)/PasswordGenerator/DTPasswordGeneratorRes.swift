@@ -26,8 +26,7 @@ struct DTPasswordGeneratorRes {
     android:layout_height="match_parent"
     android:background="@color/backColorPrimary"
     android:paddingStart="@dimen/layout_padding"
-    android:paddingEnd="@dimen/layout_padding"
-    android:theme="@style/Theme.SampleApp">
+    android:paddingEnd="@dimen/layout_padding">
 
     <TextView
         android:id="@+id/passwordText"

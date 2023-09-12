@@ -348,48 +348,54 @@ struct DTMusicQuizRes {
 </androidx.constraintlayout.widget.ConstraintLayout>
 """, name: "fragment_result.xml")
     
-    static let nav = XMLLayoutData(content: """
-<?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    static func nav(_ mainData: MainData) -> XMLLayoutData {
+        let nav = XMLLayoutData(content: """
+    <?xml version="1.0" encoding="utf-8"?>
+    <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/mainFragment">
 
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.dantrapdev.musicquiz.presentation.fragments.main_fragment.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_quizFragment"
-            app:destination="@id/quizFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/quizFragment"
-        android:name="com.dantrapdev.musicquiz.presentation.fragments.main_fragment.QuizFragment"
-        android:label="QuizFragment"
-        tools:layout="@layout/fragment_quiz">
-        <action
-            android:id="@+id/action_quizFragment_to_resultFragment"
-            app:destination="@id/resultFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/resultFragment"
-        android:name="com.dantrapdev.musicquiz.presentation.fragments.main_fragment.ResultFragment"
-        android:label="ResultFragment"
-        tools:layout="@layout/fragment_result">
-        <action
-            android:id="@+id/action_resultFragment_to_quizFragment"
-            app:destination="@id/quizFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
-</navigation>
-""", name: "nav_graph.xml")
+        <fragment
+            android:id="@+id/mainFragment"
+            android:name="\(mainData.packageName).presentation.fragments.main_fragment.MainFragment"
+            android:label="MainFragment"
+            tools:layout="@layout/fragment_main">
+            <action
+                android:id="@+id/action_mainFragment_to_quizFragment"
+                app:destination="@id/quizFragment"
+                app:popUpTo="@id/nav_graph"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/quizFragment"
+            android:name="\(mainData.packageName).presentation.fragments.main_fragment.QuizFragment"
+            android:label="QuizFragment"
+            tools:layout="@layout/fragment_quiz">
+            <action
+                android:id="@+id/action_quizFragment_to_resultFragment"
+                app:destination="@id/resultFragment"
+                app:popUpTo="@id/nav_graph"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/resultFragment"
+            android:name="\(mainData.packageName).presentation.fragments.main_fragment.ResultFragment"
+            android:label="ResultFragment"
+            tools:layout="@layout/fragment_result">
+            <action
+                android:id="@+id/action_resultFragment_to_quizFragment"
+                app:destination="@id/quizFragment"
+                app:popUpTo="@id/nav_graph"
+                app:popUpToInclusive="true" />
+        </fragment>
+    </navigation>
+    """, name: "nav_graph.xml")
+        
+        return nav
+    }
+    
+
     
 }
