@@ -398,7 +398,7 @@ private fun GameResult(
                     tint = textColorPrimary
                 )
             }
-        }
+        }, containerColor = backColorPrimary
     )
 }
 

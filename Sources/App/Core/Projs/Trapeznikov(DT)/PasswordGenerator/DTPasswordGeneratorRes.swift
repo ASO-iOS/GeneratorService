@@ -66,7 +66,7 @@ struct DTPasswordGeneratorRes {
         android:textColor="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lengthSlider" />
+        app:layout_constraintTop_toBottomOf="@id/lengthSlider"/>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/lengthSlider"
@@ -77,13 +77,13 @@ struct DTPasswordGeneratorRes {
         android:stepSize="1"
         android:valueFrom="4"
         android:valueTo="20"
+        app:thumbColor="@color/purple_700"
+        app:thumbStrokeColor="@color/purple_700"
+        app:tickColor="@color/purple_200"
         app:layout_constraintBottom_toTopOf="@+id/lowercaseSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText"
-        app:thumbColor="@color/buttonColorPrimary"
-        app:thumbStrokeColor="@color/buttonColorPrimary"
-        app:tickColor="@color/buttonColorPrimary" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordText"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/lowercaseSwitch"
@@ -136,9 +136,11 @@ struct DTPasswordGeneratorRes {
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/generateButton"
+        app:cornerRadius="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/buttonColorPrimary"
+        android:textAllCaps="false"
         android:text="@string/generate"
         android:textColor="@color/buttonTextColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"

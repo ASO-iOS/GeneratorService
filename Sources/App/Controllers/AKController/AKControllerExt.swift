@@ -160,4 +160,30 @@ extension AKController {
         fileHandler.createMeta(SpaceshipAdventureMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(AKSpaceAttacker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKQuiz.fileName)
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(AKQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createMythologyQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKMMythologyQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKMMythologyQuiz.fileName)
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(AKMMythologyQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createDodger(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKDodger.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKDodger.fileName)
+        
+        fileHandler.createMeta(CatcherMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(AKDodger.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createFrogClicker(appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKClickerFrog.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKClickerFrog.fileName)
+        fileHandler.writeFile(filePath: resPath, contentText: AKClickerFrogRes.restartBtn.content, fileName: AKClickerFrogRes.restartBtn.name)
+        fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(AKClickerFrog.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

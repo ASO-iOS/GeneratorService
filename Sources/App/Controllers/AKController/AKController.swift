@@ -48,6 +48,14 @@ struct AKController {
             createDarts(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.AK_SPACE_ATTACKER:
             createSpaceAttacker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_QUIZ:
+            createQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_MYTHOLOGY_QUIZ:
+            createMythologyQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_DODGER:
+            createDodger(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.AK_FROG_CLICKER:
+            createFrogClicker(appName: appName, path: path, resPath: resPath, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             return
         }

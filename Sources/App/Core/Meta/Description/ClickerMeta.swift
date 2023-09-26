@@ -107,5 +107,4 @@ struct ClickerMeta: MetaProviderProtocol {
 
         return shortDesc.randomElement() ?? shortDesc1
     }
-    
 }
