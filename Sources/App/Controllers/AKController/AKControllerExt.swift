@@ -186,4 +186,10 @@ extension AKController {
         fileHandler.createMeta(ClickerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(AKClickerFrog.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createSpaceAttacker2(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: AKSpaceAttacker2.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: AKSpaceAttacker2.fileName)
+        fileHandler.createMeta(SpaceshipAdventureMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(AKSpaceAttacker2.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

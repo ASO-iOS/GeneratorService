@@ -123,6 +123,7 @@ struct AppIDs {
     static let AK_MYTHOLOGY_QUIZ =       "ak-0020"
     static let AK_DODGER =               "ak-0021"
     static let AK_FROG_CLICKER =         "ak-0022"
+    static let AK_SPACE_ATTACKER_2 =     "ak-0023"
     
     static let KL_PREFIX =              "kl"
     static let KL_BMI_CALCULATOR =      "kl-0001"

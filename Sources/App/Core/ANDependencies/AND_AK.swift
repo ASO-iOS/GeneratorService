@@ -32,6 +32,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.AK_MYTHOLOGY_QUIZ: return AKMMythologyQuiz.dependencies(mainData)
         case AppIDs.AK_DODGER: return AKDodger.dependencies(mainData)
         case AppIDs.AK_FROG_CLICKER: return AKClickerFrog.dependencies(mainData)
+        case AppIDs.AK_SPACE_ATTACKER_2: return AKSpaceAttacker2.dependencies(mainData)
         default: return ANDData.empty
         }
     }
