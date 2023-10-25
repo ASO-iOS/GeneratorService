@@ -8,7 +8,6 @@
 import Foundation
 
 protocol MetaProviderProtocol {
-    static var appName: String { get set }
     static func getFullDesc(appName: String) -> String
     static func getShortDesc(appName: String) -> String
 }

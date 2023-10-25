@@ -26,6 +26,7 @@ import \(packageName).repository.state.StateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 \(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.imports)
 
+\(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.annotation)
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 

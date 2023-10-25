@@ -56,6 +56,7 @@ struct ANDMainFragmentCMF {
 struct ANDMainFragment {
     let imports: String
     let content: String
+    var annotation = ""
 }
 
 struct ANDMainActivity {
@@ -63,11 +64,15 @@ struct ANDMainActivity {
     let extraFunc: String
     let content: String
     var extraStates: String = ""
+    
+    static let empty = ANDMainActivity(imports: "", extraFunc: "", content: "")
 }
 
 struct ANDThemesData {
     let isDefault: Bool
     let content: String
+    
+    static let def = ANDThemesData(isDefault: true, content: "")
 }
 
 struct ANDStringsData {
@@ -76,6 +81,8 @@ struct ANDStringsData {
 
 struct ANDColorsData {
     let additional: String
+    
+    static let empty = ANDColorsData(additional: "")
 }
 
 //struct RandomizeName {

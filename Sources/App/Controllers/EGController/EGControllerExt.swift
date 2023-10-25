@@ -165,4 +165,11 @@ extension EGController {
         fileHandler.createMeta(CocktailCraftMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(EGCocktailCraft.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+        
+        func createTicTacToe(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+            fileHandler.writeFile(filePath: path, contentText: EGTicTacToe.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGTicTacToe.fileName)
+            fileHandler.createMeta(TicTacToeMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+            fileHandler.createGradle(EGTicTacToe.self, packageName: packageName, gradlePaths: gradlePaths)
+        
+    }
 }

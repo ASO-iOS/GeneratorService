@@ -49,6 +49,7 @@ struct VEController {
         case AppIDs.VE_CHARGE_ME:
             createChargeMe(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         default:
+            print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
         }
     }

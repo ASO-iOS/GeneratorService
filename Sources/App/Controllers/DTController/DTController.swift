@@ -70,6 +70,7 @@ struct DTController {
             createLanguageIdentifire(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath, mainData: mainData, xmlPaths: xmlPaths)
             
         default:
+            print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
         }
         

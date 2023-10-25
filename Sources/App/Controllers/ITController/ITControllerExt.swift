@@ -122,5 +122,21 @@ extension ITController {
         fileHandler.createGradle(ITQrGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     
+    func createTicTacToe(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: ITTicTacToe.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITTicTacToe.fileName)
+        fileHandler.createMeta(TicTacToeMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
+        fileHandler.createGradle(ITTicTacToe.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
     
+    func createSnake(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: ITSnake.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITSnake.fileName)
+        fileHandler.createGradle(ITSnake.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(SnakeMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+    }
+    
+    func createCatcher(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: ITCatcher.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: ITCatcher.fileName)
+        fileHandler.createGradle(ITCatcher.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(CatcherMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+    }
 }

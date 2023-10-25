@@ -10,7 +10,7 @@ import Foundation
 struct DTNumberFacts: SFFileProviderProtocol {
 
     
-    static var fileName: String = ""
+    static var fileName: String = "\(NamesManager.shared.fileName).kt"
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return ""

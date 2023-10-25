@@ -186,4 +186,23 @@ extension KLController {
         fileHandler.createMeta(FlashcardMakerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KLFlashcardMaker.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createWordFinder(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLWordFinder.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLWordFinder.fileName)
+        // MARK: todo meta
+        fileHandler.createMeta(WordWiseMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KLWordFinder.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createDodger(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLDodger.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLDodger.fileName)
+        fileHandler.createMeta(DodgerMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(KLDodger.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createStopwatch(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KLStopwatch.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KLStopwatch.fileName)
+        fileHandler.createGradle(KLStopwatch.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(StopwatchMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+    }
 }

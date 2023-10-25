@@ -79,6 +79,9 @@ struct AppIDs {
     static let IT_LEARNING_CATS =    "it-0011"
     static let IT_ONE_MIN_TIMER =    "it-0012"
     static let IT_QR_GENERATOR =     "it-0013"
+    static let IT_TIC_TAC_TOE =      "it-0014"
+    static let IT_SNAKE =            "it-0015"
+    static let IT_CATCHER =          "it-0016"
     
     static let VE_PREFIX =                    "ve"
     static let VE_QUIZ_BOOKS =                "ve-0001"
@@ -143,6 +146,9 @@ struct AppIDs {
     static let KL_BUBBLE_PICKER =       "kl-0015"
     static let KL_BODY_TYPE_CACLULATOR = "kl-0016"
     static let KL_MOOD_TRACKER =        "kl-0017"
+    static let KL_WORD_FINDER =         "kl-0018"
+    static let KL_DODGER =              "kl-0019"
+    static let KL_STOPWATCH =           "kl-0020"
     
     static let EG_PREFIX =           "eg"
     static let EG_STOPWATCH =        "eg-0001"
@@ -160,6 +166,7 @@ struct AppIDs {
     static let EG_GET_LYRICS_GEN =   "eg-0013"
     static let EG_COCKTAIL_CRAFT =   "eg-0014"
     static let EG_PUZZLE_DIGITS =    "eg-0015"
+    static let EG_TIC_TAC_TOE =      "eg-0016"
     
     static let DT_PREFIX =            "dt"
     static let DT_NUMBER_FACTS =      "dt-0001"

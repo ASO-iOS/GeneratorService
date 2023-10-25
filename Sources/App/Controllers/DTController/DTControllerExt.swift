@@ -137,7 +137,7 @@ extension DTController {
         fileHandler.writeFile(filePath: xmlPaths.valuesPath, contentText: DTCoctailFinderRes.icon.content, fileName: DTCoctailFinderRes.icon.name)
         
         
-        fileHandler.createMeta(CocktailCraftMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createMeta(CocktailFinderMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(DTCoctailFinder.self, packageName: packageName, gradlePaths: gradlePaths)
     }
     

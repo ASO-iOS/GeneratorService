@@ -286,11 +286,13 @@ extension CoreController {
                 maPath: maPath
             )
         default:
+            print("no prefix")
             return
         }
         mainController.createLogFile(path: LocalConst.tempDir + stamp + "/", token: token)
         if FileManager.default.fileExists(atPath: tempLoc) {
             UnzipHandler.zip(filePath: URL.init(filePath: LocalConst.tempDir + stamp), destinationPath: URL.init(filePath: LocalConst.tempDir + stamp + ".zip"), completion: { state, error in
+                fileHandler.deleteFile(filePath: LocalConst.tempDir + stamp)
                 completion()
             })
         } else {

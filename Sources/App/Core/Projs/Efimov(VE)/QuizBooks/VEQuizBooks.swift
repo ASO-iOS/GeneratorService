@@ -954,15 +954,7 @@ fun SplashScreen(
                     fontSize = 35.sp
                 )
                 ) {
-                    append(stringResource(id = R.string.quiz))
-                    append('\\n')
-                }
-                withStyle(style = SpanStyle(
-                    color = textColorSecondary,
-                    fontSize = 30.sp
-                )
-                ) {
-                    append(stringResource(id = R.string.books))
+                    append(stringResource(id = R.string.app_name))
                 }
             },
             textAlign = TextAlign.Center

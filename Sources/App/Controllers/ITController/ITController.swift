@@ -38,7 +38,14 @@ struct ITController {
             createOneMinTimer(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         case AppIDs.IT_QR_GENERATOR:
             createQrGenerator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.IT_TIC_TAC_TOE:
+            createTicTacToe(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.IT_SNAKE:
+            createSnake(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.IT_CATCHER:
+            createCatcher(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
+            print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
         }
     }

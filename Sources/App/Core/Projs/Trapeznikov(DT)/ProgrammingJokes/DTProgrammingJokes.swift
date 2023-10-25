@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DTProgrammingJokes: SFFileProviderProtocol {
     
-    static var fileName: String = ""
+    static var fileName: String = "\(NamesManager.shared.fileName).kt"
     static func fileContent(packageName: String, uiSettings: UISettings) -> String { return "" }
     
     static func mainFragmentCMF(_ mainData: MainData) -> ANDMainFragmentCMF {

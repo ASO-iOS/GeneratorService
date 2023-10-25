@@ -59,6 +59,7 @@ struct AKController {
         case AppIDs.AK_SPACE_ATTACKER_2:
             createSpaceAttacker2(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
+            print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
         }
     }

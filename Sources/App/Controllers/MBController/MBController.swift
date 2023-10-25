@@ -47,6 +47,7 @@ struct MBController {
         case AppIDs.MB_SERIALS:
             createSerials(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
+            print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
         }
         if designLocation != nil {
