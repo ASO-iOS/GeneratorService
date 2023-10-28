@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { MainActivityScreen(this).create() }
     private val viewModel by viewModels<StateViewModel>()
-
+    
+    \(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.onCreateAnnotation)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         \(AndroidNecesseryDependencies.dependencies(mainData).mainActivityData.extraFunc)

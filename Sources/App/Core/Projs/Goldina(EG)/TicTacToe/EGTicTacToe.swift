@@ -23,6 +23,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +50,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -86,7 +86,7 @@ val errorColor = Color(0xFF\(uiSettings.errorColor ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
 
 private val LightColorPalette = lightColorScheme(
-    primary =primaryColor,
+    primary = primaryColor,
     background = backColorPrimary,
 )
 @Composable
@@ -462,6 +462,7 @@ fun GameScreen (gameViewModel: GameViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(backColorPrimary)
             .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
@@ -476,11 +477,12 @@ fun GameScreen (gameViewModel: GameViewModel = hiltViewModel()) {
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .shadow(
-                    elevation = 10.dp,
-                    shape = RoundedCornerShape(20.dp)
-                )
+//                .shadow(
+//                    elevation = 10.dp,
+//                    shape = RoundedCornerShape(20.dp)
+//                )
                 .clip(RoundedCornerShape(20.dp))
+                .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(20.dp))
                 .background(backColorPrimary),
             contentAlignment = Alignment.Center
         ) {
@@ -652,6 +654,7 @@ fun MainScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(backColorPrimary)
             .padding(horizontal = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -687,14 +690,16 @@ fun MainScreen(navController: NavHostController) {
     
     static func dependencies(_ mainData: MainData) -> ANDData {
         return ANDData(
-            mainFragmentData: ANDMainFragment(imports: """
+            mainFragmentData: ANDMainFragment(
+                imports: """
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-""", content: """
+""",
+                content: """
                 TicTacToeTheme {
                     Surface(
                         modifier = Modifier
@@ -704,10 +709,22 @@ import androidx.compose.ui.Modifier
                         Navigation()
                     }
                 }
-""", annotation: """
+""", 
+                annotation: """
 @ExperimentalAnimationApi
+""",
+                mainScreenAnnotation: """
+@OptIn(ExperimentalAnimationApi::class)
 """),
-            mainActivityData: .empty,
+            mainActivityData: ANDMainActivity(
+                imports: """
+import androidx.compose.animation.ExperimentalAnimationApi
+""",
+                extraFunc: "",
+                content: "",
+            onCreateAnnotation: """
+@OptIn(ExperimentalAnimationApi::class)
+"""),
             themesData: .def,
             stringsData: ANDStringsData(additional: """
     <string name="btn_play_again">Play Again</string>

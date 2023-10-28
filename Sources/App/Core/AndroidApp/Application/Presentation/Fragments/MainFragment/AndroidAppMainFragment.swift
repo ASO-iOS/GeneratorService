@@ -44,20 +44,10 @@ class MainFragment : Fragment() {
     }
 }
 
-\(annotationsById(appId))
+\(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.mainScreenAnnotation)
 @Composable fun MainScreen(stateViewModel: StateViewModel) {
     \(AndroidNecesseryDependencies.dependencies(mainData).mainFragmentData.content)
 }
 """
-    }
-    
-    static func annotationsById(_ id: String) -> String {
-        switch id {
-        case AppIDs.EG_PUZZLE_DIGITS:
-            return """
-@OptIn(ExperimentalComposeUiApi::class)
-"""
-        default: return ""
-        }
     }
 }

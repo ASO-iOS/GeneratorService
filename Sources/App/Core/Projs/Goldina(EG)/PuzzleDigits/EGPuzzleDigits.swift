@@ -386,6 +386,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
                         Navigation()
                     }
                 }
+""", mainScreenAnnotation: """
+@OptIn(ExperimentalComposeUiApi::class)
 """), mainActivityData: ANDMainActivity(imports: "", extraFunc: "", content: ""), themesData: ANDThemesData(isDefault: true, content: ""), stringsData: ANDStringsData(additional: """
     <string name="btn_new_game">New Game</string>
     <string-array name="dimension">

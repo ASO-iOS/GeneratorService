@@ -27,6 +27,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.EG_COCKTAIL_CRAFT: return EGCocktailCraft.dependencies(mainData)
         case AppIDs.EG_PHONE_CHECKER: return EGPhoneChecker.dependencies(mainData)
         case AppIDs.EG_TIC_TAC_TOE: return EGTicTacToe.dependencies(mainData)
+        case AppIDs.EG_FLAPPY_BIRD: return EGFlappyBird.dependencies(mainData)
         default: return ANDData.empty
         }
     }

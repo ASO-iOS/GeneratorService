@@ -170,6 +170,11 @@ extension EGController {
             fileHandler.writeFile(filePath: path, contentText: EGTicTacToe.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGTicTacToe.fileName)
             fileHandler.createMeta(TicTacToeMeta.self, metaLoc: metaLoc, category: .game_puzzle, appName: appName)
             fileHandler.createGradle(EGTicTacToe.self, packageName: packageName, gradlePaths: gradlePaths)
-        
+    }
+    
+    func createFlappyBird(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGFlappyBird.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGFlappyBird.fileName)
+        fileHandler.createGradle(EGFlappyBird.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(BirdGameMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
     }
 }

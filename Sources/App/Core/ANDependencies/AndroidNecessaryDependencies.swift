@@ -57,6 +57,7 @@ struct ANDMainFragment {
     let imports: String
     let content: String
     var annotation = ""
+    var mainScreenAnnotation = ""
 }
 
 struct ANDMainActivity {
@@ -64,6 +65,7 @@ struct ANDMainActivity {
     let extraFunc: String
     let content: String
     var extraStates: String = ""
+    var onCreateAnnotation = ""
     
     static let empty = ANDMainActivity(imports: "", extraFunc: "", content: "")
 }
