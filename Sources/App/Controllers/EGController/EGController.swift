@@ -45,6 +45,8 @@ struct EGController {
             createTicTacToe(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.EG_FLAPPY_BIRD:
             createFlappyBird(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.EG_JUMPER:
+            createJumper(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return

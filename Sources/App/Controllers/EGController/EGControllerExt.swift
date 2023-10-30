@@ -177,4 +177,10 @@ extension EGController {
         fileHandler.createGradle(EGFlappyBird.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(BirdGameMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
     }
+    
+    func createJumper(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: EGJumper.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: EGJumper.fileName)
+        fileHandler.createMeta(JumperMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(EGJumper.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
