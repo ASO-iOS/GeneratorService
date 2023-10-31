@@ -28,6 +28,8 @@ struct AndroidNecesseryDependencies {
             return dependenciesKL(mainData)
         case AppIDs.DT_PREFIX:
             return dependenciesDT(mainData)
+        case AppIDs.KD_PREFIX:
+            return dependenciesKD(mainData)
         default:
             return ANDData.empty
         }

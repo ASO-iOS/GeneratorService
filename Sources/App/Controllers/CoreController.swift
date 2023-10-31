@@ -285,6 +285,18 @@ extension CoreController {
                     mainData: mainData,
                     maPath: maPath
                 )
+            case AppIDs.KD_PREFIX:
+                let kdController = KDController(fileHandler: fileHandler)
+                kdController.boot(
+                    id: body.mainData.appId ?? "error",
+                    appName: body.mainData.appName,
+                    path: appPath,
+                    resPath: resPath,
+                    packageName: body.mainData.packageName,
+                    uiSettings: uiSettings,
+                    metaLoc: metaLoc,
+                    gradlePaths: gradlePaths
+                )
             default:
                 print("no prefix")
                 return

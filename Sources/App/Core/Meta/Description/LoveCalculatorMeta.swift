@@ -8,9 +8,6 @@
 import Foundation
 
 struct LoveCalculatorMeta: MetaProviderProtocol {
-    
-    
-
 
     static func getFullDesc(appName: String) -> String {
         let fullDesc1 = "Love Calculator is a unique mobile application that will help you find your perfect soulmate and create a happy relationship. With this app you will be able to find out how much you are loved and how compatible you and your partner are.The Love Calculator app is based on a special algorithm that analyzes different aspects of your personality and your partner's personality to determine the degree of your compatibility. This algorithm takes into account factors such as your interests, values, personality characteristics, and more."
