@@ -23,6 +23,4 @@ struct RandomPhotosMeta: MetaProviderProtocol {
         
         return shortDesc.randomElement() ?? shortDesc21
     }
-    
-    
 }

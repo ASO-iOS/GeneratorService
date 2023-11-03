@@ -295,7 +295,8 @@ extension CoreController {
                     packageName: body.mainData.packageName,
                     uiSettings: uiSettings,
                     metaLoc: metaLoc,
-                    gradlePaths: gradlePaths
+                    gradlePaths: gradlePaths, 
+                    xmlPaths: xmlPaths
                 )
             default:
                 print("no prefix")

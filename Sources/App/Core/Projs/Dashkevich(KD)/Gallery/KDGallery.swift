@@ -112,7 +112,6 @@ import kotlinx.coroutines.flow.asStateFlow
 
 val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
 val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
-val onSurfaceColor = Color(0x5E\(uiSettings.onSurfaceColor ?? "FFFFFF"))
 val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
 val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
 
@@ -607,7 +606,7 @@ fun MainTopBar(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
     ) {
-        Text(text = "Gallery", color = textColorSecondary, style = headline1)
+        Text(text = stringResource(R.string.app_name), color = textColorSecondary, style = headline1)
     }
 }
 @Composable

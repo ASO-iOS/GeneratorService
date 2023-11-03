@@ -9,10 +9,6 @@ import Foundation
 
 struct RandomWordQuizMeta: MetaProviderProtocol {
     
-    
-    
-
-    
     static func getFullDesc(appName: String) -> String {
         let fullDesc21 = "Learn new words, remember old ones, strain your head to remember the word. The game is simple, all you have to do is guess the word by letters, you have the opportunity to make a mistake 5 times and the game will end."
         
@@ -29,6 +25,4 @@ struct RandomWordQuizMeta: MetaProviderProtocol {
         let shortDesc = [shortDesc21]
         return shortDesc.randomElement() ?? shortDesc21
     }
-    
-    
 }
