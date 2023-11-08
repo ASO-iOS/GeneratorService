@@ -25,6 +25,15 @@ extension KDController {
         fileHandler.copyPaste(from: LocalConst.fontDir + "/roboto_medium.ttf", to: xmlPaths.fontPath + "/roboto_medium.ttf")
         fileHandler.createGradle(KDNameGenerator.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(NameGeneratorMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
-        
+    }
+    
+    func createNews(appName: String, path: String, xmlPaths: XMLLayoutPaths, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDNews.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDNews.fileName)
+        fileHandler.checkDirectory(atPath: xmlPaths.fontPath)
+        fileHandler.copyPaste(from: LocalConst.fontDir + "/gidugu_regular.ttf", to: xmlPaths.fontPath + "/gidugu_regular.ttf")
+        fileHandler.copyPaste(from: LocalConst.fontDir + "/montserrat_bold.ttf", to: xmlPaths.fontPath + "/montserrat_bold.ttf")
+        fileHandler.copyPaste(from: LocalConst.fontDir + "/montserrat_semibold.ttf", to: xmlPaths.fontPath + "/montserrat_semibold.ttf")
+        fileHandler.createMeta(NewsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDNews.self, packageName: packageName, gradlePaths: gradlePaths)
     }
 }
