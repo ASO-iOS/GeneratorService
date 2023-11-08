@@ -196,6 +196,8 @@ struct AppIDs {
     static let KD_NAME_GENERATOR =            "kd-0002"
     static let KD_NEWS =                      "kd-0003"
     
+    static let KD_FIND_UNIVERSITY =          "kd-0005"
+    
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
         if unsupportedIds.contains(id) {

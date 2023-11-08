@@ -36,4 +36,10 @@ extension KDController {
         fileHandler.createMeta(NewsMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KDNews.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createFindUniversity(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDFindUniversity.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDFindUniversity.fileName)
+        fileHandler.createGradle(KDFindUniversity.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(FindUniversityMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+    }
 }
