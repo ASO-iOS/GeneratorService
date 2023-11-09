@@ -12,7 +12,7 @@ struct KDNews: FileProviderProtocol {
     
     static func fileContent(packageName: String, uiSettings: UISettings) -> String {
         return """
-package \(packageName).presentation
+package \(packageName).presentation.fragments.main_fragment
 
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.res.stringResource
