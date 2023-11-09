@@ -42,4 +42,10 @@ extension KDController {
         fileHandler.createGradle(KDFindUniversity.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(FindUniversityMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
     }
+    
+    func createAssatiations(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDAssotiations.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDAssotiations.fileName)
+        fileHandler.createMeta(AssatiationsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDAssotiations.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }

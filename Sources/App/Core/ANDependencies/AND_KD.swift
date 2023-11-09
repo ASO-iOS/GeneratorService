@@ -14,6 +14,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_NAME_GENERATOR: return KDNameGenerator.dependencies(mainData)
         case AppIDs.KD_NEWS: return KDNews.dependencies(mainData)
         case AppIDs.KD_FIND_UNIVERSITY: return KDFindUniversity.dependencies(mainData)
+        case AppIDs.KD_ASSATIATIONS: return KDAssotiations.dependencies(mainData)
         default: return .empty
         }
     }
