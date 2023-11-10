@@ -43,6 +43,24 @@ extension KDController {
         fileHandler.createMeta(FindUniversityMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
     }
     
+    func createAssatiations(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDAssotiations.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDAssotiations.fileName)
+        fileHandler.createMeta(AssatiationsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDAssotiations.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createConverter(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDConverter.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDConverter.fileName)
+        fileHandler.createMeta(ConverterMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDConverter.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCats(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCats.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCats.fileName)
+        fileHandler.createMeta(CatsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDCats.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+
     func createPedometer(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, maPath: String, mainData: MainData) {
         fileHandler.writeFile(filePath: path, contentText: KDPedometer.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDPedometer.fileName)
         fileHandler.writeFile(filePath: maPath, contentText: KDPedometer.cmaHandler(mainData).content, fileName: KDPedometer.cmaHandler(mainData).fileName)
