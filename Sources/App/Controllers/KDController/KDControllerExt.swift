@@ -60,4 +60,11 @@ extension KDController {
         fileHandler.createMeta(CatsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDCats.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+
+    func createPedometer(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, maPath: String, mainData: MainData) {
+        fileHandler.writeFile(filePath: path, contentText: KDPedometer.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDPedometer.fileName)
+        fileHandler.writeFile(filePath: maPath, contentText: KDPedometer.cmaHandler(mainData).content, fileName: KDPedometer.cmaHandler(mainData).fileName)
+        fileHandler.createGradle(KDPedometer.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(PedometerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+    }
 }
