@@ -8,6 +8,7 @@
 import Foundation
 
 struct AssatiationsMeta: MetaProviderProtocol {
+    
     static func getFullDesc(appName: String) -> String {
         let fullDesc21 = """
 In psychology and philosophy, associations are natural connections between independent events, phenomena, objects and phenomena that are reflected in the consciousness of an individual and fixed in memory.

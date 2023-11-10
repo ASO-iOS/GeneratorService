@@ -16,6 +16,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_FIND_UNIVERSITY: return KDFindUniversity.dependencies(mainData)
         case AppIDs.KD_ASSATIATIONS: return KDAssotiations.dependencies(mainData)
         case AppIDs.KD_CONVERTER: return KDConverter.dependencies(mainData)
+        case AppIDs.KD_CATS: return KDCats.dependencies(mainData)
        default: return .empty
         }
     }

@@ -54,4 +54,10 @@ extension KDController {
         fileHandler.createMeta(ConverterMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KDConverter.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createCats(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCats.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCats.fileName)
+        fileHandler.createMeta(CatsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDCats.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
