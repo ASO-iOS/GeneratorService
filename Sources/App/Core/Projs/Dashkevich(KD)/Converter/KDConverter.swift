@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KDAssotiations: FileProviderProtocol {
+struct KDConverter: FileProviderProtocol {
     
     static var fileName: String = "\(NamesManager.shared.fileName).kt"
     
@@ -15,57 +15,54 @@ struct KDAssotiations: FileProviderProtocol {
         return """
 package \(packageName).presentation.fragments.main_fragment
 
-
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuBoxScope
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.toFontFamily
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -99,32 +96,37 @@ import okhttp3.logging.HttpLoggingInterceptor.Logger
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val backColorSecondary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorPrimary = Color(0xFF\(uiSettings.backColorPrimary ?? "FFFFFF"))
+val backColorSecondary = Color(0xFF\(uiSettings.backColorSecondary ?? "FFFFFF"))
 val surfaceColor = Color(0xFF\(uiSettings.surfaceColor ?? "FFFFFF"))
-val onSurfaceColor = Color(0xFF\(uiSettings.onSurfaceColor ?? "FFFFFF"))
-val primaryColor = Color(0xFF\(uiSettings.primaryColor ?? "FFFFFF"))
+val textColorPrimary = Color(0xFF\(uiSettings.textColorPrimary ?? "FFFFFF"))
+val textColorSecondary = Color(0xFF\(uiSettings.textColorSecondary ?? "FFFFFF"))
+val buttonColorPrimary = Color(0xFF\(uiSettings.buttonColorPrimary ?? "FFFFFF"))
+val buttonColorSecondary = Color(0xFF\(uiSettings.buttonColorSecondary ?? "FFFFFF"))
 
-val topBar = TextStyle(
-    fontWeight = FontWeight.Black,
-    fontSize = 21.sp
+val header = TextStyle(
+    fontSize = 18.sp,
+    fontWeight = FontWeight.Bold,
 )
 
-val textField = TextStyle(
-    fontWeight = FontWeight.Light,
-    fontSize = 16.sp
+val dropItemText = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.Bold,
 )
 
-val loadingText = TextStyle(
-    fontWeight = FontWeight.Black,
-    fontSize = 32.sp
+val converterField = TextStyle(
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Normal,
 )
 
-val headline4 = TextStyle(
-
+val currency = TextStyle(
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold,
 )
 
 val headline5 = TextStyle(
@@ -135,44 +137,7 @@ val headline6 = TextStyle(
 
 )
 
-val defaultShape = RoundedCornerShape(11.dp)
 
-sealed interface UiState{
-
-    object Success: UiState
-    object Error: UiState
-    object Empty: UiState
-    object Loading: UiState
-    object None: UiState
-
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AppTopBar(modifier: Modifier = Modifier, lang: Lang, onAction: () -> Unit) {
-    TopAppBar(
-        modifier = modifier,
-        title = {
-            Text(
-                text = stringResource(R.string.enter_a_word) + " - ${lang.name}",
-                style = topBar,
-                color = primaryColor
-            )
-        },
-        actions = {
-            Icon(
-                modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(32.dp)
-                    .clickable {
-                        onAction()
-                    },
-                imageVector = Icons.Default.Settings,
-                contentDescription = null,
-                tint = primaryColor
-            )
-        }
-    )
-}
 abstract class BaseViewModel<State>(initState: State): ViewModel() {
 
     private val _viewState: MutableStateFlow<State> = MutableStateFlow(initState)
@@ -206,6 +171,7 @@ object DebugMessage {
     const val ERROR = "Error: "
     const val EMPTY = "Empty"
 }
+
 
 
 suspend inline fun <T> (suspend () -> Result<T>).loadAndHandleData(
@@ -259,42 +225,27 @@ inline fun <T> Result<T>.resultHandler(
     }
 }
 
+
+
+val defaultShape = RoundedCornerShape(17.dp)
+val miniShape = RoundedCornerShape(5.dp)
+sealed interface UIState{
+
+    object Success: UIState
+    object Error: UIState
+    object Empty: UIState
+    object Loading: UIState
+    object None: UIState
+
+}
 interface ApiRepository {
-
-    suspend fun getAssociations(
-        text: String,
-        lang: Lang = Lang.En,
-        type: Type = Type.Stimulus,
-        limit: Int = 100, indent:
-        Indent = Indent.No,
-        vararg pos: Pos = arrayOf(
-            Pos.Adjective, Pos.Adverb, Pos.Noun, Pos.Verb
-        )
-    ): Result<List<Association>>
-
-}
-enum class Indent(val str: String) {
-    Yes("yes"), No("no")
-}
-
-enum class Pos(val title: String) {
-    Noun("noun"), Adjective("adjective"),
-    Verb("verb"), Adverb("adverb");
-}
-
-enum class Type(val title: String) {
-    Stimulus("stimulus"), Response("response")
-}
-
-enum class Lang(val title: String) {
-    Ru("ru"), En("en"), Es("es"),
-    It("it"), De("de"), Pt("pt"),
-    Fr("fr")
+    suspend fun getConvertCurrency(have: String, want: String, amount: Double): Result<Currency>
 }
 @JvmInline
-value class Association(
-    val value: String,
-)
+value class Currency(val value: Double)
+
+
+fun CurrencyResponse.mapToCurrency(): Currency = Currency(newAmount)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -302,6 +253,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideApiRepository(apiRepositoryImpl: ApiRepositoryImpl): ApiRepository
+
 
 }
 
@@ -332,31 +284,12 @@ object NetworkModule {
             .create(API::class.java)
     }
 }
-fun AssociationsResponse.mapToListAssociation(): List<Association> =
-    response.firstOrNull()?.items?.map { item ->
-        Association(item.item)
-    } ?: emptyList<Association>()
 
-
-class ApiRepositoryImpl @Inject constructor(private val api: API): ApiRepository {
-    override suspend fun getAssociations(
-        text: String,
-        lang: Lang,
-        type: Type,
-        limit: Int,
-        indent: Indent,
-        vararg pos: Pos
-    ): Result<List<Association>> = runCatching {
-        api.getAssociations(
-            text = text,
-            lang = lang.title,
-            type = type.title,
-            limit = limit,
-            indent = indent.str,
-            pos = pos.joinToString(separator = ",") { mappedPos ->
-                mappedPos.title
-            }
-        ).mapToListAssociation()
+class ApiRepositoryImpl @Inject constructor(private val api: API) : ApiRepository {
+    override suspend fun getConvertCurrency(
+        have: String, want: String, amount: Double
+    ): Result<Currency> = runCatching {
+        api.getConvertedCurrency(have = have, want = want, amount = amount).mapToCurrency()
     }
 
 
@@ -364,101 +297,57 @@ class ApiRepositoryImpl @Inject constructor(private val api: API): ApiRepository
 interface API {
 
 
-    @GET(Endpoints.GET_ASSOCIATIONS)
-    suspend fun getAssociations(
-        @Query(Attributes.ACCESS_TOKEN) accessToken: String = accessKey,
-        @Query(Attributes.TEXT) text: String,
-        @Query(Attributes.LANG) lang: String,
-        @Query(Attributes.TYPE) type: String,
-        @Query(Attributes.LIMIT) limit: Int,
-        @Query(Attributes.POS) pos: String,
-        @Query(Attributes.INDENT) indent: String,
-    ): AssociationsResponse
+    @GET(Endpoints.GET_CONVERT_CURRENCY)
+    suspend fun getConvertedCurrency(
+        @Header(Attributes.ACCESS_TOKEN) accessToken: String = accessKey,
+        @Query(Attributes.HAVE) have: String,
+        @Query(Attributes.WANT) want: String,
+        @Query(Attributes.AMOUNT) amount: Double
+    ): CurrencyResponse
 
 }
-
 @Keep
-data class Response(
-    @SerializedName("items")
-    val items: List<Item>,
-    @SerializedName("text")
-    val text: String
+data class CurrencyResponse(
+    @SerializedName("new_amount")
+    val newAmount: Double,
+    @SerializedName("new_currency")
+    val newCurrency: String,
+    @SerializedName("old_amount")
+    val oldAmount: Int,
+    @SerializedName("old_currency")
+    val oldCurrency: String
 )
 
-@Keep
-data class Request(
-    @SerializedName("indent")
-    val indent: String,
-    @SerializedName("lang")
-    val lang: String,
-    @SerializedName("limit")
-    val limit: Int,
-    @SerializedName("pos")
-    val pos: String,
-    @SerializedName("text")
-    val text: List<String>,
-    @SerializedName("type")
-    val type: String
-)
-
-@Keep
-data class AssociationsResponse(
-    @SerializedName("code")
-    val code: Int,
-    @SerializedName("request")
-    val request: Request,
-    @SerializedName("response")
-    val response: List<Response>,
-    @SerializedName("version")
-    val version: String
-)
-
-
-const val BASE_URL = "https://api.wordassociations.net/associations/v1.0/json/"
+const val BASE_URL = "https://api.api-ninjas.com/v1/"
 val accessKey: String
     get() = getApiKey()
 
- fun getApiKey(): String = "3b140bef-ace1-4aee-b704-3c0e2365fb00"
+fun getApiKey(): String = "bKe9rRxKekxT/m1+RLSNAg==SGmk5un9bGeb8FTY"
 
 object Endpoints {
 
     const val EMPTY = "."
-    const val GET_ASSOCIATIONS = "search"
+    const val GET_CONVERT_CURRENCY = "convertcurrency"
 
 }
 
 object Attributes {
 
-    const val ACCESS_TOKEN = "apikey"
-    const val TEXT = "text"
-    const val LANG = "lang"
-    const val TYPE = "type"
-    const val LIMIT = "limit"
-    const val POS = "pos"
-    const val INDENT = "indent"
+    const val ACCESS_TOKEN = "X-Api-Key"
+    const val HAVE = "have"
+    const val WANT = "want"
+    const val AMOUNT = "amount"
 
 }
+sealed class Destinations(val route: String){
 
+    object Main: Destinations(Routes.MAIN){
 
-@Keep
-data class Item(
-    @SerializedName("item")
-    val item: String,
-    @SerializedName("pos")
-    val pos: String,
-    @SerializedName("weight")
-    val weight: Int
-)
-
-sealed class Destinations(val route: String) {
-
-    object Main : Destinations(Routes.MAIN) {
-
-        fun templateRoute(): String {
+        fun templateRoute(): String{
             return route
         }
 
-        fun requestRoute(): String {
+        fun requestRoute(): String{
             return route
         }
 
@@ -479,7 +368,8 @@ fun AppNavigation() {
 
     NavHost(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(color = backColorPrimary),
         navController = navController,
         startDestination = Destinations.Main.route
     ) {
@@ -489,91 +379,115 @@ fun AppNavigation() {
     SideEffect {
         systemUiController.run {
             setStatusBarColor(
-                color = onSurfaceColor,
+                color = backColorSecondary,
                 darkIcons = false
             )
             setNavigationBarColor(
-                color = surfaceColor,
+                color = backColorPrimary,
                 darkIcons = true
             )
         }
     }
 }
 
-@Composable
-fun AssociationCard(modifier: Modifier = Modifier, association: Association) {
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        Text(
-            text = association.value, style = textField, color = onSurfaceColor,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Start
-        )
-    }
-}
 
-@Composable
-fun AssociationsColumn(modifier: Modifier = Modifier, associations: List<Association>) {
-    LazyColumn(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        contentPadding = PaddingValues(vertical = 25.dp, horizontal = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(11.dp)
-    ) {
-        items(associations) { association ->
-            AssociationCard(
-                association = association,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = surfaceColor, shape = defaultShape)
-                    .padding(horizontal = 9.dp, vertical = 14.dp)
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun AssociationTextField(
-    modifier: Modifier = Modifier,
-    placeHolder: @Composable () -> Unit,
-    text: String,
-    onTextChanged: (String) -> Unit,
-    onSearch: () -> Unit
+enum class CountryM(
+    val stringId: Int,
+    val stringIdFullName: Int,
+    val requestStr: String
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        TextField(
-            value = text,
-            onValueChange = onTextChanged,
-            colors = TextFieldDefaults.colors(
-                unfocusedIndicatorColor = surfaceColor,
-                focusedIndicatorColor = surfaceColor,
-                unfocusedContainerColor = primaryColor,
-                focusedContainerColor = primaryColor,
-                unfocusedTextColor = surfaceColor,
-                focusedTextColor = surfaceColor,
-                cursorColor = surfaceColor,
-            ),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = textField,
-            placeholder = {
-                placeHolder()
-            },
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    keyboardController?.hide()
-                    onSearch()
-                }
-            ),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search,
-                keyboardType = KeyboardType.Text
-            )
-        )
-    }
+    USD(
+        stringId = R.string.usd,
+        stringIdFullName = R.string.usd_f,
+        requestStr = "USD"
+    ),
+    EUR(
+        stringId = R.string.eur,
+        stringIdFullName = R.string.eur_f,
+        requestStr = "EUR"
+    ),
+    RUB(
+        stringId = R.string.rub,
+        stringIdFullName = R.string.rub_f,
+        requestStr = "RUB"
+    ),
+    JPY(
+        stringId = R.string.jpy,
+        stringIdFullName = R.string.jpy_f,
+        requestStr = "JPY"
+    ),
+    RSD(
+        stringId = R.string.rsd,
+        stringIdFullName = R.string.rsd_f,
+        requestStr = "RSD"
+    ),
+    AUD(
+        stringId = R.string.aud,
+        stringIdFullName = R.string.aud_f,
+        requestStr = "AUD"
+    ),
+    GBP(
+        stringId = R.string.gbp,
+        stringIdFullName = R.string.gbp_f,
+        requestStr = "GBP"
+    ),
+    BYN(
+        stringId = R.string.byn,
+        stringIdFullName = R.string.byn_f,
+        requestStr = "BYN"
+    ),
+    UAH(
+        stringId = R.string.uah,
+        stringIdFullName = R.string.uah_f,
+        requestStr = "UAH"
+    )
+
 }
 
+
+val countries = CountryM.values().toList()
+
+
+data class MainState(
+    val haveExpandable: ExpandableElement<CountryM> = ExpandableElement(
+        items = countries,
+        currentItem = countries.first() ,
+    ),
+    val wantExpandable: ExpandableElement<CountryM> = ExpandableElement(
+        items = countries,
+        currentItem = countries.first(),
+    ),
+    val amount: String = "",
+    val result: String = ""
+)
+
+data class ExpandableElement<Item>(
+    val currentItem: Item,
+    val expanded: Boolean = false,
+    val items: List<Item> = emptyList()
+)
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MainTopBar(modifier: Modifier = Modifier) {
+    CenterAlignedTopAppBar(
+        modifier = modifier,
+        title = {
+            Text(
+                text = stringResource(id = R.string.app_name),
+                color = backColorPrimary,
+                style = header,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = backColorSecondary
+        )
+    )
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
@@ -581,127 +495,350 @@ fun MainContent(
     viewModel: MainViewModel,
     viewState: MainState
 ) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(modifier = Modifier.height(16.dp))
-        AssociationTextField(
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .fillMaxWidth()
-                .clip(shape = defaultShape)
-                .background(color = primaryColor)
-                .padding(horizontal = 9.dp, vertical = 25.dp),
-            text = viewState.associationText, onTextChanged = { text ->
-                viewModel.changedAssociationField(text)
-            },
-            placeHolder = {
-                Text(
-                    text = stringResource(R.string.text_field_placeholder),
-                    style = textField.copy(fontSize = 15.sp),
-                    color = surfaceColor
-                )
-            },
-            onSearch = {
-                viewModel.searchedAssociations()
-            }
-        )
-
-        when (viewState.uiState) {
-            UiState.Empty, UiState.Error, UiState.Loading -> {
-                Spacer(modifier = Modifier.weight(0.8f))
-                LoadingUi(
-                    modifier = Modifier
-                        .padding(horizontal = 30.dp)
-                        .fillMaxWidth()
-                        .background(
-                            color = surfaceColor.copy(alpha = 0.72f),
-                            shape = defaultShape,
-                        )
-                        .border(width = 1.dp, shape = defaultShape, color = onSurfaceColor)
-                        .padding(vertical = 11.dp, horizontal = 30.dp)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-            }
-
-            UiState.None -> {
-
-            }
-
-            UiState.Success -> {
-                Spacer(modifier = Modifier.height(11.dp))
-                AssociationsColumn(
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp)
-                        .fillMaxWidth()
-                        .background(color = primaryColor, shape = defaultShape),
-                    associations = viewState.associations
-                )
-            }
-
-            else -> {}
-        }
-
-
-    }
-}
-
-@Composable
-fun LoadingUi(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = modifier
+            .padding(horizontal = 30.dp, vertical = 10.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = stringResource(R.string.loading),
-            color = primaryColor,
-            style = loadingText
-        )
-    }
-}
-
-data class MainState(
-    val associationText: String = "",
-    val associations: List<Association> = emptyList(),
-    val uiState: UiState = UiState.None,
-    val currentLang: Lang = Lang.En,
-    val openDialog: Boolean = false
-)
-
-@Composable
-fun MainDest(navController: NavController) {
-    val mainViewModel = hiltViewModel<MainViewModel>()
-    val viewState = mainViewModel.viewState.collectAsState().value
-    MainScreen(
-        viewModel = mainViewModel,
-        viewState = viewState
-    )
-}
-
-@Composable
-fun MainScreen(viewModel: MainViewModel, viewState: MainState) {
-    Scaffold(
-        containerColor = backColorSecondary,
-        topBar = {
-            AppTopBar(lang = viewState.currentLang, onAction = {
-                viewModel.openedDialog()
-            })
-        }
-    ) {
-        if (viewState.openDialog) {
-            LangAlertDialog(
+        val haveCountry = viewState.haveExpandable
+        Spacer(modifier = Modifier.weight(5f))
+        ExposedCountry(
+            currentItem = haveCountry.currentItem,
+            expanded = haveCountry.expanded,
+            onExpandedChange = {},
+            menuItems = haveCountry.items,
+            onItemClick = { haveItem ->
+                viewModel.clickedHaveItem(haveItem)
+            },
+            onDismissRequest = {
+                viewModel.dismissedHave()
+            }
+        ) { haveCurrentItem ->
+            ConvertedTextField(
                 modifier = Modifier
-                    .fillMaxHeight(0.7f)
                     .fillMaxWidth()
-                    .background(color = surfaceColor, shape = defaultShape)
-                    .padding(4.dp),
-                currentLang = viewState.currentLang,
-                onDismiss = {
-                    viewModel.dismissedDialog()
+                    .height(60.dp)
+                    .clip(miniShape)
+                    .menuAnchor(),
+                text = viewState.amount,
+                onTextChanged = { text ->
+                    viewModel.changedAmount(text)
                 },
-                onLangClick = { lang ->
-                    viewModel.changedLang(lang)
+                currentCurrency = haveCurrentItem,
+                onExpanded = {
+                    viewModel.expandedHave(!viewState.haveExpandable.expanded)
                 }
             )
         }
+        Spacer(modifier = Modifier.weight(0.5f))
+        MainButton(
+            modifier = Modifier.fillMaxWidth(), onClick = {
+                viewModel.clickedCovertCurrency()
+            }
+        )
+        Spacer(modifier = Modifier.weight(0.5f))
+        val wantCountry = viewState.wantExpandable
+        ExposedCountry(
+            currentItem = wantCountry.currentItem,
+            expanded = wantCountry.expanded,
+            onExpandedChange = {},
+            menuItems = wantCountry.items,
+            onItemClick = { wantItem ->
+                viewModel.clickedWantItem(wantItem)
+            },
+            onDismissRequest = {
+                viewModel.dismissedWant()
+            }
+        ) { wantCurrentItem ->
+            ConvertedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .clip(miniShape)
+                    .menuAnchor(),
+                text = viewState.result,
+                onTextChanged = {},
+                currentCurrency = wantCurrentItem,
+                onExpanded = {
+                    viewModel.expandedWant(!viewState.wantExpandable.expanded)
+                },
+                onlyRead = true
+            )
+        }
+        Spacer(modifier = Modifier.weight(5f))
+    }
+}
+@Composable
+fun MainButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    FilledTonalButton(
+        modifier = modifier,
+        onClick = {
+            onClick()
+        },
+        colors = ButtonDefaults.filledTonalButtonColors(
+            containerColor = buttonColorPrimary,
+            disabledContainerColor = buttonColorPrimary
+        ),
+        contentPadding = PaddingValues(10.dp),
+        shape = defaultShape
+    ) {
+        Icon(
+            imageVector = Icons.Default.SwapVert,
+            contentDescription = null,
+            tint = backColorPrimary
+        )
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ExposedCountry(
+    currentItem: CountryM,
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    menuItems: List<CountryM>,
+    onItemClick: (CountryM) -> Unit,
+    onDismissRequest: () -> Unit,
+    element: @Composable ExposedDropdownMenuBoxScope.(currentItem: CountryM) -> Unit
+) {
+    ExposedDropdownMenuBox(
+        modifier = Modifier.clip(miniShape),
+        expanded = expanded,
+        onExpandedChange = onExpandedChange
+    ) {
+        element(currentItem)
+        ExposedDropdownMenu(
+            modifier = Modifier.background(color = buttonColorSecondary, shape = miniShape),
+            expanded = expanded,
+            onDismissRequest = onDismissRequest
+        ) {
+            Spacer(modifier = Modifier.height(25.dp))
+            menuItems.forEach { countryModel ->
+                DropdownMenuItem(
+                    modifier = Modifier
+                        .padding(horizontal = 30.dp)
+                        .fillMaxWidth()
+                        .border(
+                            width = 2.dp,
+                            color = backColorPrimary,
+                            shape = defaultShape
+                        ),
+                    text = {
+                        FillingItem(
+                            modifier = Modifier.fillMaxWidth(),
+                            countryModel = countryModel
+                        )
+                    },
+                    onClick = {
+                        onItemClick(countryModel)
+                    },
+                    contentPadding = PaddingValues(vertical = 6.dp, horizontal = 10.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+        }
+    }
+}
+
+@Composable
+fun FillingItem(modifier: Modifier = Modifier, countryModel: CountryM) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(id = countryModel.stringId),
+            style = currency,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = backColorPrimary
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(
+            text = stringResource(id = countryModel.stringIdFullName),
+            style = dropItemText,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = textColorSecondary
+        )
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ExposedDropdownMenuBoxScope.ConvertedTextField(
+    modifier: Modifier = Modifier,
+    text: String,
+    onTextChanged: (String) -> Unit,
+    currentCurrency: CountryM,
+    onExpanded: () -> Unit,
+    onlyRead: Boolean = false
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        TextField(
+            value = text,
+            onValueChange = onTextChanged,
+            colors = TextFieldDefaults.colors(
+                unfocusedIndicatorColor = surfaceColor,
+                focusedIndicatorColor = surfaceColor,
+                unfocusedContainerColor = surfaceColor,
+                focusedContainerColor = surfaceColor,
+                unfocusedTextColor = textColorPrimary,
+                focusedTextColor = textColorPrimary,
+                cursorColor = textColorPrimary,
+            ),
+            singleLine = true,
+            modifier = Modifier
+                .weight(3f)
+                .fillMaxHeight(),
+            textStyle = converterField.copy(
+                textAlign = TextAlign.End
+            ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            ),
+            shape = RectangleShape,
+            readOnly = onlyRead
+        )
+        FilledTonalButton(
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(1.3f)
+            ,
+            onClick = {
+                onExpanded()
+            },
+            shape = miniShape,
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = buttonColorSecondary,
+                disabledContainerColor = buttonColorSecondary
+            ),
+            contentPadding = PaddingValues(2.dp)
+        ) {
+            Text(
+                text = stringResource(id = currentCurrency.stringId),
+                color = backColorPrimary,
+                style = currency,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowDown,
+                contentDescription = null,
+                tint = backColorPrimary
+            )
+        }
+    }
+}
+
+@HiltViewModel
+class MainViewModel @Inject constructor(private val api: ApiRepository) :
+    BaseViewModel<MainState>(MainState()) {
+
+
+    fun clickedCovertCurrency() = viewModelScope.launch(Dispatchers.IO) {
+        val call = suspend {
+            api.getConvertCurrency(
+                have = stateValue.haveExpandable.currentItem.requestStr,
+                want = stateValue.wantExpandable.currentItem.requestStr,
+                amount = stateValue.amount.toDoubleOrNull() ?: updateState {
+                    copy(amount = "1.0")
+                }.run { 0.0 }
+            )
+        }
+        call.loadAndHandleData(
+            onSuccess = { currency ->
+                updateState {
+                    copy(
+                        result = currency.value.toString()
+                    )
+                }
+            },
+        )
+    }
+
+    fun expandedWant(value: Boolean) = viewModelScope.launch {
+        updateState {
+            copy(
+                wantExpandable = wantExpandable.copy(
+                    expanded = value
+                )
+            )
+        }
+    }
+
+    fun dismissedWant() = viewModelScope.launch {
+        updateState {
+            copy(
+                wantExpandable = wantExpandable.copy(
+                    expanded = false
+                )
+            )
+        }
+    }
+
+    fun clickedWantItem(wantItem: CountryM) = viewModelScope.launch {
+        updateState {
+            copy(
+                wantExpandable = wantExpandable.copy(
+                    currentItem = wantExpandable.items.find { it == wantItem }!!,
+                    expanded = false
+                )
+            )
+        }
+    }
+
+    fun expandedHave(value: Boolean) = viewModelScope.launch {
+        updateState {
+            copy(
+                haveExpandable = haveExpandable.copy(
+                    expanded = value
+                )
+            )
+        }
+    }
+
+    fun dismissedHave() = viewModelScope.launch {
+        updateState {
+            copy(
+                haveExpandable = haveExpandable.copy(
+                    expanded = false
+                )
+            )
+        }
+    }
+
+    fun clickedHaveItem(haveItem: CountryM) = viewModelScope.launch {
+        updateState {
+            copy(
+                haveExpandable = haveExpandable.copy(
+                    currentItem = haveExpandable.items.find { it == haveItem }!!,
+                    expanded = false
+                )
+            )
+        }
+    }
+
+    fun changedAmount(text: String) = viewModelScope.launch {
+        updateState {
+            copy(
+                amount = text
+            )
+        }
+    }
+
+}
+@Composable
+fun MainScreen(viewModel: MainViewModel, viewState: MainState) {
+    Scaffold(
+        containerColor = backColorPrimary,
+        topBar = {
+            MainTopBar()
+        }
+    ) {
         MainContent(
             modifier = Modifier
                 .padding(it)
@@ -711,141 +848,11 @@ fun MainScreen(viewModel: MainViewModel, viewState: MainState) {
         )
     }
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LangAlertDialog(
-    modifier: Modifier = Modifier,
-    currentLang: Lang,
-    onDismiss: () -> Unit,
-    onLangClick: (Lang) -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = {
-            onDismiss()
-        },
-        modifier = modifier
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.select_a_language),
-                style = topBar,
-                color = onSurfaceColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Lang.values().forEach { lang ->
-                val buttonColor =
-                    if (lang == currentLang) primaryColor else backColorSecondary
-                FilledTonalButton(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp, vertical = 2.dp)
-                        .fillMaxWidth(),
-                    onClick = {
-                        onLangClick(lang)
-                    },
-                    shape = defaultShape,
-                    colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = buttonColor,
-                        disabledContainerColor = buttonColor
-                    ),
-                    contentPadding = PaddingValues(10.dp)
-                ) {
-                    Text(
-                        text = lang.name,
-                        style = textField,
-                        color = surfaceColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            }
-        }
-    }
-}
-
-@HiltViewModel
-class MainViewModel @Inject constructor(private val apiRepository: ApiRepository) :
-    BaseViewModel<MainState>(MainState()) {
-
-
-    fun searchedAssociations() = viewModelScope.launch(Dispatchers.IO) {
-        val call = suspend {
-            apiRepository.getAssociations(
-                text = stateValue.associationText,
-                indent = Indent.No,
-                lang = stateValue.currentLang
-            )
-        }
-        call.loadAndHandleData(
-            onSuccess = { associations ->
-                updateState {
-                    copy(
-                        associations = associations,
-                        uiState = UiState.Success
-                    )
-                }
-            },
-            onError = {
-                updateState {
-                    copy(
-                        uiState = UiState.Error
-                    )
-                }
-            },
-            onLoading = {
-                updateState {
-                    copy(
-                        uiState = UiState.Loading
-                    )
-                }
-            },
-            onEmpty = {
-                updateState {
-                    copy(
-                        uiState = UiState.Empty
-                    )
-                }
-            },
-        )
-    }
-
-    fun changedAssociationField(text: String) = viewModelScope.launch {
-        updateState {
-            copy(associationText = text)
-        }
-    }
-
-    fun dismissedDialog() = viewModelScope.launch {
-        updateState {
-            copy(
-                openDialog = false
-            )
-        }
-    }
-
-    fun openedDialog() = viewModelScope.launch {
-        updateState {
-            copy(
-                openDialog = true
-            )
-        }
-    }
-
-    fun changedLang(lang: Lang) = viewModelScope.launch {
-        updateState {
-            copy(
-                openDialog = false,
-                currentLang = lang
-            )
-        }
-    }
-
+fun MainDest(navController: NavController){
+    val mainViewModel = hiltViewModel<MainViewModel>()
+    val viewState = mainViewModel.viewState.collectAsState().value
+    MainScreen(viewModel = mainViewModel, viewState = viewState)
 }
 """
     }
@@ -862,13 +869,28 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
             themesData: .def,
             stringsData: .init(
                 additional: """
-    <string name="enter_a_word">Enter a word</string>
-    <string name="text_field_placeholder">Enter a word or sentence</string>
-    <string name="loading">Loading...</string>
-    <string name="select_a_language">Select a language</string>
+    <string name="usd">USD</string>
+    <string name="eur">EUR</string>
+    <string name="rub">RUB</string>
+    <string name="rsd">RSD</string>
+    <string name="jpy">JPY</string>
+    <string name="aud">AUD</string>
+    <string name="byn">BYN</string>
+    <string name="uah">UAH</string>
+    <string name="gbp_f">Pound Sterling</string>
+    <string name="usd_f">Dollars</string>
+    <string name="eur_f">Euro</string>
+    <string name="rub_f">Ruble</string>
+    <string name="rsd_f">Serbian Dinar</string>
+    <string name="jpy_f">Japanese Yen</string>
+    <string name="aud_f">Australian Dollar</string>
+    <string name="byn_f">Belarusian Ruble</string>
+    <string name="uah_f">Hryvnia</string>
+    <string name="gbp">GBP</string>
 """
             ),
-            colorsData: .empty)
+            colorsData: .empty
+        )
     }
     
     static func gradle(_ packageName: String) -> GradleFilesData {
@@ -926,8 +948,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
-
     }
 
     buildTypes {
@@ -938,7 +958,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 
 
     compileOptions {
@@ -996,7 +1015,6 @@ dependencies {
     //Internet
     implementation Dependencies.retrofit
     implementation Dependencies.converter_gson
-
     implementation Dependencies.okhttp_login_interceptor
 
     //Room
@@ -1106,7 +1124,7 @@ object Versions {
     const val swipe = "0.19.0"
     const val glide_skydoves = "1.3.9"
     const val retrofit = "2.9.0"
-    const val okhttp = "4.11.0"
+    const val okhttp = "4.10.0"
     const val room = "2.5.0"
     const val coil = "1.3.2"
     const val exp = "0.4.8"
