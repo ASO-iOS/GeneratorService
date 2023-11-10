@@ -60,4 +60,10 @@ extension KDController {
         fileHandler.createMeta(CatsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDCats.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createToDo(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDTodo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDTodo.fileName)
+        fileHandler.createMeta(ToDoListMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDTodo.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
