@@ -296,7 +296,9 @@ extension CoreController {
                     uiSettings: uiSettings,
                     metaLoc: metaLoc,
                     gradlePaths: gradlePaths, 
-                    xmlPaths: xmlPaths
+                    xmlPaths: xmlPaths,
+                    maPath: maPath,
+                    mainData: mainData
                 )
             default:
                 print("no prefix")
