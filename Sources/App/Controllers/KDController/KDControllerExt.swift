@@ -90,4 +90,12 @@ extension KDController {
         fileHandler.createMeta(CanvasMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
         fileHandler.createGradle(KDCanvas.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createComposeQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: KDComposeQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDComposeQuiz.fileName)
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDComposeQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/lifecycle_1_image.webp", to: resPath + "lifecycle_1_image.webp")
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/jetpack_compose_img.webp", to: resPath + "jetpack_compose_img.webp")
+    }
 }

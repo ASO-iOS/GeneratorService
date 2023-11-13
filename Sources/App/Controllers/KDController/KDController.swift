@@ -36,6 +36,8 @@ struct KDController {
             createCalculator(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KD_CANVAS:
             createCanvas(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KD_COMPOSE_QUIZ:
+            createComposeQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return
