@@ -199,7 +199,11 @@ struct AppIDs {
     static let KD_FIND_UNIVERSITY =          "kd-0005"
     static let KD_CONVERTER =                "kd-0006"
     static let KD_CATS =                     "kd-0007"
+    static let KD_TODO =                     "kd-0009"
     
+    static let KD_AFFIRMATIONS =             "kd-0011"
+    
+    static let KD_NOTES =                    "kd-0013"
     static let KD_PEDOMETER =                "kd-0008"
     
     static func checkSupportedProject(_ id: String) -> Bool {
