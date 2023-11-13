@@ -84,4 +84,10 @@ extension KDController {
         fileHandler.createMeta(CalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KDCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createCanvas(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCanvas.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCanvas.fileName)
+        fileHandler.createMeta(CanvasMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(KDCanvas.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
