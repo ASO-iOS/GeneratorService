@@ -202,6 +202,10 @@ struct AppIDs {
     
     static let KD_TODO =                     "kd-0009"
     
+    static let KD_AFFIRMATIONS =             "kd-0011"
+    
+    static let KD_NOTES =                    "kd-0013"
+    
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
         if unsupportedIds.contains(id) {

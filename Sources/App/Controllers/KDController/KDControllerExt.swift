@@ -66,4 +66,16 @@ extension KDController {
         fileHandler.createMeta(ToDoListMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KDTodo.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createAffirmations(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDAffirmations.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDAffirmations.fileName)
+        fileHandler.createMeta(AffirmationsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDAffirmations.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createNotes(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDNotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDNotes.fileName)
+        fileHandler.createMeta(NotesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDNotes.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
