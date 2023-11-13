@@ -20,7 +20,8 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_TODO: return KDTodo.dependencies(mainData)
         case AppIDs.KD_AFFIRMATIONS: return KDAffirmations.dependencies(mainData)
         case AppIDs.KD_NOTES: return KDNotes.dependencies(mainData)
-       default: return .empty
+        case AppIDs.KD_PEDOMETER: return KDPedometer.dependencies(mainData)
+        default: return .empty
         }
     }
 }
