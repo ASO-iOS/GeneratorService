@@ -84,4 +84,24 @@ extension KDController {
         fileHandler.createGradle(KDPedometer.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(PedometerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
     }
+    
+    func createCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCalculator.fileName)
+        fileHandler.createMeta(CalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCanvas(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCanvas.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCanvas.fileName)
+        fileHandler.createMeta(CanvasMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(KDCanvas.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createComposeQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: KDComposeQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDComposeQuiz.fileName)
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDComposeQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/lifecycle_1_image.webp", to: resPath + "lifecycle_1_image.webp")
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/jetpack_compose_img.webp", to: resPath + "jetpack_compose_img.webp")
+    }
 }
