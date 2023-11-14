@@ -26,6 +26,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_TOP_FILMS: return KDTopFilms.dependencies(mainData)
         case AppIDs.KD_RANDOM_DOGS: return KDRandomDogs.dependencies(mainData)
         case AppIDs.KD_RANDOM_TEXT: return  KDRandomText.dependencies(mainData)
+        case AppIDs.KD_SEARCH_MUSIC: return KDSearchMusic.dependencies(mainData)
        default: return .empty
         }
     }

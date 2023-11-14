@@ -218,6 +218,8 @@ struct AppIDs {
     
     static let KD_RANDOM_TEXT =              "kd-0025"
     
+    static let KD_SEARCH_MUSIC =             "kd-0027"
+    
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
         if unsupportedIds.contains(id) {

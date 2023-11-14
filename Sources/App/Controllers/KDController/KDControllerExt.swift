@@ -116,4 +116,10 @@ extension KDController {
         fileHandler.createMeta(RandomTextMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDRandomText.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createSearchMusic(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDSearchMusic.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDSearchMusic.fileName)
+        fileHandler.createMeta(SearchMusicMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDSearchMusic.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
