@@ -300,6 +300,21 @@ extension CoreController {
                     maPath: maPath,
                     mainData: mainData
                 )
+            case AppIDs.EA_PREFIX:
+                let eaController = EAController(fileHandler: fileHandler)
+                eaController.boot(
+                    id: body.mainData.appId ?? "error",
+                    appName: body.mainData.appName,
+                    path: appPath,
+                    resPath: resPath,
+                    packageName: body.mainData.packageName,
+                    uiSettings: uiSettings,
+                    metaLoc: metaLoc,
+                    gradlePaths: gradlePaths,
+                    xmlPaths: xmlPaths,
+                    maPath: maPath,
+                    mainData: mainData
+                )
             default:
                 print("no prefix")
                 return

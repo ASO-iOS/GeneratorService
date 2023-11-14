@@ -18,6 +18,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_CONVERTER: return KDConverter.dependencies(mainData)
         case AppIDs.KD_CATS: return KDCats.dependencies(mainData)
         case AppIDs.KD_PEDOMETER: return KDPedometer.dependencies(mainData)
+        case AppIDs.KD_EXPENSE_TRACKER: return KDExpenceTracker.dependencies(mainData)
         default: return .empty
         }
     }
