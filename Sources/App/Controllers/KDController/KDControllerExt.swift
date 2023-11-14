@@ -77,6 +77,7 @@ extension KDController {
         fileHandler.writeFile(filePath: path, contentText: KDNotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDNotes.fileName)
         fileHandler.createMeta(NotesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
         fileHandler.createGradle(KDNotes.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 
     func createPedometer(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, maPath: String, mainData: MainData) {
         fileHandler.writeFile(filePath: path, contentText: KDPedometer.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDPedometer.fileName)
