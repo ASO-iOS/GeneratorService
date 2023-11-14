@@ -110,4 +110,10 @@ extension KDController {
         fileHandler.createMeta(RandomDogsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDRandomDogs.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createRandomText(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDRandomText.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDRandomText.fileName)
+        fileHandler.createMeta(RandomTextMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDRandomText.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
