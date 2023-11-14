@@ -60,6 +60,24 @@ extension KDController {
         fileHandler.createMeta(CatsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDCats.self, packageName: packageName, gradlePaths: gradlePaths)
     }
+    
+    func createToDo(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDTodo.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDTodo.fileName)
+        fileHandler.createMeta(ToDoListMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDTodo.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createAffirmations(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDAffirmations.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDAffirmations.fileName)
+        fileHandler.createMeta(AffirmationsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDAffirmations.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createNotes(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDNotes.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDNotes.fileName)
+        fileHandler.createMeta(NotesMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDNotes.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 
     func createPedometer(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, maPath: String, mainData: MainData) {
         fileHandler.writeFile(filePath: path, contentText: KDPedometer.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDPedometer.fileName)
@@ -68,9 +86,54 @@ extension KDController {
         fileHandler.createMeta(PedometerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
     }
     
+
     func createExpenseTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KDExpenceTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDExpenceTracker.fileName)
         fileHandler.createGradle(KDExpenceTracker.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(ExpenseTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+
+    func createCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCalculator.fileName)
+        fileHandler.createMeta(CalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+        fileHandler.createGradle(KDCalculator.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createCanvas(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDCanvas.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCanvas.fileName)
+        fileHandler.createMeta(CanvasMeta.self, metaLoc: metaLoc, category: .game_arcade, appName: appName)
+        fileHandler.createGradle(KDCanvas.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createComposeQuiz(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, resPath: String) {
+        fileHandler.writeFile(filePath: path, contentText: KDComposeQuiz.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDComposeQuiz.fileName)
+        fileHandler.createMeta(QuizMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDComposeQuiz.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/lifecycle_1_image.webp", to: resPath + "lifecycle_1_image.webp")
+        fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/jetpack_compose_img.webp", to: resPath + "jetpack_compose_img.webp")
+    }
+    
+    func createTopFilms(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDTopFilms.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDTopFilms.fileName)
+        fileHandler.createMeta(FilmsAPIMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDTopFilms.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomDogs(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDRandomDogs.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDRandomDogs.fileName)
+        fileHandler.createMeta(RandomDogsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDRandomDogs.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomText(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDRandomText.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDRandomText.fileName)
+        fileHandler.createMeta(RandomTextMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDRandomText.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createSearchMusic(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDSearchMusic.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDSearchMusic.fileName)
+        fileHandler.createMeta(SearchMusicMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDSearchMusic.self, packageName: packageName, gradlePaths: gradlePaths)
+
     }
 }

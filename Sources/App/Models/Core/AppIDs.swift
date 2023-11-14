@@ -199,10 +199,29 @@ struct AppIDs {
     static let KD_FIND_UNIVERSITY =          "kd-0005"
     static let KD_CONVERTER =                "kd-0006"
     static let KD_CATS =                     "kd-0007"
+    static let KD_TODO =                     "kd-0009"
     
+    static let KD_AFFIRMATIONS =             "kd-0011"
+    
+    static let KD_NOTES =                    "kd-0013"
     static let KD_PEDOMETER =                "kd-0008"
     
+
     static let KD_EXPENSE_TRACKER =          "kd-0010"
+  
+    static let KD_CALCULATOR =               "kd-0015"
+    
+    static let KD_CANVAS =                   "kd-0017"
+    
+    static let KD_COMPOSE_QUIZ =             "kd-0019"
+    
+    static let KD_TOP_FILMS =                "kd-0021"
+    
+    static let KD_RANDOM_DOGS =              "kd-0023"
+    
+    static let KD_RANDOM_TEXT =              "kd-0025"
+    
+    static let KD_SEARCH_MUSIC =             "kd-0027"
     
     
     static let EA_PREFIX =                   "ea"
@@ -210,6 +229,7 @@ struct AppIDs {
     static let EA_TIMER =                    "ea-0002"
     static let EA_CLOCK =                    "ea-0003"
     static let EA_PASSGEN =                  "ea-0004"
+
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]
