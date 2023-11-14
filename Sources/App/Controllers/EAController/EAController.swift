@@ -16,6 +16,10 @@ struct EAController {
             createReminder(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.EA_TIMER:
             createTimer(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.EA_CLOCK:
+            createClock(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.EA_PASSGEN:
+            createPassgen(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return

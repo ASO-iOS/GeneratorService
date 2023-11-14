@@ -14,6 +14,10 @@ extension AndroidNecesseryDependencies {
             return EAReminder.dependencies(mainData)
         case AppIDs.EA_TIMER:
             return EATimer.dependencies(mainData)
+        case AppIDs.EA_CLOCK:
+            return EAClock.dependencies(mainData)
+        case AppIDs.EA_PASSGEN:
+            return EAPassGen.dependencies(mainData)
         default:
             return ANDData.empty
         }
