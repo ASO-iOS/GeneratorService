@@ -50,10 +50,21 @@ struct Manifest {
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        \(reciver(appId))
     </application>
 
 </manifest>
 """
+    }
+    
+    static func reciver(_ id: String) -> String {
+        switch id {
+        case AppIDs.EA_REMINDER:
+            return """
+            <receiver android:name=".presentation.fragments.main_fragment.NotificationReceiver" />
+            """
+        default: return ""
+        }
     }
     
     static func permsById(_ id: String) -> String {
@@ -97,6 +108,12 @@ struct Manifest {
             return """
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+"""
+        case AppIDs.EA_REMINDER:
+            return """
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 """
         default:
             return ""

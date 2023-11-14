@@ -28,6 +28,7 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_RANDOM_TEXT: return  KDRandomText.dependencies(mainData)
         case AppIDs.KD_SEARCH_MUSIC: return KDSearchMusic.dependencies(mainData)
         case AppIDs.KD_PEDOMETER: return KDPedometer.dependencies(mainData)
+        case AppIDs.KD_EXPENSE_TRACKER: return KDExpenceTracker.dependencies(mainData)
         default: return .empty
         }
     }

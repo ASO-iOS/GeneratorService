@@ -86,6 +86,12 @@ extension KDController {
         fileHandler.createMeta(PedometerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
     }
     
+
+    func createExpenseTracker(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDExpenceTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDExpenceTracker.fileName)
+        fileHandler.createGradle(KDExpenceTracker.self, packageName: packageName, gradlePaths: gradlePaths)
+        fileHandler.createMeta(ExpenseTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+
     func createCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KDCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCalculator.fileName)
         fileHandler.createMeta(CalculatorMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
@@ -128,5 +134,6 @@ extension KDController {
         fileHandler.writeFile(filePath: path, contentText: KDSearchMusic.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDSearchMusic.fileName)
         fileHandler.createMeta(SearchMusicMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
         fileHandler.createGradle(KDSearchMusic.self, packageName: packageName, gradlePaths: gradlePaths)
+
     }
 }

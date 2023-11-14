@@ -48,6 +48,8 @@ struct KDController {
             createSearchMusic(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KD_PEDOMETER:
             createPedometer(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, maPath: maPath, mainData: mainData)
+        case AppIDs.KD_EXPENSE_TRACKER:
+            createExpenseTracker(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return

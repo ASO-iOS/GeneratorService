@@ -62,6 +62,42 @@ import android.content.Context
     }
 }
 """)
+        case AppIDs.EA_REMINDER:
+            return .init(
+                imports: """
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
+import \(packageName).R
+import \(packageName).presentation.fragments.main_fragment.ReminderNotificationService
+""",
+                content: """
+{
+
+    override fun onCreate() {
+        super.onCreate()
+        createNotificationChannel()
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                ReminderNotificationService.NOTIFICATION_CHANNEL_ID,
+                ReminderNotificationService.NOTIFICATION_CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            channel.description = getString(R.string.channel_description)
+
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+}
+"""
+            )
+            
         default: return .empty
         }
     }
