@@ -91,6 +91,7 @@ extension KDController {
         fileHandler.writeFile(filePath: path, contentText: KDExpenceTracker.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDExpenceTracker.fileName)
         fileHandler.createGradle(KDExpenceTracker.self, packageName: packageName, gradlePaths: gradlePaths)
         fileHandler.createMeta(ExpenseTrackerMeta.self, metaLoc: metaLoc, category: .app_tools, appName: appName)
+    }
 
     func createCalculator(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
         fileHandler.writeFile(filePath: path, contentText: KDCalculator.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDCalculator.fileName)
