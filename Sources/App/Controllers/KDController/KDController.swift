@@ -10,7 +10,7 @@ import SwiftUI
 struct KDController {
     @ObservedObject var fileHandler: FileHandler
     
-    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths) {
+    func boot(id: String, appName: String, path: String, resPath: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths, xmlPaths: XMLLayoutPaths, maPath: String, mainData: MainData) {
         switch id {
         case AppIDs.KD_GALLERY:
             createGallery(appName: appName, path: path, xmlPaths: xmlPaths, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
@@ -38,6 +38,8 @@ struct KDController {
             createCanvas(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KD_COMPOSE_QUIZ:
             createComposeQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.KD_PEDOMETER:
+            createPedometer(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, maPath: maPath, mainData: mainData)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return

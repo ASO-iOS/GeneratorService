@@ -60,6 +60,8 @@ struct ANDMainFragment {
     let content: String
     var annotation = ""
     var mainScreenAnnotation = ""
+    
+    static let empty = ANDMainFragment(imports: "", content: "")
 }
 
 struct ANDMainActivity {

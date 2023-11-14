@@ -106,7 +106,10 @@ struct MainController {
     }
     
     func cmaList() -> [String] {
-        return [AppIDs.DT_MUSIC_QUIZ]
+        return [
+            AppIDs.DT_MUSIC_QUIZ,
+            AppIDs.KD_PEDOMETER
+        ]
     }
     
     func cmfList() -> [String] {
@@ -147,6 +150,7 @@ struct MainController {
             AppIDs.DT_POPULAR_MOVIES,
             AppIDs.DT_MUSIC_QUIZ,
             AppIDs.DT_LANGUAGE_IDENTIFIRE,
+            AppIDs.KD_PEDOMETER
         ]
     }
 }
