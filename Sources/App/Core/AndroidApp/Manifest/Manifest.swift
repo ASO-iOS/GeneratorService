@@ -93,6 +93,11 @@ struct Manifest {
             return """
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 """
+        case AppIDs.KD_PEDOMETER:
+            return """
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+"""
         default:
             return ""
         }
