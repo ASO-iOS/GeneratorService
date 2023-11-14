@@ -38,6 +38,10 @@ struct KDController {
             createCanvas(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         case AppIDs.KD_COMPOSE_QUIZ:
             createComposeQuiz(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths, resPath: resPath)
+        case AppIDs.KD_TOP_FILMS:
+            createTopFilms(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
+        case AppIDs.KD_RANDOM_DOGS:
+            createRandomDogs(appName: appName, path: path, packageName: packageName, uiSettings: uiSettings, metaLoc: metaLoc, gradlePaths: gradlePaths)
         default:
             print("ATTENTION\nid \(id) not found\nproject would not be created")
             return

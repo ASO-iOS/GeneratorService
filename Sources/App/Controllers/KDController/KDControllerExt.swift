@@ -98,4 +98,16 @@ extension KDController {
         fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/lifecycle_1_image.webp", to: resPath + "lifecycle_1_image.webp")
         fileHandler.copyPaste(from: "/Users/admin/GeneratorProjects/resources/bannerResources/kdcomposequiz/jetpack_compose_img.webp", to: resPath + "jetpack_compose_img.webp")
     }
+    
+    func createTopFilms(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDTopFilms.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDTopFilms.fileName)
+        fileHandler.createMeta(FilmsAPIMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDTopFilms.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
+    
+    func createRandomDogs(appName: String, path: String, packageName: String, uiSettings: UISettings, metaLoc: String, gradlePaths: GradlePaths) {
+        fileHandler.writeFile(filePath: path, contentText: KDRandomDogs.fileContent(packageName: packageName, uiSettings: uiSettings), fileName: KDRandomDogs.fileName)
+        fileHandler.createMeta(RandomDogsMeta.self, metaLoc: metaLoc, category: .app_entertainment, appName: appName)
+        fileHandler.createGradle(KDRandomDogs.self, packageName: packageName, gradlePaths: gradlePaths)
+    }
 }
