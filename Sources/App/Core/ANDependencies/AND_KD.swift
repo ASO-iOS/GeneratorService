@@ -23,6 +23,10 @@ extension AndroidNecesseryDependencies {
         case AppIDs.KD_CALCULATOR: return KDCalculator.dependencies(mainData)
         case AppIDs.KD_CANVAS: return KDCanvas.dependencies(mainData)
         case AppIDs.KD_COMPOSE_QUIZ: return KDComposeQuiz.dependencies(mainData)
+        case AppIDs.KD_TOP_FILMS: return KDTopFilms.dependencies(mainData)
+        case AppIDs.KD_RANDOM_DOGS: return KDRandomDogs.dependencies(mainData)
+        case AppIDs.KD_RANDOM_TEXT: return  KDRandomText.dependencies(mainData)
+        case AppIDs.KD_SEARCH_MUSIC: return KDSearchMusic.dependencies(mainData)
         case AppIDs.KD_PEDOMETER: return KDPedometer.dependencies(mainData)
         default: return .empty
         }
