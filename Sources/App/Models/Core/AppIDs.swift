@@ -210,6 +210,10 @@ struct AppIDs {
     static let EA_TIMER =                    "ea-0002"
     static let EA_CLOCK =                    "ea-0003"
     static let EA_PASSGEN =                  "ea-0004"
+    static let EA_COLORQUIZ =                "ea-0005"
+    static let EA_DEVICEINFO =               "ea-0006"
+    static let EA_SCRAMBLE =                 "ea-0007"
+    static let EA_PLANETARIUM =              "ea-0008"
     
     static func checkSupportedProject(_ id: String) -> Bool {
         let unsupportedIds = [AppIDs.MB_CHECK_IP]

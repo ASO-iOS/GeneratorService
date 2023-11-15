@@ -18,6 +18,14 @@ extension AndroidNecesseryDependencies {
             return EAClock.dependencies(mainData)
         case AppIDs.EA_PASSGEN:
             return EAPassGen.dependencies(mainData)
+        case AppIDs.EA_COLORQUIZ:
+            return EAColorQuiz.dependencies(mainData)
+        case AppIDs.EA_DEVICEINFO:
+            return EADeviceInfo.dependencies(mainData)
+        case AppIDs.EA_SCRAMBLE:
+            return EAScramble.dependencies(mainData)
+        case AppIDs.EA_PLANETARIUM:
+            return EAPlanetarium.dependencies(mainData)
         default:
             return ANDData.empty
         }
